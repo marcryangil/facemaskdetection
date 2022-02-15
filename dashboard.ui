@@ -100,7 +100,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="launchbtn">
        <property name="geometry">
         <rect>
          <x>482</x>
@@ -169,7 +169,7 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(137, 213, 194)</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="recordsbtn">
        <property name="geometry">
         <rect>
          <x>710</x>
@@ -213,7 +213,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="registerbtn">
        <property name="geometry">
         <rect>
          <x>482</x>
@@ -257,7 +257,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_6">
+      <widget class="QPushButton" name="logsbtn">
        <property name="geometry">
         <rect>
          <x>710</x>
@@ -301,7 +301,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="getstartedbtn">
        <property name="geometry">
         <rect>
          <x>481</x>
@@ -373,7 +373,7 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string>Mandate Safety, 
-Mandate Safety.</string>
+Mandate Mask.</string>
        </property>
       </widget>
       <widget class="QLabel" name="label">
