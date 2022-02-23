@@ -46,7 +46,7 @@ class LoginScreen(QMainWindow):
 class DashboardScreen(QMainWindow):
     def __init__(self):
         super(DashboardScreen, self).__init__()
-        loadUi("Dashboard.ui", self)
+        loadUi("dashboard.ui", self)
         self.getstartedbtn.clicked.connect(self.open_file)
         self.logsbtn.clicked.connect(self.gotoLogs)
 
