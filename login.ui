@@ -140,6 +140,9 @@ QPushButton:pressed{
        <property name="text">
         <string>LOG IN</string>
        </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
        <property name="flat">
         <bool>false</bool>
        </property>
@@ -350,6 +353,11 @@ color: red;</string>
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>usernamefield</tabstop>
+  <tabstop>passwordfield</tabstop>
+  <tabstop>loginbtn</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
