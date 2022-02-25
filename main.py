@@ -105,7 +105,7 @@ class LogScreen(QMainWindow):
 # Register window
 #
 class RegisterScreen(QMainWindow):
-    # loading up the register ui
+    # loading up the register
     def __init__(self):
         super(RegisterScreen, self).__init__()
         loadUi('register.ui', self)

@@ -103,8 +103,8 @@
       <widget class="QPushButton" name="btn_save">
        <property name="geometry">
         <rect>
-         <x>610</x>
-         <y>370</y>
+         <x>580</x>
+         <y>360</y>
          <width>191</width>
          <height>41</height>
         </rect>
@@ -125,7 +125,7 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgb(27, 185, 146);
+	background-color: rgb(0,168,223);
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
@@ -148,7 +148,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>197</y>
+         <y>211</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -170,7 +170,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>133</y>
+         <y>147</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -191,16 +191,16 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btn_no_mask">
        <property name="geometry">
         <rect>
-         <x>720</x>
+         <x>700</x>
          <y>310</y>
-         <width>191</width>
+         <width>131</width>
          <height>41</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>191</width>
-         <height>41</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="font">
@@ -232,55 +232,11 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_back">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>150</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgb(33, 113, 93);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-}
-QPushButton:hover{
-	background-color: rgb(46, 159, 131);
-}
-QPushButton:pressed{
-	background-color: rgb(29, 100, 82);
-}</string>
-       </property>
-       <property name="text">
-        <string>BACK</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>6</y>
+         <y>20</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -302,7 +258,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>270</y>
+         <y>280</y>
          <width>171</width>
          <height>17</height>
         </rect>
@@ -321,7 +277,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>70</y>
+         <y>84</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -344,14 +300,14 @@ QPushButton:pressed{
         <rect>
          <x>510</x>
          <y>310</y>
-         <width>191</width>
+         <width>141</width>
          <height>41</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>191</width>
-         <height>41</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="font">
@@ -390,8 +346,8 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>30</y>
-         <width>391</width>
+         <y>44</y>
+         <width>321</width>
          <height>31</height>
         </rect>
        </property>
@@ -403,8 +359,8 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>90</y>
-         <width>391</width>
+         <y>104</y>
+         <width>321</width>
          <height>31</height>
         </rect>
        </property>
@@ -416,8 +372,8 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>160</y>
-         <width>391</width>
+         <y>174</y>
+         <width>321</width>
          <height>31</height>
         </rect>
        </property>
@@ -429,8 +385,8 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>220</y>
-         <width>391</width>
+         <y>234</y>
+         <width>321</width>
          <height>31</height>
         </rect>
        </property>
@@ -438,20 +394,82 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_clear">
+      <widget class="QPushButton" name="btn_back">
        <property name="geometry">
         <rect>
-         <x>810</x>
-         <y>260</y>
-         <width>89</width>
-         <height>25</height>
+         <x>20</x>
+         <y>10</y>
+         <width>41</width>
+         <height>41</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Clear</string>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(33, 113, 93);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(46, 159, 131);
+}
+QPushButton:pressed{
+	background-color: rgb(29, 100, 82);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>back_white.png</normaloff>back_white.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>20</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Ubuntu Condensed</family>
+         <pointsize>24</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;</string>
+       </property>
+       <property name="text">
+        <string>REGISTER</string>
        </property>
       </widget>
      </widget>
@@ -522,79 +540,12 @@ QPushButton:pressed{
   <tabstop>line_first_name</tabstop>
   <tabstop>line_last_name</tabstop>
   <tabstop>line_status</tabstop>
-  <tabstop>btn_clear</tabstop>
   <tabstop>btn_mask</tabstop>
   <tabstop>btn_no_mask</tabstop>
   <tabstop>btn_save</tabstop>
-  <tabstop>btn_back</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>btn_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>line_id</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>842</x>
-     <y>302</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>817</x>
-     <y>86</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>line_first_name</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>862</x>
-     <y>305</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>832</x>
-     <y>134</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>line_last_name</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>859</x>
-     <y>302</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>845</x>
-     <y>217</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_clear</sender>
-   <signal>clicked()</signal>
-   <receiver>line_status</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>861</x>
-     <y>312</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>861</x>
-     <y>275</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
