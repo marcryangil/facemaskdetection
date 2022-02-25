@@ -100,31 +100,6 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="widget" native="true">
-       <property name="geometry">
-        <rect>
-         <x>440</x>
-         <y>50</y>
-         <width>3</width>
-         <height>301</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>3</width>
-         <height>301</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(137, 213, 194)</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="btn_save">
        <property name="geometry">
         <rect>
