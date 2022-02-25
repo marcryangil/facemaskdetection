@@ -49,12 +49,18 @@ class DashboardScreen(QMainWindow):
         loadUi("dashboard.ui", self)
         self.getstartedbtn.clicked.connect(self.open_file)
         self.logsbtn.clicked.connect(self.gotoLogs)
+        self.registerbtn.clicked.connect(self.gotoRegister)
 
     def gotoLogs(self):
         logs = LogScreen()
         widget.addWidget(logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def gotoRegister(self):
+        register = RegisterScreen()
+        widget.addWidget(register)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+    
     def gotoLaunch(self):
         import os
         os.system('python detect/mask.py')
@@ -94,6 +100,25 @@ class LogScreen(QMainWindow):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+#
+# Register window
+#
+class RegisterScreen(QMainWindow):
+    # loading up the register ui
+    def __init__(self):
+        super(RegisterScreen, self).__init__()
+        loadUi('register.ui', self)
+        
+        self.btn_back.clicked.connect(self.gotoDashboard)
+        
+    def gotoDashboard(self):
+        dashboard = DashboardScreen()
+        widget.addWidget(dashboard)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+        
+        
+        
 
 # main
 app = QApplication(sys.argv)

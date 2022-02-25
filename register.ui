@@ -125,7 +125,7 @@
         <string notr="true">background-color: rgb(137, 213, 194)</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="savebtn">
+      <widget class="QPushButton" name="btn_save">
        <property name="geometry">
         <rect>
          <x>610</x>
@@ -188,7 +188,7 @@ QPushButton:pressed{
         <string>&amp;Status</string>
        </property>
        <property name="buddy">
-        <cstring>lineEdit_4</cstring>
+        <cstring>line_status</cstring>
        </property>
       </widget>
       <widget class="QLabel" name="label_4">
@@ -210,10 +210,10 @@ QPushButton:pressed{
         <string>&amp;Last Name</string>
        </property>
        <property name="buddy">
-        <cstring>lineEdit_3</cstring>
+        <cstring>line_last_name</cstring>
        </property>
       </widget>
-      <widget class="QPushButton" name="nomaskbtn">
+      <widget class="QPushButton" name="btn_no_mask">
        <property name="geometry">
         <rect>
          <x>720</x>
@@ -257,7 +257,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="gobackbtn">
+      <widget class="QPushButton" name="btn_back">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -320,7 +320,7 @@ QPushButton:pressed{
         <string>&amp;ID Number</string>
        </property>
        <property name="buddy">
-        <cstring>lineEdit</cstring>
+        <cstring>line_id</cstring>
        </property>
       </widget>
       <widget class="QLabel" name="label_6">
@@ -361,10 +361,10 @@ QPushButton:pressed{
         <string>&amp;First Name</string>
        </property>
        <property name="buddy">
-        <cstring>lineEdit_2</cstring>
+        <cstring>line_first_name</cstring>
        </property>
       </widget>
-      <widget class="QPushButton" name="maskbtn">
+      <widget class="QPushButton" name="btn_mask">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -411,7 +411,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="line_id">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -424,7 +424,7 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QLineEdit" name="line_first_name">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -437,7 +437,7 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_3">
+      <widget class="QLineEdit" name="line_last_name">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -450,7 +450,7 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_4">
+      <widget class="QLineEdit" name="line_status">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -463,7 +463,7 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_clear">
        <property name="geometry">
         <rect>
          <x>810</x>
@@ -543,24 +543,24 @@ QPushButton:pressed{
   </widget>
  </widget>
  <tabstops>
-  <tabstop>lineEdit</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>lineEdit_3</tabstop>
-  <tabstop>lineEdit_4</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>maskbtn</tabstop>
-  <tabstop>nomaskbtn</tabstop>
-  <tabstop>savebtn</tabstop>
-  <tabstop>gobackbtn</tabstop>
+  <tabstop>line_id</tabstop>
+  <tabstop>line_first_name</tabstop>
+  <tabstop>line_last_name</tabstop>
+  <tabstop>line_status</tabstop>
+  <tabstop>btn_clear</tabstop>
+  <tabstop>btn_mask</tabstop>
+  <tabstop>btn_no_mask</tabstop>
+  <tabstop>btn_save</tabstop>
+  <tabstop>btn_back</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_clear</sender>
    <signal>clicked()</signal>
-   <receiver>lineEdit</receiver>
+   <receiver>line_id</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -574,9 +574,9 @@ QPushButton:pressed{
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_clear</sender>
    <signal>clicked()</signal>
-   <receiver>lineEdit_2</receiver>
+   <receiver>line_first_name</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -590,9 +590,9 @@ QPushButton:pressed{
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_clear</sender>
    <signal>clicked()</signal>
-   <receiver>lineEdit_3</receiver>
+   <receiver>line_last_name</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -606,9 +606,9 @@ QPushButton:pressed{
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_clear</sender>
    <signal>clicked()</signal>
-   <receiver>lineEdit_4</receiver>
+   <receiver>line_status</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
