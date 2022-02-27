@@ -163,7 +163,7 @@ QPushButton:pressed{
         <string>&amp;Status</string>
        </property>
        <property name="buddy">
-        <cstring>line_status</cstring>
+        <cstring>comboBox_status</cstring>
        </property>
       </widget>
       <widget class="QLabel" name="label_4">
@@ -381,19 +381,6 @@ QPushButton:pressed{
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="line_status">
-       <property name="geometry">
-        <rect>
-         <x>510</x>
-         <y>234</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="btn_back">
        <property name="geometry">
         <rect>
@@ -472,6 +459,34 @@ QPushButton:pressed{
         <string>REGISTER</string>
        </property>
       </widget>
+      <widget class="QComboBox" name="comboBox_status">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>230</y>
+         <width>321</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0,0,0);
+background-color: rgb(255,255,255);
+</string>
+       </property>
+       <property name="currentText">
+        <string>active</string>
+       </property>
+       <item>
+        <property name="text">
+         <string extracomment="Select">active</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>inactive</string>
+        </property>
+       </item>
+      </widget>
      </widget>
     </item>
     <item>
@@ -539,10 +554,11 @@ QPushButton:pressed{
   <tabstop>line_id</tabstop>
   <tabstop>line_first_name</tabstop>
   <tabstop>line_last_name</tabstop>
-  <tabstop>line_status</tabstop>
+  <tabstop>comboBox_status</tabstop>
   <tabstop>btn_mask</tabstop>
   <tabstop>btn_no_mask</tabstop>
   <tabstop>btn_save</tabstop>
+  <tabstop>btn_back</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
