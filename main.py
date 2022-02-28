@@ -137,7 +137,6 @@ class RegisterScreen(QMainWindow):
     
     def save_it(self):
         
-        # print("HELLO WORLD!")
         # Create a database or connect to one
         conn = sqlite3.connect('users.db')
         # Create a cursor
