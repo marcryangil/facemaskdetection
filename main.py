@@ -121,7 +121,7 @@ class RegisterScreen(QMainWindow):
 
         # Create table
         c.execute("""CREATE TABLE if not exists user_list(
-                id_number INT,
+                id_number TEXT,
                 first_name TEXT,
                 last_name TEXT,
                 status TEXT
@@ -143,15 +143,22 @@ class RegisterScreen(QMainWindow):
         c = conn.cursor()
         
         # Insert user to the database
-        c.execute('''INSERT INTO user_list (id_number, first_name, last_name, status) VALUES
-                 (
-                        self.line_id.text(),
-                        self.line_first_name.text(),
-                        self.line_last_name.text(),
-                        self.comboBox_status.currentText()
-                )'''
-                      )
- 
+        c.execute("INSERT INTO user_list VALUES(:id_number, :first_name, :last_name, :status)",
+                  {
+                      'id_number': self.line_id.text(),
+                      'first_name': self.line_first_name.text(),
+                      'last_name': self.line_last_name.text(),
+                      'status': self.comboBox_status_1.currentText()
+                  }
+                  )
+                    
+        '''
+        print(self.line_id.text())
+        print(self.line_first_name.text())
+        print(self.line_last_name.text())
+        print(self.comboBox_status_1.currentText())
+        '''
+        
         
         # Commit changes
         conn.commit()
