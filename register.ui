@@ -160,10 +160,7 @@ QPushButton:pressed{
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>&amp;Status</string>
-       </property>
-       <property name="buddy">
-        <cstring>comboBox_status</cstring>
+        <string>Status</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_4">
@@ -182,10 +179,7 @@ QPushButton:pressed{
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>&amp;Last Name</string>
-       </property>
-       <property name="buddy">
-        <cstring>line_last_name</cstring>
+        <string>Last Name</string>
        </property>
       </widget>
       <widget class="QPushButton" name="btn_no_mask">
@@ -248,10 +242,7 @@ QPushButton:pressed{
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>&amp;ID Number</string>
-       </property>
-       <property name="buddy">
-        <cstring>line_id</cstring>
+        <string>ID Number</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_6">
@@ -289,10 +280,7 @@ QPushButton:pressed{
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>&amp;First Name</string>
-       </property>
-       <property name="buddy">
-        <cstring>line_first_name</cstring>
+        <string>First Name</string>
        </property>
       </widget>
       <widget class="QPushButton" name="btn_mask">
@@ -440,13 +428,13 @@ QPushButton:pressed{
         <rect>
          <x>70</x>
          <y>20</y>
-         <width>131</width>
+         <width>181</width>
          <height>31</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Ubuntu Condensed</family>
+         <family>Ubuntu Mono</family>
          <pointsize>24</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -474,11 +462,16 @@ background-color: rgb(255,255,255);
 </string>
        </property>
        <property name="currentText">
-        <string>active</string>
+        <string>Select</string>
        </property>
        <item>
         <property name="text">
-         <string extracomment="Select">active</string>
+         <string extracomment="Select">Select</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>active</string>
         </property>
        </item>
        <item>

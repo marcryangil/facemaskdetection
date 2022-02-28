@@ -2,7 +2,7 @@ import sqlite3
 import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox
 import resources
 
 class LoginScreen(QMainWindow):
@@ -109,8 +109,63 @@ class RegisterScreen(QMainWindow):
     def __init__(self):
         super(RegisterScreen, self).__init__()
         loadUi('register.ui', self)
-        
+        self.open_db()
         self.btn_back.clicked.connect(self.gotoDashboard)
+        self.btn_save.clicked.connect(self.save_it)
+    
+    def open_db(self):
+        # Create a database or connect to one
+        conn = sqlite3.connect('users.db')
+        # Create a cursor
+        c = conn.cursor()
+
+        # Create table
+        c.execute("""CREATE TABLE if not exists user_list(
+                id_number INT,
+                first_name TEXT,
+                last_name TEXT,
+                status TEXT
+            )
+            """) 
+
+        # Commit changes
+        conn.commit()
+
+        # Close connection
+        conn.close()
+    
+    
+    def save_it(self):
+        
+        # print("HELLO WORLD!")
+        # Create a database or connect to one
+        conn = sqlite3.connect('users.db')
+        # Create a cursor
+        c = conn.cursor()
+        
+        # Insert user to the database
+        c.execute('''INSERT INTO user_list (id_number, first_name, last_name, status) VALUES
+                 (
+                        self.line_id.text(),
+                        self.line_first_name.text(),
+                        self.line_last_name.text(),
+                        self.comboBox_status.currentText()
+                )'''
+                      )
+ 
+        
+        # Commit changes
+        conn.commit()
+        # Close connection
+        conn.close()
+        
+        # Pop up message box
+        msg = QMessageBox()
+        msg.setWindowTitle('Saved to the Database!')
+        msg.setText('User has been saved')
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
+        
         
     def gotoDashboard(self):
         dashboard = DashboardScreen()
@@ -131,3 +186,4 @@ try:
     sys.exit(app.exec())
 except:
     print("Exiting")
+
