@@ -8,8 +8,10 @@ import resources
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
+        # self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
         #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        
         loadUi("login.ui", self)
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginbtn.clicked.connect(self.loginfunction)
@@ -108,6 +110,7 @@ class RegisterScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(RegisterScreen, self).__init__()
+        
         loadUi('register.ui', self)
         self.open_db()
         self.btn_back.clicked.connect(self.gotoDashboard)
@@ -188,6 +191,7 @@ widget = QStackedWidget()
 widget.addWidget(login)
 widget.setFixedSize(942, 495)
 widget.show()
+
 try:
     sys.exit(app.exec())
 except:

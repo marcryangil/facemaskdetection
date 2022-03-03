@@ -17,6 +17,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(942, 495)
         MainWindow.setMinimumSize(QtCore.QSize(942, 495))
         MainWindow.setMaximumSize(QtCore.QSize(942, 495))
+        # MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
