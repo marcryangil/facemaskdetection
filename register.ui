@@ -358,7 +358,7 @@ QPushButton:pressed{
 	background-color: rgb(33, 113, 93);
 	border: none;
 	color: rgb(255, 255, 255);
-	border-radius: 8px;
+	border-radius: 20px;
 }
 QPushButton:hover{
 	background-color: rgb(46, 159, 131);
@@ -395,8 +395,8 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Ubuntu Mono</family>
-         <pointsize>24</pointsize>
+         <family>Work Sans</family>
+         <pointsize>20</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
