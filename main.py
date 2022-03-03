@@ -118,7 +118,7 @@ class RegisterScreen(QMainWindow):
     
     def open_db(self):
         # Create a database or connect to one
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
 
@@ -141,7 +141,7 @@ class RegisterScreen(QMainWindow):
     def save_it(self):
         
         # Create a database or connect to one
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
         
@@ -155,12 +155,12 @@ class RegisterScreen(QMainWindow):
                   }
                   )
                     
-        '''
+        
         print(self.line_id.text())
         print(self.line_first_name.text())
         print(self.line_last_name.text())
         print(self.comboBox_status_1.currentText())
-        '''
+        
         
         
         # Commit changes
