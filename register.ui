@@ -148,7 +148,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>211</y>
+         <y>220</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -167,7 +167,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>510</x>
-         <y>147</y>
+         <y>150</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -258,7 +258,8 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: transparent;</string>
+        <string notr="true">background-color: transparent;
+</string>
        </property>
        <property name="text">
         <string>Select face classification</string>
@@ -426,14 +427,15 @@ background-color: rgb(255,255,255);
     border-radius: 8px;
     border-color: rgb(140, 140, 140);
 	padding-left: 10px;
-	padding-right: 10px; </string>
+	padding-right: 10px; 
+</string>
        </property>
        <property name="currentText">
         <string>Select</string>
        </property>
        <item>
         <property name="text">
-         <string extracomment="Select">Select</string>
+         <string>Select</string>
         </property>
        </item>
        <item>
@@ -529,6 +531,26 @@ background-color: rgb(255,255,255);
 	padding-right: 10px; 
 }
 </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_error">
+       <property name="geometry">
+        <rect>
+         <x>720</x>
+         <y>280</y>
+         <width>201</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+color: rgb(204, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>
