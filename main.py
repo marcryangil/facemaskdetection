@@ -147,6 +147,16 @@ class RegisterScreen(QMainWindow):
     def is_select(self):
         return self.comboBox_status_1.currentText() == 'Select'
     
+    # to clear details after successful submit
+    def clear_details(self):
+        self.line_id.clear()
+        self.line_first_name.clear()
+        self.line_last_name.clear()
+        ################################################################
+        # self.line_id.setCurrentIndex = 0
+        # help me. How to set Select after submit
+        ################################################################
+    
     def save_it(self):
         
         if self.has_error() or self.is_select():
@@ -200,6 +210,9 @@ class RegisterScreen(QMainWindow):
             msg.setText('User has been saved')
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_()
+            
+            self.clear_details()
+    
         
         
     def gotoDashboard(self):
