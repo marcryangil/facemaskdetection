@@ -51,7 +51,8 @@ class DashboardScreen(QMainWindow):
         self.getstartedbtn.clicked.connect(self.open_file)
         self.logsbtn.clicked.connect(self.gotoLogs)
         self.registerbtn.clicked.connect(self.gotoRegister)
-
+        self.recordsbtn.clicked.connect(self.gotoRecords)
+        
     def gotoLogs(self):
         logs = LogScreen()
         widget.addWidget(logs)
@@ -66,7 +67,12 @@ class DashboardScreen(QMainWindow):
         import os
         os.system('python detect/mask.py')
 
-
+    def gotoRecords(self):
+        records = RecordsScreen()
+        widget.addWidget(records)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+    
+    
     @QtCore.pyqtSlot()
     def open_file(self):
         url = QtCore.QUrl.fromLocalFile("Get Started.pdf")
@@ -220,7 +226,22 @@ class RegisterScreen(QMainWindow):
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
         
+
+#
+# Records window
+#
+class RecordsScreen(QMainWindow):
+    # loading up the register
+    def __init__(self):
+        super(RecordsScreen, self).__init__()
         
+        loadUi('records.ui', self)
+        self.btn_back.clicked.connect(self.gotoDashboard)
+    
+    def gotoDashboard(self):
+        dashboard = DashboardScreen()
+        widget.addWidget(dashboard)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
         
 
 # main
