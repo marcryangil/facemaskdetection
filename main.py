@@ -37,7 +37,7 @@ class LoginScreen(QMainWindow):
 
             if result_pass == password:
                 # ACCOUNT_LOGIN = username
-                self.set_login_username('HELLO')
+                self.set_login_username(username)
                 print("Success")
                 self.errorlabel.setText("")
                 self.gotoDashboard()
@@ -45,12 +45,14 @@ class LoginScreen(QMainWindow):
                 self.errorlabel.setText("Invalid username or password.")
     ########################################################################
     # setter and getter of login username
+    def set_login_username(self, user):
+        print("THE USER: "+user)
+        ACCOUNT_LOGIN = user
+        self._login_username = user
+    
     def get_login_username(self):
         return self._login_username
-    
-    def set_login_username(self, user):
-        self._login_username = user
-        # self.ACCOUNT_LOGIN = user
+        
     ########################################################################
     
     def gotoDashboard(self):
@@ -100,6 +102,14 @@ class DashboardScreen(QMainWindow):
     
     @QtCore.pyqtSlot()
     def open_file(self):
+        ######################################################
+        # Temporarily unavailable
+        msg = QMessageBox()
+        msg.setWindowTitle('UNDER CONSTRUCTION')
+        msg.setText('Temporarily Unavailable')
+        msg.setIcon(QMessageBox.Critical)
+        x = msg.exec_()
+        ######################################################
         url = QtCore.QUrl.fromLocalFile("Get Started.pdf")
         QtGui.QDesktopServices.openUrl(url)
 
@@ -150,7 +160,8 @@ class RegisterScreen(QMainWindow):
     def open_db(self):
         # login_screen = LoginScreen()
         # print("THE USER NAME!: "+str(login_screen.get_login_username))
-        
+        # login_screen = LoginScreen()
+        print("USER LOGGED IN: "+str(ACCOUNT_LOGIN))
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
