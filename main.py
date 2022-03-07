@@ -234,9 +234,31 @@ class RecordsScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(RecordsScreen, self).__init__()
-        
         loadUi('records.ui', self)
+        self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
+        self.loaddata()
+        
         self.btn_back.clicked.connect(self.gotoDashboard)
+    
+    def loaddata(self):
+        connection = sqlite3.connect("facemaskdetectionDB.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM registered_user"
+        counter = "SELECT COUNT(id_number) FROM registered_user"
+        tablerow = 0
+
+        # to count how many rows in registered user
+        registered_users = cur.execute(counter).fetchone()[0]
+        self.tableWidget.setRowCount(registered_users)
+
+        for row in cur.execute(sqlquery):
+            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0])) # column 1
+            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
+            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
+            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 3
+            tablerow+=1
+
+        print(cur.execute(sqlquery).rowcount)
     
     def gotoDashboard(self):
         dashboard = DashboardScreen()
