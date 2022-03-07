@@ -5,6 +5,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox
 import resources
 
+ACCOUNT_LOGIN = ''
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
@@ -15,6 +16,8 @@ class LoginScreen(QMainWindow):
         loadUi("login.ui", self)
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginbtn.clicked.connect(self.loginfunction)
+        
+        self._login_username = ''
 
     def loginfunction(self):
         username = self.usernamefield.text()
@@ -33,12 +36,23 @@ class LoginScreen(QMainWindow):
                 result_pass = result_pass[0]
 
             if result_pass == password:
+                # ACCOUNT_LOGIN = username
+                self.set_login_username('HELLO')
                 print("Success")
                 self.errorlabel.setText("")
                 self.gotoDashboard()
             else:
                 self.errorlabel.setText("Invalid username or password.")
-
+    ########################################################################
+    # setter and getter of login username
+    def get_login_username(self):
+        return self._login_username
+    
+    def set_login_username(self, user):
+        self._login_username = user
+        # self.ACCOUNT_LOGIN = user
+    ########################################################################
+    
     def gotoDashboard(self):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
@@ -123,17 +137,23 @@ class RegisterScreen(QMainWindow):
         
 
     def open_db(self):
+        # login_screen = LoginScreen()
+        # print("THE USER NAME!: "+str(login_screen.get_login_username))
+        
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
 
+        
+        
         # Create table
         c.execute("""CREATE TABLE if not exists registered_user(
                 id_number TEXT,
                 first_name TEXT,
                 last_name TEXT,
-                status TEXT
+                status TEXT,
+                registered_by TEXT
             )
             """) 
 
@@ -195,14 +215,16 @@ class RegisterScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
+            # print('account login: '+ACCOUNT_LOGIN)
             
             # Insert user to the database
-            c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status)",
+            c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                     {
                         'id_number': self.line_id.text(),
                         'first_name': self.line_first_name.text(),
                         'last_name': self.line_last_name.text(),
-                        'status': self.comboBox_status_1.currentText()
+                        'status': self.comboBox_status_1.currentText(),
+                        'registered_by':ACCOUNT_LOGIN,
                     }
                     )            
             # Commit changes
