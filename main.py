@@ -62,10 +62,12 @@ class DashboardScreen(QMainWindow):
     def __init__(self):
         super(DashboardScreen, self).__init__()
         loadUi("dashboard.ui", self)
+        self.launchbtn.clicked.connect(self.gotoLaunch)
         self.getstartedbtn.clicked.connect(self.open_file)
         self.logsbtn.clicked.connect(self.gotoLogs)
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
+        
         
     def gotoLogs(self):
         logs = LogScreen()
@@ -78,6 +80,15 @@ class DashboardScreen(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def gotoLaunch(self):
+        ######################################################
+        # Temporarily unavailable
+        msg = QMessageBox()
+        msg.setWindowTitle('UNDER CONSTRUCTION')
+        msg.setText('Temporarily Unavailable')
+        msg.setIcon(QMessageBox.Critical)
+        x = msg.exec_()
+        ######################################################
+        
         import os
         os.system('python detect/mask.py')
 
