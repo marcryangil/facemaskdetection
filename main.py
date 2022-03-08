@@ -36,24 +36,15 @@ class LoginScreen(QMainWindow):
                 result_pass = result_pass[0]
 
             if result_pass == password:
-                # ACCOUNT_LOGIN = username
-                self.set_login_username(username)
+                global ACCOUNT_LOGIN
+                ACCOUNT_LOGIN = username
+                
                 print("Success")
                 self.errorlabel.setText("")
                 self.gotoDashboard()
             else:
                 self.errorlabel.setText("Invalid username or password.")
-    ########################################################################
-    # setter and getter of login username
-    def set_login_username(self, user):
-        print("THE USER: "+user)
-        ACCOUNT_LOGIN = user
-        self._login_username = user
-    
-    def get_login_username(self):
-        return self._login_username
-        
-    ########################################################################
+                
     
     def gotoDashboard(self):
         dashboard = DashboardScreen()
@@ -158,10 +149,8 @@ class RegisterScreen(QMainWindow):
         
 
     def open_db(self):
-        # login_screen = LoginScreen()
-        # print("THE USER NAME!: "+str(login_screen.get_login_username))
-        # login_screen = LoginScreen()
-        print("USER LOGGED IN: "+str(ACCOUNT_LOGIN))
+        
+        print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
@@ -300,6 +289,7 @@ class RecordsScreen(QMainWindow):
             self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
             self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
             self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 3
+            self.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(row[4])) # column 3
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
