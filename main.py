@@ -252,8 +252,6 @@ class RegisterScreen(QMainWindow):
             
             self.clear_details()
     
-        
-        
     def gotoDashboard(self):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
@@ -270,9 +268,11 @@ class RecordsScreen(QMainWindow):
         loadUi('records.ui', self)
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
+        # self.btn_register.clicked.connect(self.gotoRegister)
         
         self.btn_back.clicked.connect(self.gotoDashboard)
-    
+        self.btn_register.clicked.connect(self.gotoRegister)
+        
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
@@ -284,6 +284,9 @@ class RecordsScreen(QMainWindow):
         registered_users = cur.execute(counter).fetchone()[0]
         self.tableWidget.setRowCount(registered_users)
 
+        self.tableWidget.setColumnWidth(0,100)
+        
+        
         for row in cur.execute(sqlquery):
             self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0])) # column 1
             self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
@@ -298,7 +301,13 @@ class RecordsScreen(QMainWindow):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        
+    def gotoRegister(self):
+        print('hello')
+    def gotoRegister(self):
+        self.gotoDashboard()
+        register = RegisterScreen()
+        widget.addWidget(register)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 # main
 app = QApplication(sys.argv)
@@ -313,3 +322,10 @@ try:
 except:
     print("Exiting")
 
+################################
+# can we add primary key on registered users?
+# CREATE TABLE artists_backup(
+#    artistid INTEGER PRIMARY KEY AUTOINCREMENT,
+#    name NVARCHAR
+# );
+################################

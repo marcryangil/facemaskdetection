@@ -109,6 +109,12 @@
          <height>341</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">table-&gt;horizontalHeader()-&gt;setSectionResizeMode(QHeaderView::Stretch);</string>
+       </property>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
        <column>
         <property name="text">
          <string>New Column</string>
@@ -213,7 +219,7 @@ QPushButton:pressed{
         <string>RECORDS</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_mask">
+      <widget class="QPushButton" name="btn_register">
        <property name="geometry">
         <rect>
          <x>430</x>
@@ -260,7 +266,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_mask_2">
+      <widget class="QPushButton" name="btn_delete">
        <property name="geometry">
         <rect>
          <x>610</x>
@@ -307,7 +313,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_mask_3">
+      <widget class="QPushButton" name="btn_edit">
        <property name="geometry">
         <rect>
          <x>520</x>
@@ -354,7 +360,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_mask_4">
+      <widget class="QPushButton" name="btn_search">
        <property name="geometry">
         <rect>
          <x>840</x>
