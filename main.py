@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3, traceback
 import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -160,7 +160,7 @@ class RegisterScreen(QMainWindow):
         
         # Create table
         c.execute("""CREATE TABLE if not exists registered_user(
-                id_number TEXT,
+                id_number TEXT UNIQUE,
                 first_name TEXT,
                 last_name TEXT,
                 status TEXT,
@@ -221,36 +221,51 @@ class RegisterScreen(QMainWindow):
                                     "padding-left: 10px;\n"
                                     "padding-right: 10px;\n"
                 )
-            self.label_error.setText('')
-            # Create a database or connect to one
-            conn = sqlite3.connect('facemaskdetectionDB.db')
-            # Create a cursor
-            c = conn.cursor()
-            # print('account login: '+ACCOUNT_LOGIN)
             
-            # Insert user to the database
-            c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
-                    {
-                        'id_number': self.line_id.text(),
-                        'first_name': self.line_first_name.text(),
-                        'last_name': self.line_last_name.text(),
-                        'status': self.comboBox_status_1.currentText(),
-                        'registered_by':ACCOUNT_LOGIN,
-                    }
-                    )            
-            # Commit changes
-            conn.commit()
-            # Close connection
-            conn.close()
+            try:
+                self.label_error.setText('')
+                # Create a database or connect to one
+                conn = sqlite3.connect('facemaskdetectionDB.db')
+                # Create a cursor
+                c = conn.cursor()
+                # print('account login: '+ACCOUNT_LOGIN)
+                
+                # Insert user to the database
+                c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                        {
+                            'id_number': self.line_id.text(),
+                            'first_name': self.line_first_name.text(),
+                            'last_name': self.line_last_name.text(),
+                            'status': self.comboBox_status_1.currentText(),
+                            'registered_by':ACCOUNT_LOGIN,
+                        }
+                        )            
+                # Commit changes
+                conn.commit()
+                # Close connection
+                conn.close()
+                
+                # Pop up message box
+                msg = QMessageBox()
+                msg.setWindowTitle('Saved to the Database!')
+                msg.setText('User has been saved')
+                msg.setIcon(QMessageBox.Information)
+                x = msg.exec_()
+                
+                self.clear_details()
+            except sqlite3.Error as er:
+                msg = QMessageBox()
+                msg.setWindowTitle('ERROR!')
+                msg.setText('Id number must be unique')
+                msg.setIcon(QMessageBox.Critical)
+                x = msg.exec_()
+                # print('SQLite error: %s' % (' '.join(er.args)))
+                # print("Exception class is: ", er.__class__)
+                # print('SQLite traceback: ')
+                # exc_type, exc_value, exc_tb = sys.exc_info()
+                # print(traceback.format_exception(exc_type, exc_value, exc_tb))
+
             
-            # Pop up message box
-            msg = QMessageBox()
-            msg.setWindowTitle('Saved to the Database!')
-            msg.setText('User has been saved')
-            msg.setIcon(QMessageBox.Information)
-            x = msg.exec_()
-            
-            self.clear_details()
     
     def gotoDashboard(self):
         dashboard = DashboardScreen()
