@@ -150,13 +150,11 @@ class RegisterScreen(QMainWindow):
 
     def open_db(self):
         
-        print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
+        # print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-
-        
         
         # Create table
         c.execute("""CREATE TABLE if not exists registered_user(
@@ -281,12 +279,20 @@ class RecordsScreen(QMainWindow):
     def __init__(self):
         super(RecordsScreen, self).__init__()
         loadUi('records.ui', self)
+        
+        # Opens database if not exists
+        reg = RegisterScreen()
+        reg.open_db()
+        
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
         # self.btn_register.clicked.connect(self.gotoRegister)
         
         self.btn_back.clicked.connect(self.gotoDashboard)
         self.btn_register.clicked.connect(self.gotoRegister)
+        self.btn_delete.clicked.connect(self.gotoDelete)
+        
+        
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -316,13 +322,21 @@ class RecordsScreen(QMainWindow):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-    def gotoRegister(self):
-        print('hello')
+        
     def gotoRegister(self):
         self.gotoDashboard()
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+    
+    def gotoDelete(self):
+        # Grab the selected row and add 1 for ROWID
+        clicked = self.tableWidget.currentRow() + 1
+        
+        print('CLICKED: '+str(clicked))
+        
+       
+        
 
 # main
 app = QApplication(sys.argv)
