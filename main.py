@@ -331,13 +331,44 @@ class RecordsScreen(QMainWindow):
     
     def gotoDelete(self):
         # Grab the selected row and add 1 for ROWID
-        clicked = self.tableWidget.currentRow() + 1
+        row = self.tableWidget.currentRow()
+        col = self.tableWidget.currentColumn() 
+        cell_value = self.tableWidget.item(row,col).text()
+        print('ROW: '+str(row))
+        print('ROW: '+str(col))
+        print('VALUE: '+str(cell_value))
         
-        print('CLICKED: '+str(clicked))
+        id_name, done1 = QtWidgets.QInputDialog.getText(
+             self, 'Delete Record', 'Enter id number:')
         
-       
+        # id_name = str(self.input_keywords(cell_value))
+        # print("id name: "+id_name)
         
-
+        conn = sqlite3.connect('facemaskdetectionDB.db')
+        # Create a cursor
+        c = conn.cursor()
+        c.execute("DELETE FROM registered_user WHERE id_number=(:id_number)",
+                  {
+                    'id_number':id_name,
+                  }
+                  )
+        conn.commit()
+        conn.close()
+        
+        # reload the data after deletion
+        self.loaddata()
+    
+    # def input_keywords(self,cell_name):
+    #     dialog = QtWidgets.QInputDialog(self)
+    #     dialog.setInputMode(QtWidgets.QInputDialog.TextInput)
+    #     dialog.setWindowTitle('Delete Record')
+    #     dialog.setLabelText('Enter id number:')
+    #     lineEdit = dialog.findChild(QtWidgets.QLineEdit)
+    #     lineEdit.setText(cell_name)
+    #     if dialog.exec_():
+    #         print(dialog.textValue())
+        
+        
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()
