@@ -407,7 +407,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QLineEdit" name="line_id">
+      <widget class="QLineEdit" name="line_search">
        <property name="geometry">
         <rect>
          <x>700</x>

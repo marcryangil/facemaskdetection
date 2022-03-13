@@ -292,7 +292,7 @@ class RecordsScreen(QMainWindow):
         self.btn_register.clicked.connect(self.gotoRegister)
         self.btn_delete.clicked.connect(self.gotoDelete)
         
-        
+        self.line_search.textChanged.connect(self.search)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -332,7 +332,6 @@ class RecordsScreen(QMainWindow):
     def gotoDelete(self):
         # set current row on table
         row = self.tableWidget.currentRow()
-        
         # set current column on table
         # col = self.tableWidget.currentColumn() 
         
@@ -354,7 +353,6 @@ class RecordsScreen(QMainWindow):
             conn.commit()
             conn.close()
         
-        
         # reload the data after deletion
         self.loaddata()
     
@@ -363,9 +361,14 @@ class RecordsScreen(QMainWindow):
 
         if result == True:
             return text
-        
-        
-        
+    
+    def search(self):
+        name = self.line_search.text()
+        for row in range(self.tableWidget.rowCount()):
+            item = self.tableWidget.item(row, 0)
+            # if the search is *not* in the item's text *do not hide* the row
+            self.tableWidget.setRowHidden(row, name not in item.text().lower())    
+    
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()
@@ -378,13 +381,3 @@ try:
     sys.exit(app.exec())
 except:
     print("Exiting")
-
-################################
-# can we add primary key on registered users?
-# CREATE TABLE artists_backup(
-#    artistid INTEGER PRIMARY KEY AUTOINCREMENT,
-#    name NVARCHAR
-# );
-################################
-
-# todo https://stackoverflow.com/questions/34253350/pyqt-messagebox-yes-or-no-with-an-if
