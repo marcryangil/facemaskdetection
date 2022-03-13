@@ -187,12 +187,8 @@ class RegisterScreen(QMainWindow):
         self.line_id.clear()
         self.line_first_name.clear()
         self.line_last_name.clear()
-        ################################################################
-        # self.line_id.setCurrentIndex = 0
-        # help me. How to set Select after submit
-        ################################################################
     
-    def save_it(self):
+    def save_it(self, _id= None, _first=None, _last=None, _status=None):
         
         if self.has_error() or self.is_select():
             self.label_error.setText('Error, please check fields')
@@ -227,17 +223,28 @@ class RegisterScreen(QMainWindow):
                 # Create a cursor
                 c = conn.cursor()
                 # print('account login: '+ACCOUNT_LOGIN)
-                
+
                 # Insert user to the database
-                c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
-                        {
-                            'id_number': self.line_id.text(),
-                            'first_name': self.line_first_name.text(),
-                            'last_name': self.line_last_name.text(),
-                            'status': self.comboBox_status_1.currentText(),
-                            'registered_by':ACCOUNT_LOGIN,
-                        }
-                        )            
+                if self.btn_save.text() == 'SAVE':
+                    c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                            {
+                                'id_number': self.line_id.text(),
+                                'first_name': self.line_first_name.text(),
+                                'last_name': self.line_last_name.text(),
+                                'status': self.comboBox_status_1.currentText(),
+                                'registered_by':ACCOUNT_LOGIN,
+                            }
+                            )
+                elif self.btn_save.text() == 'UPDATE':
+                    c.execute("INSERT OR REPLACE INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                            {
+                                'id_number': self.line_id.text(),
+                                'first_name': self.line_first_name.text(),
+                                'last_name': self.line_last_name.text(),
+                                'status': self.comboBox_status_1.currentText(),
+                                'registered_by':ACCOUNT_LOGIN,
+                            }
+                            )
                 # Commit changes
                 conn.commit()
                 # Close connection
@@ -261,14 +268,22 @@ class RegisterScreen(QMainWindow):
                 # print("Exception class is: ", er.__class__)
                 # print('SQLite traceback: ')
                 # exc_type, exc_value, exc_tb = sys.exc_info()
-                # print(traceback.format_exception(exc_type, exc_value, exc_tb))
-
-            
+                # print(traceback.format_exception(exc_type, exc_value, exc_tb))   
+    
+    def loadDetails(self, _id= None, _first=None, _last=None, _status=None):
+        self.line_id.setText(_id)
+        self.line_id.setDisabled(True)
+        self.line_first_name.setText(_first)
+        self.line_last_name.setText(_last)
+        self.comboBox_status_1.setCurrentText(_status)
+        self.btn_save.setText('UPDATE')
+        
     
     def gotoDashboard(self):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+        
         
 
 #
@@ -291,8 +306,8 @@ class RecordsScreen(QMainWindow):
         self.btn_back.clicked.connect(self.gotoDashboard)
         self.btn_register.clicked.connect(self.gotoRegister)
         self.btn_delete.clicked.connect(self.gotoDelete)
-        
         self.line_search.textChanged.connect(self.search)
+        self.btn_edit.clicked.connect(self.edit)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -368,6 +383,34 @@ class RecordsScreen(QMainWindow):
             item = self.tableWidget.item(row, 0)
             # if the search is *not* in the item's text *do not hide* the row
             self.tableWidget.setRowHidden(row, name not in item.text().lower())    
+    
+    def edit(self):
+        register = RegisterScreen()
+        
+        row = self.tableWidget.currentRow()
+        
+        cell_value = self.tableWidget.item(row,0).text()
+        
+        conn = sqlite3.connect('facemaskdetectionDB.db')
+        # Create a cursor
+        c = conn.cursor()
+        c.execute("SELECT * FROM registered_user WHERE id_number=(:id_number)",
+                    {
+                        'id_number':cell_value,
+                    }
+                    )
+        rows = c.fetchall()[0]
+        values = [] 
+        for row in rows:
+            values.append(row)
+
+        
+        conn.commit()
+        conn.close()
+
+        register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
+        widget.addWidget(register)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
     
 # main
 app = QApplication(sys.argv)
