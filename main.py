@@ -330,43 +330,40 @@ class RecordsScreen(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def gotoDelete(self):
-        # Grab the selected row and add 1 for ROWID
+        # set current row on table
         row = self.tableWidget.currentRow()
-        col = self.tableWidget.currentColumn() 
-        cell_value = self.tableWidget.item(row,col).text()
+        
+        # set current column on table
+        # col = self.tableWidget.currentColumn() 
+        
+        cell_value = self.tableWidget.item(row,0).text()
         print('ROW: '+str(row))
-        print('ROW: '+str(col))
-        print('VALUE: '+str(cell_value))
         
-        id_name, done1 = QtWidgets.QInputDialog.getText(
-             self, 'Delete Record', 'Enter id number:')
+        id_name = str(self.input_delete_id(cell_value))
+        print("id name: "+id_name)
         
-        # id_name = str(self.input_keywords(cell_value))
-        # print("id name: "+id_name)
+        if id_name:
+            conn = sqlite3.connect('facemaskdetectionDB.db')
+            # Create a cursor
+            c = conn.cursor()
+            c.execute("DELETE FROM registered_user WHERE id_number=(:id_number)",
+                    {
+                        'id_number':id_name,
+                    }
+                    )
+            conn.commit()
+            conn.close()
         
-        conn = sqlite3.connect('facemaskdetectionDB.db')
-        # Create a cursor
-        c = conn.cursor()
-        c.execute("DELETE FROM registered_user WHERE id_number=(:id_number)",
-                  {
-                    'id_number':id_name,
-                  }
-                  )
-        conn.commit()
-        conn.close()
         
         # reload the data after deletion
         self.loaddata()
     
-    # def input_keywords(self,cell_name):
-    #     dialog = QtWidgets.QInputDialog(self)
-    #     dialog.setInputMode(QtWidgets.QInputDialog.TextInput)
-    #     dialog.setWindowTitle('Delete Record')
-    #     dialog.setLabelText('Enter id number:')
-    #     lineEdit = dialog.findChild(QtWidgets.QLineEdit)
-    #     lineEdit.setText(cell_name)
-    #     if dialog.exec_():
-    #         print(dialog.textValue())
+    def input_delete_id(self,cell_name):
+        text, result = QtWidgets.QInputDialog.getText(self, 'Delete Record', 'Enter id number: ',text=cell_name)
+
+        if result == True:
+            return text
+        
         
         
 # main
@@ -389,3 +386,5 @@ except:
 #    name NVARCHAR
 # );
 ################################
+
+# todo https://stackoverflow.com/questions/34253350/pyqt-messagebox-yes-or-no-with-an-if
