@@ -8,7 +8,7 @@ from db_management import DatabaseManager, InsertDatabase
 
 ACCOUNT_LOGIN = ''
 SYSTEM_LOGS = []
-        
+insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
@@ -41,18 +41,11 @@ class LoginScreen(QMainWindow):
             if result_pass == password:
                 global ACCOUNT_LOGIN
                 ACCOUNT_LOGIN = username
-                
-                print("Success")
-                # global SYSTEM_LOGS.append
-                
                 open_database = DatabaseManager()
                 open_database.open_db_system_logs()
-                
-                insert_database = InsertDatabase()
-                insert_database.insert_system_logs('Login', ACCOUNT_LOGIN)
-                
                 self.errorlabel.setText("")
                 self.gotoDashboard()
+                insert_database.insert_system_logs('Login', ACCOUNT_LOGIN)
                 
             else:
                 self.errorlabel.setText("Invalid username or password.")
@@ -73,18 +66,22 @@ class DashboardScreen(QMainWindow):
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
         self.systemlogsbtn.clicked.connect(self.gotoSystemLogs)
+        insert_database.insert_system_logs('Dashboard', ACCOUNT_LOGIN)
         
     def gotoLogs(self):
+        insert_database.insert_system_logs('Logs', ACCOUNT_LOGIN)
         logs = LogScreen()
         widget.addWidget(logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def gotoRegister(self):
+        insert_database.insert_system_logs('Register Face', ACCOUNT_LOGIN)
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def gotoLaunch(self):
+        insert_database.insert_system_logs('Launch', ACCOUNT_LOGIN)
         ######################################################
         # Temporarily unavailable
         msg = QMessageBox()
@@ -98,6 +95,7 @@ class DashboardScreen(QMainWindow):
         os.system('python detect/mask.py')
 
     def gotoRecords(self):
+        insert_database.insert_system_logs('Records', ACCOUNT_LOGIN)
         records = RecordsScreen()
         widget.addWidget(records)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -105,6 +103,7 @@ class DashboardScreen(QMainWindow):
     
     @QtCore.pyqtSlot()
     def open_file(self):
+        insert_database.insert_system_logs('Get Started', ACCOUNT_LOGIN)
         ######################################################
         # Temporarily unavailable
         msg = QMessageBox()
@@ -117,6 +116,7 @@ class DashboardScreen(QMainWindow):
         QtGui.QDesktopServices.openUrl(url)
         
     def gotoSystemLogs(self):
+        insert_database.insert_system_logs('Logs - System', ACCOUNT_LOGIN)
         system_logs = SystemLogScreen()
         widget.addWidget(system_logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -157,7 +157,7 @@ class SystemLogScreen(QMainWindow):
         loadUi("system_log.ui", self)
         self.tableWidget.setHorizontalHeaderLabels(["ID", "Username", "Password"])
         self.loaddata()
-        self.gobackbtn.clicked.connect(self.gotoDashboard)
+        self.btn_back.clicked.connect(self.gotoDashboard)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -195,7 +195,7 @@ class RegisterScreen(QMainWindow):
         super(RegisterScreen, self).__init__()
         
         loadUi('register.ui', self)
-        # self.open_db()
+        
         db_open = DatabaseManager()
         db_open.open_db_registered_user()
         self.btn_back.clicked.connect(self.gotoDashboard)
@@ -245,15 +245,11 @@ class RegisterScreen(QMainWindow):
                                     "padding-left: 10px;\n"
                                     "padding-right: 10px;\n"
                 )
-            
             try:
                 self.label_error.setText('')
                 # Create a database or connect to one
                 conn = sqlite3.connect('facemaskdetectionDB.db')
-                # Create a cursor
                 c = conn.cursor()
-                # print('account login: '+ACCOUNT_LOGIN)
-
                 # Insert user to the database
                 if self.btn_save.text() == 'SAVE':
                     c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
@@ -327,10 +323,6 @@ class RecordsScreen(QMainWindow):
     def __init__(self):
         super(RecordsScreen, self).__init__()
         loadUi('records.ui', self)
-        
-        # Opens database if not exists
-        # reg = RegisterScreen()
-        # reg.open_db()
         
         db_open = DatabaseManager()
         db_open.open_db_registered_user()
