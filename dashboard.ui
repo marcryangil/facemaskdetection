@@ -413,6 +413,53 @@ Mandate Mask.</string>
         <bool>true</bool>
        </property>
       </widget>
+      <widget class="QPushButton" name="systemlogsbtn">
+       <property name="geometry">
+        <rect>
+         <x>710</x>
+         <y>310</y>
+         <width>191</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>191</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(27, 185, 146);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
+       </property>
+       <property name="text">
+        <string>SYSTEM LOGS</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>

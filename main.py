@@ -4,8 +4,11 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox
 import resources
+from db_management import DatabaseManager, InsertDatabase
 
 ACCOUNT_LOGIN = ''
+SYSTEM_LOGS = []
+        
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
@@ -40,8 +43,17 @@ class LoginScreen(QMainWindow):
                 ACCOUNT_LOGIN = username
                 
                 print("Success")
+                # global SYSTEM_LOGS.append
+                
+                open_database = DatabaseManager()
+                open_database.open_db_system_logs()
+                
+                insert_database = InsertDatabase()
+                insert_database.insert_system_logs('Login', ACCOUNT_LOGIN)
+                
                 self.errorlabel.setText("")
                 self.gotoDashboard()
+                
             else:
                 self.errorlabel.setText("Invalid username or password.")
                 
@@ -60,7 +72,7 @@ class DashboardScreen(QMainWindow):
         self.logsbtn.clicked.connect(self.gotoLogs)
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
-        
+        self.systemlogsbtn.clicked.connect(self.gotoSystemLogs)
         
     def gotoLogs(self):
         logs = LogScreen()
@@ -103,6 +115,11 @@ class DashboardScreen(QMainWindow):
         ######################################################
         url = QtCore.QUrl.fromLocalFile("Get Started.pdf")
         QtGui.QDesktopServices.openUrl(url)
+        
+    def gotoSystemLogs(self):
+        system_logs = SystemLogScreen()
+        widget.addWidget(system_logs)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
 class LogScreen(QMainWindow):
@@ -134,6 +151,41 @@ class LogScreen(QMainWindow):
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+class SystemLogScreen(QMainWindow):
+    def __init__(self):
+        super(SystemLogScreen, self).__init__()
+        loadUi("system_log.ui", self)
+        self.tableWidget.setHorizontalHeaderLabels(["ID", "Username", "Password"])
+        self.loaddata()
+        self.gobackbtn.clicked.connect(self.gotoDashboard)
+        
+    def loaddata(self):
+        connection = sqlite3.connect("facemaskdetectionDB.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM system_logs"
+        counter = "SELECT COUNT(id) FROM system_logs"
+        tablerow = 0
+        
+        # To count how many rows in registered user
+        system_logs_qty = cur.execute(counter).fetchone()[0]
+        self.tableWidget.setRowCount(system_logs_qty)
+        # To stretch the item lists on tableWidget
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        
+        for row in cur.execute(sqlquery):
+            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
+            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
+            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
+            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 3
+            tablerow+=1
+
+        print(cur.execute(sqlquery).rowcount)
+
+    def gotoDashboard(self):
+        dashboard = DashboardScreen()
+        widget.addWidget(dashboard)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 #
 # Register window
 #
@@ -143,34 +195,12 @@ class RegisterScreen(QMainWindow):
         super(RegisterScreen, self).__init__()
         
         loadUi('register.ui', self)
-        self.open_db()
+        # self.open_db()
+        db_open = DatabaseManager()
+        db_open.open_db_registered_user()
         self.btn_back.clicked.connect(self.gotoDashboard)
         self.btn_save.clicked.connect(self.save_it)
-        
 
-    def open_db(self):
-        
-        # print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
-        # Create a database or connect to one
-        conn = sqlite3.connect('facemaskdetectionDB.db')
-        # Create a cursor
-        c = conn.cursor()
-        
-        # Create table
-        c.execute("""CREATE TABLE if not exists registered_user(
-                id_number TEXT UNIQUE,
-                first_name TEXT,
-                last_name TEXT,
-                status TEXT,
-                registered_by TEXT
-            )
-            """) 
-
-        # Commit changes
-        conn.commit()
-
-        # Close connection
-        conn.close()
     
     def has_error(self):
         # added .replace(' ','') to remove whitespaces
@@ -270,6 +300,9 @@ class RegisterScreen(QMainWindow):
                 # exc_type, exc_value, exc_tb = sys.exc_info()
                 # print(traceback.format_exception(exc_type, exc_value, exc_tb))   
     
+    ################################################################
+    # To update details 
+    ################################################################
     def loadDetails(self, _id= None, _first=None, _last=None, _status=None):
         self.line_id.setText(_id)
         self.line_id.setDisabled(True)
@@ -296,8 +329,11 @@ class RecordsScreen(QMainWindow):
         loadUi('records.ui', self)
         
         # Opens database if not exists
-        reg = RegisterScreen()
-        reg.open_db()
+        # reg = RegisterScreen()
+        # reg.open_db()
+        
+        db_open = DatabaseManager()
+        db_open.open_db_registered_user()
         
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
