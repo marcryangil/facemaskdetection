@@ -276,7 +276,7 @@ QPushButton:pressed{
         <rect>
          <x>510</x>
          <y>280</y>
-         <width>321</width>
+         <width>191</width>
          <height>17</height>
         </rect>
        </property>
@@ -578,6 +578,34 @@ background-color: rgb(255,255,255)
 	padding-right: 10px; 
 }
 </string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelError">
+       <property name="geometry">
+        <rect>
+         <x>720</x>
+         <y>280</y>
+         <width>191</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+color:red;</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>

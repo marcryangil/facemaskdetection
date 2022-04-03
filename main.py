@@ -3,7 +3,9 @@ import sys
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit
+from PyQt5.QtCore import Qt
+
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, QTableWidgetItem
 import resources
 from db_management import DatabaseManager, InsertDatabase
 
@@ -192,6 +194,12 @@ class SystemLogScreen(QMainWindow):
         self.tableWidget.setRowCount(system_logs_qty)
         # To stretch the item lists on tableWidget
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
+        # Remove horizontal gridlines
+        self.tableWidget.setShowGrid(False)
+        self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
+        
+        # self.tableWidget.setTextAlignment()
         
         for row in cur.execute(sqlquery):
             self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
@@ -230,10 +238,10 @@ class RegisterScreen(QMainWindow):
         id = self.lineId.text().replace(' ','')
         first_name = self.lineFirstName.text().replace(' ','')
         last_name = self.lineLastName.text().replace(' ','')
+        print('ASDLFJKASLFKASJDFLKJ')
         return not bool(len(id) and len(first_name) and len(last_name))
-    
-    def isSelect(self):
-        return self.comboBox_status_1.currentText() == 'Select'
+        
+
     
     # to clear details after successful submit
     def clearDetails(self):
@@ -243,30 +251,29 @@ class RegisterScreen(QMainWindow):
     
     def saveIt(self, _id= None, _first=None, _last=None, _status=None):
         
-        if self.has_error() or self.isSelect():
+        if self.has_error():
             self.labelError.setText('Error, please check fields')
-            if self.isSelect():
-                self.comboBox_status_1.setStyleSheet(
-                                                    "color: rgb(0,0,0);\n"
-                                    "background-color: rgb(255,255,255);\n"
-                                        "border-style: solid;\n"
-                                        "border-width: 1px;\n"
-                                        "border-radius: 8px;\n"
-                                        "border-color: rgb(140, 140, 140)\n;"
-                                        "padding-left: 10px;\n"
-                                        "padding-right: 10px;\n"
-                                        "border-color: red;\n"
+            self.comboBox_status_1.setStyleSheet(
+                                                "color: rgb(0,0,0);\n"
+                                "background-color: rgb(255,255,255);\n"
+                                "border-style: solid;\n"
+                                "border-width: 1px;\n"
+                                "border-radius: 8px;\n"
+                                "border-color: rgb(140, 140, 140)\n;"
+                                "padding-left: 10px;\n"
+                                "padding-right: 10px;\n"
+                                "border-color: red;\n"
                 )
         else:
             self.comboBox_status_1.setStyleSheet(
                                                  "color: rgb(0,0,0);\n"
                                 "background-color: rgb(255,255,255);\n"
-                                    "border-style: solid;\n"
-                                    "border-width: 1px;\n"
-                                    "border-radius: 8px;\n"
-                                    "border-color: rgb(140, 140, 140)\n;"
-                                    "padding-left: 10px;\n"
-                                    "padding-right: 10px;\n"
+                                "border-style: solid;\n"
+                                "border-width: 1px;\n"
+                                "border-radius: 8px;\n"
+                                "border-color: rgb(140, 140, 140)\n;"
+                                "padding-left: 10px;\n"
+                                "padding-right: 10px;\n"
                 )
             try:
                 self.labelError.setText('')
@@ -352,7 +359,10 @@ class RecordsScreen(QMainWindow):
         
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
-        # self.btnRegister.clicked.connect(self.gotoRegister)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        # Remove horizontal gridlines
+        self.tableWidget.setShowGrid(False)
+        self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
         
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnRegister.clicked.connect(self.gotoRegister)
