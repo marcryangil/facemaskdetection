@@ -390,7 +390,7 @@ class RecordsScreen(QMainWindow):
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         # Remove horizontal gridlines
         self.tableWidget.setShowGrid(False)
-        self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
+        #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
         
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnRegister.clicked.connect(self.gotoRegister)
@@ -408,7 +408,6 @@ class RecordsScreen(QMainWindow):
         # to count how many rows in registered user
         registered_users = cur.execute(counter).fetchone()[0]
         self.tableWidget.setRowCount(registered_users)
-
         self.tableWidget.setColumnWidth(0,100)
         
         
