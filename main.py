@@ -8,6 +8,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, QTableWidgetItem
 import resources
 from db_management import DatabaseManager, InsertDatabase
+import stylesheets
 
 ACCOUNT_LOGIN = ''
 SYSTEM_LOGS = []
@@ -229,9 +230,36 @@ class RegisterScreen(QMainWindow):
         db_open.open_db_registered_user()
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnSave.clicked.connect(self.saveIt)
-        self.comboBox_status_1.setCurrentIndex(-1)
-        #self.comboBox_status_1.setPlaceholderText("Select")
 
+        self.activebtn.hide()
+        self.inactivebtn.hide()
+        self.hidden = True
+        self.statusbtn.clicked.connect(self.showStatusMenu)
+        self.activebtn.clicked.connect(self.changeStatusToActive)
+        self.inactivebtn.clicked.connect(self.changeStatusToInactive)
+
+    def showStatusMenu(self):
+        if self.hidden:
+            self.activebtn.show()
+            self.inactivebtn.show()
+            self.hidden = False
+        else:
+            self.activebtn.hide()
+            self.inactivebtn.hide()
+            self.hidden = True
+
+    def changeStatusToActive(self):
+        self.statusbtn.setText(self.activebtn.text())
+        self.statusbtn.setStyleSheet(stylesheets.statusstyle);
+        self.activebtn.hide()
+        self.inactivebtn.hide()
+        self.hidden = True
+
+    def changeStatusToInactive(self):
+        self.statusbtn.setText(self.inactivebtn.text())
+        self.activebtn.hide()
+        self.inactivebtn.hide()
+        self.hidden = True
     
     def has_error(self):
         # added .replace(' ','') to remove whitespaces
@@ -253,7 +281,7 @@ class RegisterScreen(QMainWindow):
         
         if self.has_error():
             self.labelError.setText('Error, please check fields')
-            self.comboBox_status_1.setStyleSheet(
+            self.statusbtn.setStyleSheet(
                                                 "color: rgb(0,0,0);\n"
                                 "background-color: rgb(255,255,255);\n"
                                 "border-style: solid;\n"
@@ -265,7 +293,7 @@ class RegisterScreen(QMainWindow):
                                 "border-color: red;\n"
                 )
         else:
-            self.comboBox_status_1.setStyleSheet(
+            self.statusbtn.setStyleSheet(
                                                  "color: rgb(0,0,0);\n"
                                 "background-color: rgb(255,255,255);\n"
                                 "border-style: solid;\n"
@@ -287,7 +315,7 @@ class RegisterScreen(QMainWindow):
                                 'id_number': self.lineId.text(),
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
-                                'status': self.comboBox_status_1.currentText(),
+                                'status': self.statusbtn.text(),
                                 'registered_by':ACCOUNT_LOGIN,
                             }
                             )
@@ -297,7 +325,7 @@ class RegisterScreen(QMainWindow):
                                 'id_number': self.lineId.text(),
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
-                                'status': self.comboBox_status_1.currentText(),
+                                'status': self.statusbtn.text(),
                                 'registered_by':ACCOUNT_LOGIN,
                             }
                             )
@@ -334,7 +362,7 @@ class RegisterScreen(QMainWindow):
         self.lineId.setDisabled(True)
         self.lineFirstName.setText(_first)
         self.lineLastName.setText(_last)
-        self.comboBox_status_1.setCurrentText(_status)
+        self.statusbtn.setText(_status)
         self.btnSave.setText('UPDATE')
         
     
