@@ -295,6 +295,8 @@ QPushButton:pressed{
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
+	text-align: right;
+	padding-right: 10px;
 }
 QPushButton:hover{
 	background-color: rgb(31, 211, 166);
@@ -304,7 +306,7 @@ QPushButton:pressed{
 }</string>
        </property>
        <property name="text">
-        <string>LOGS</string>
+        <string>LOGS          ⏷</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
@@ -452,6 +454,118 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string>SYSTEM LOGS</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="detectionbtn">
+       <property name="geometry">
+        <rect>
+         <x>710</x>
+         <y>208</y>
+         <width>191</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>191</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>191</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(255, 255, 255);
+	color: rgb(27, 185, 146);
+	border-style: solid;
+	border-color: rgb(128,128,128);
+	border-width: 1px;
+	text-align: left;
+	padding-left: 10px;
+}
+QPushButton:hover{
+	background-color: rgb(220,220,220);
+}
+QPushButton:pressed{
+	background-color: rgb(220,220,220);
+}</string>
+       </property>
+       <property name="text">
+        <string>Detection</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="systembtn">
+       <property name="geometry">
+        <rect>
+         <x>710</x>
+         <y>238</y>
+         <width>191</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>191</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>191</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(255, 255, 255);
+	color: rgb(27, 185, 146);
+	border-style: solid;
+	border-color: rgb(128,128,128);
+	border-width: 1px;
+	text-align: left;
+	padding-left: 10px;
+}
+QPushButton:hover{
+	background-color: rgb(220,220,220);
+}
+QPushButton:pressed{
+	background-color: rgb(220,220,220);
+}</string>
+       </property>
+       <property name="text">
+        <string>System</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
