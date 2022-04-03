@@ -1,8 +1,9 @@
 import sqlite3, traceback
 import sys
+
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit
 import resources
 from db_management import DatabaseManager, InsertDatabase
 
@@ -216,6 +217,8 @@ class RegisterScreen(QMainWindow):
         db_open.open_db_registered_user()
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnSave.clicked.connect(self.saveIt)
+        self.comboBox_status_1.setCurrentIndex(-1)
+        #self.comboBox_status_1.setPlaceholderText("Select")
 
     
     def has_error(self):

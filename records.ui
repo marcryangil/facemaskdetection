@@ -146,64 +146,10 @@
         </property>
        </column>
       </widget>
-      <widget class="QPushButton" name="btnBack">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>41</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgb(33, 113, 93);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 20px;
-}
-QPushButton:hover{
-	background-color: rgb(46, 159, 131);
-}
-QPushButton:pressed{
-	background-color: rgb(29, 100, 82);
-}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../../../.designer/backup/back_white.png</normaloff>../../../.designer/backup/back_white.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>45</width>
-         <height>45</height>
-        </size>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
-         <x>70</x>
+         <x>68</x>
          <y>15</y>
          <width>181</width>
          <height>31</height>
@@ -211,7 +157,7 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Work Sans</family>
+         <family>Work Sans SemiBold</family>
          <pointsize>20</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -228,7 +174,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>430</x>
-         <y>10</y>
+         <y>16</y>
          <width>81</width>
          <height>31</height>
         </rect>
@@ -275,7 +221,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>610</x>
-         <y>10</y>
+         <y>16</y>
          <width>81</width>
          <height>31</height>
         </rect>
@@ -322,7 +268,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>520</x>
-         <y>10</y>
+         <y>16</y>
          <width>81</width>
          <height>31</height>
         </rect>
@@ -369,7 +315,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>840</x>
-         <y>10</y>
+         <y>16</y>
          <width>81</width>
          <height>31</height>
         </rect>
@@ -416,7 +362,7 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>700</x>
-         <y>10</y>
+         <y>16</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -441,6 +387,60 @@ QPushButton:pressed{
        </property>
        <property name="placeholderText">
         <string>Search...</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnBack">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>41</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(33, 113, 93);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 20px;
+}
+QPushButton:hover{
+	background-color: rgb(46, 159, 131);
+}
+QPushButton:pressed{
+	background-color: rgb(29, 100, 82);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/newPrefix/back_white.png</normaloff>:/newPrefix/back_white.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
@@ -508,7 +508,6 @@ QPushButton:pressed{
  </widget>
  <resources>
   <include location="resources.qrc"/>
-  <include location="../../../.designer/backup/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
