@@ -157,7 +157,7 @@
         <string>SYSTEM LOGS</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_back">
+      <widget class="QPushButton" name="btnBack">
        <property name="geometry">
         <rect>
          <x>30</x>

@@ -157,7 +157,7 @@ class SystemLogScreen(QMainWindow):
         loadUi("system_log.ui", self)
         self.tableWidget.setHorizontalHeaderLabels(["ID", "Username", "Password"])
         self.loaddata()
-        self.btn_back.clicked.connect(self.gotoDashboard)
+        self.btnBack.clicked.connect(self.gotoDashboard)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -198,8 +198,8 @@ class RegisterScreen(QMainWindow):
         
         db_open = DatabaseManager()
         db_open.open_db_registered_user()
-        self.btn_back.clicked.connect(self.gotoDashboard)
-        self.btn_save.clicked.connect(self.save_it)
+        self.btnBack.clicked.connect(self.gotoDashboard)
+        self.btnSave.clicked.connect(self.save_it)
 
     
     def has_error(self):
@@ -251,7 +251,7 @@ class RegisterScreen(QMainWindow):
                 conn = sqlite3.connect('facemaskdetectionDB.db')
                 c = conn.cursor()
                 # Insert user to the database
-                if self.btn_save.text() == 'SAVE':
+                if self.btnSave.text() == 'SAVE':
                     c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
                                 'id_number': self.line_id.text(),
@@ -261,7 +261,7 @@ class RegisterScreen(QMainWindow):
                                 'registered_by':ACCOUNT_LOGIN,
                             }
                             )
-                elif self.btn_save.text() == 'UPDATE':
+                elif self.btnSave.text() == 'UPDATE':
                     c.execute("INSERT OR REPLACE INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
                                 'id_number': self.line_id.text(),
@@ -305,7 +305,7 @@ class RegisterScreen(QMainWindow):
         self.line_first_name.setText(_first)
         self.line_last_name.setText(_last)
         self.comboBox_status_1.setCurrentText(_status)
-        self.btn_save.setText('UPDATE')
+        self.btnSave.setText('UPDATE')
         
     
     def gotoDashboard(self):
@@ -329,13 +329,13 @@ class RecordsScreen(QMainWindow):
         
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
-        # self.btn_register.clicked.connect(self.gotoRegister)
+        # self.btnRegister.clicked.connect(self.gotoRegister)
         
-        self.btn_back.clicked.connect(self.gotoDashboard)
-        self.btn_register.clicked.connect(self.gotoRegister)
-        self.btn_delete.clicked.connect(self.gotoDelete)
-        self.line_search.textChanged.connect(self.search)
-        self.btn_edit.clicked.connect(self.edit)
+        self.btnBack.clicked.connect(self.gotoDashboard)
+        self.btnRegister.clicked.connect(self.gotoRegister)
+        self.btnDelete.clicked.connect(self.gotoDelete)
+        self.lineSearch.textChanged.connect(self.search)
+        self.btnEdit.clicked.connect(self.edit)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -404,7 +404,7 @@ class RecordsScreen(QMainWindow):
             return text
     
     def search(self):
-        name = self.line_search.text()
+        name = self.lineSearch.text()
         for row in range(self.tableWidget.rowCount()):
             item = self.tableWidget.item(row, 0)
             # if the search is *not* in the item's text *do not hide* the row
