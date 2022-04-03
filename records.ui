@@ -187,7 +187,7 @@
        </property>
        <property name="font">
         <font>
-         <family>Work Sans</family>
+         <family>Work Sans SemiBold</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -234,7 +234,7 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Work Sans</family>
+         <family>Work Sans SemiBold</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -281,7 +281,7 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Work Sans</family>
+         <family>Work Sans SemiBold</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -328,7 +328,7 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Work Sans</family>
+         <family>Work Sans SemiBold</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
