@@ -61,7 +61,7 @@ class DashboardScreen(QMainWindow):
         super(DashboardScreen, self).__init__()
         loadUi("dashboard.ui", self)
         self.launchbtn.clicked.connect(self.gotoLaunch)
-        self.getstartedbtn.clicked.connect(self.open_file)
+        self.getstartedbtn.clicked.connect(self.openFile)
         self.logsbtn.clicked.connect(self.gotoLogs)
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
@@ -102,7 +102,7 @@ class DashboardScreen(QMainWindow):
     
     
     @QtCore.pyqtSlot()
-    def open_file(self):
+    def openFile(self):
         insert_database.insert_system_logs('Get Started', ACCOUNT_LOGIN)
         ######################################################
         # Temporarily unavailable
@@ -199,30 +199,30 @@ class RegisterScreen(QMainWindow):
         db_open = DatabaseManager()
         db_open.open_db_registered_user()
         self.btnBack.clicked.connect(self.gotoDashboard)
-        self.btnSave.clicked.connect(self.save_it)
+        self.btnSave.clicked.connect(self.saveIt)
 
     
     def has_error(self):
         # added .replace(' ','') to remove whitespaces
-        id = self.line_id.text().replace(' ','')
-        first_name = self.line_first_name.text().replace(' ','')
-        last_name = self.line_last_name.text().replace(' ','')
+        id = self.lineId.text().replace(' ','')
+        first_name = self.lineFirstName.text().replace(' ','')
+        last_name = self.lineLastName.text().replace(' ','')
         return not bool(len(id) and len(first_name) and len(last_name))
     
-    def is_select(self):
+    def isSelect(self):
         return self.comboBox_status_1.currentText() == 'Select'
     
     # to clear details after successful submit
-    def clear_details(self):
-        self.line_id.clear()
-        self.line_first_name.clear()
-        self.line_last_name.clear()
+    def clearDetails(self):
+        self.lineId.clear()
+        self.lineFirstName.clear()
+        self.lineLastName.clear()
     
-    def save_it(self, _id= None, _first=None, _last=None, _status=None):
+    def saveIt(self, _id= None, _first=None, _last=None, _status=None):
         
-        if self.has_error() or self.is_select():
-            self.label_error.setText('Error, please check fields')
-            if self.is_select():
+        if self.has_error() or self.isSelect():
+            self.labelError.setText('Error, please check fields')
+            if self.isSelect():
                 self.comboBox_status_1.setStyleSheet(
                                                     "color: rgb(0,0,0);\n"
                                     "background-color: rgb(255,255,255);\n"
@@ -246,7 +246,7 @@ class RegisterScreen(QMainWindow):
                                     "padding-right: 10px;\n"
                 )
             try:
-                self.label_error.setText('')
+                self.labelError.setText('')
                 # Create a database or connect to one
                 conn = sqlite3.connect('facemaskdetectionDB.db')
                 c = conn.cursor()
@@ -254,9 +254,9 @@ class RegisterScreen(QMainWindow):
                 if self.btnSave.text() == 'SAVE':
                     c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
-                                'id_number': self.line_id.text(),
-                                'first_name': self.line_first_name.text(),
-                                'last_name': self.line_last_name.text(),
+                                'id_number': self.lineId.text(),
+                                'first_name': self.lineFirstName.text(),
+                                'last_name': self.lineLastName.text(),
                                 'status': self.comboBox_status_1.currentText(),
                                 'registered_by':ACCOUNT_LOGIN,
                             }
@@ -264,9 +264,9 @@ class RegisterScreen(QMainWindow):
                 elif self.btnSave.text() == 'UPDATE':
                     c.execute("INSERT OR REPLACE INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
-                                'id_number': self.line_id.text(),
-                                'first_name': self.line_first_name.text(),
-                                'last_name': self.line_last_name.text(),
+                                'id_number': self.lineId.text(),
+                                'first_name': self.lineFirstName.text(),
+                                'last_name': self.lineLastName.text(),
                                 'status': self.comboBox_status_1.currentText(),
                                 'registered_by':ACCOUNT_LOGIN,
                             }
@@ -283,7 +283,7 @@ class RegisterScreen(QMainWindow):
                 msg.setIcon(QMessageBox.Information)
                 x = msg.exec_()
                 
-                self.clear_details()
+                self.clearDetails()
             except sqlite3.Error as er:
                 msg = QMessageBox()
                 msg.setWindowTitle('ERROR!')
@@ -300,10 +300,10 @@ class RegisterScreen(QMainWindow):
     # To update details 
     ################################################################
     def loadDetails(self, _id= None, _first=None, _last=None, _status=None):
-        self.line_id.setText(_id)
-        self.line_id.setDisabled(True)
-        self.line_first_name.setText(_first)
-        self.line_last_name.setText(_last)
+        self.lineId.setText(_id)
+        self.lineId.setDisabled(True)
+        self.lineFirstName.setText(_first)
+        self.lineLastName.setText(_last)
         self.comboBox_status_1.setCurrentText(_status)
         self.btnSave.setText('UPDATE')
         
@@ -376,19 +376,19 @@ class RecordsScreen(QMainWindow):
         # set current column on table
         # col = self.tableWidget.currentColumn() 
         
-        cell_value = self.tableWidget.item(row,0).text()
+        cellValue = self.tableWidget.item(row,0).text()
         print('ROW: '+str(row))
         
-        id_name = str(self.input_delete_id(cell_value))
-        print("id name: "+id_name)
+        idName = str(self.input_delete_id(cellValue))
+        print("id name: "+idName)
         
-        if id_name:
+        if idName:
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
             c.execute("DELETE FROM registered_user WHERE id_number=(:id_number)",
                     {
-                        'id_number':id_name,
+                        'id_number':idName,
                     }
                     )
             conn.commit()
@@ -415,14 +415,14 @@ class RecordsScreen(QMainWindow):
         
         row = self.tableWidget.currentRow()
         
-        cell_value = self.tableWidget.item(row,0).text()
+        cellValue = self.tableWidget.item(row,0).text()
         
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
         c.execute("SELECT * FROM registered_user WHERE id_number=(:id_number)",
                     {
-                        'id_number':cell_value,
+                        'id_number':cellValue,
                     }
                     )
         rows = c.fetchall()[0]

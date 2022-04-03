@@ -479,7 +479,7 @@ background-color: rgb(255,255,255);
         </property>
        </item>
       </widget>
-      <widget class="QLineEdit" name="line_id">
+      <widget class="QLineEdit" name="lineId">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -507,7 +507,7 @@ background-color: rgb(255,255,255);
 </string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="line_first_name">
+      <widget class="QLineEdit" name="lineFirstName">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -535,7 +535,7 @@ background-color: rgb(255,255,255);
 </string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="line_last_name">
+      <widget class="QLineEdit" name="lineLastName">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -563,7 +563,7 @@ background-color: rgb(255,255,255);
 </string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_error">
+      <widget class="QLabel" name="labelError">
        <property name="geometry">
         <rect>
          <x>720</x>
