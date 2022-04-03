@@ -67,14 +67,18 @@ class DashboardScreen(QMainWindow):
         self.detectionbtn.hide()
         self.systembtn.hide()
         self.hidden = True
-
+        self.systembtn.clicked.connect(self.gotoSystemLogs)
+        self.detectionbtn.clicked.connect(self.gotoLogs)
+        
         self.logsbtn.clicked.connect(self.showLogsMenu)
-        #self.logsbtn.clicked.connect(self.gotoLogs)
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
-        self.systemlogsbtn.clicked.connect(self.gotoSystemLogs)
+        
         insert_database.insert_system_logs('Dashboard', ACCOUNT_LOGIN)
 
+    ################################################################
+    #  BUTTON MENU FOR LOGS
+    ################################################################
     def showLogsMenu(self):
         if self.hidden:
             self.detectionbtn.show()
