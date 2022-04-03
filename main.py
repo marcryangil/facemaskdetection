@@ -309,9 +309,9 @@ class RegisterScreen(QMainWindow):
         
     
     def gotoDashboard(self):
-        dashboard = DashboardScreen()
-        widget.addWidget(dashboard)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
+        #register = RegisterScreen()
+        widget.removeWidget(widget.currentWidget())
+        #widget.setCurrentIndex(widget.currentIndex() - 1)
         
         
 
@@ -362,12 +362,10 @@ class RecordsScreen(QMainWindow):
         print(cur.execute(sqlquery).rowcount)
     
     def gotoDashboard(self):
-        dashboard = DashboardScreen()
-        widget.addWidget(dashboard)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
+        widget.removeWidget(widget.currentWidget())
         
     def gotoRegister(self):
-        self.gotoDashboard()
+        #self.gotoDashboard()
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
