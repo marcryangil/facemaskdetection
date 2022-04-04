@@ -119,16 +119,16 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">
-
-QTableWidget{
+        <string notr="true">QTableWidget{
+		text-align:center
 	color: rgb(90,90,90);
 	background-color: rgb(255,255,255);
 }
+QTableWidget::item{
 
-QTableView::item{
-	border-bottom: 1px solid #696969;
-}</string>
+		border-bottom: 1px solid #696969;
+}
+</string>
        </property>
        <attribute name="horizontalHeaderStretchLastSection">
         <bool>false</bool>

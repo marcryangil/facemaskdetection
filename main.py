@@ -4,7 +4,6 @@ import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
-
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, QTableWidgetItem
 import resources
 from db_management import DatabaseManager, InsertDatabase
@@ -150,10 +149,12 @@ class LogScreen(QMainWindow):
     def __init__(self):
         super(LogScreen, self).__init__()
         loadUi("log.ui", self)
-        self.tableWidget.setHorizontalHeaderLabels(["ID", "Username", "Password"])
+        self.tableWidget.setHorizontalHeaderLabels(["ID", "DATE", "EMPLOYEE ID", 'USER ID'])
         self.loaddata()
         self.gobackbtn.clicked.connect(self.gotoDashboard)
-
+        # To stretch the item lists on tableWidget
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
@@ -227,7 +228,7 @@ class RegisterScreen(QMainWindow):
         loadUi('register.ui', self)
         
         db_open = DatabaseManager()
-        db_open.open_db_registered_user()
+        db_open.open_db_registeredemployee()
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnSave.clicked.connect(self.saveIt)
 
@@ -266,7 +267,6 @@ class RegisterScreen(QMainWindow):
         id = self.lineId.text().replace(' ','')
         first_name = self.lineFirstName.text().replace(' ','')
         last_name = self.lineLastName.text().replace(' ','')
-        print('ASDLFJKASLFKASJDFLKJ')
         return not bool(len(id) and len(first_name) and len(last_name))
         
 
@@ -310,7 +310,7 @@ class RegisterScreen(QMainWindow):
                 c = conn.cursor()
                 # Insert user to the database
                 if self.btnSave.text() == 'SAVE':
-                    c.execute("INSERT INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                    c.execute("INSERT INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
                                 'id_number': self.lineId.text(),
                                 'first_name': self.lineFirstName.text(),
@@ -320,7 +320,7 @@ class RegisterScreen(QMainWindow):
                             }
                             )
                 elif self.btnSave.text() == 'UPDATE':
-                    c.execute("INSERT OR REPLACE INTO registered_user VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                    c.execute("INSERT OR REPLACE INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
                                 'id_number': self.lineId.text(),
                                 'first_name': self.lineFirstName.text(),
@@ -383,7 +383,7 @@ class RecordsScreen(QMainWindow):
         loadUi('records.ui', self)
         
         db_open = DatabaseManager()
-        db_open.open_db_registered_user()
+        db_open.open_db_registeredemployee()
         
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
@@ -398,25 +398,28 @@ class RecordsScreen(QMainWindow):
         self.lineSearch.textChanged.connect(self.search)
         self.btnEdit.clicked.connect(self.edit)
         
+        # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
+        # item = QTableWidgetItem(scraped_age) # create the item
+        # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
+        
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM registered_user"
-        counter = "SELECT COUNT(id_number) FROM registered_user"
+        sqlquery = "SELECT * FROM registeredemployee"
+        counter = "SELECT COUNT(id_number) FROM registeredemployee"
         tablerow = 0
 
         # to count how many rows in registered user
-        registered_users = cur.execute(counter).fetchone()[0]
-        self.tableWidget.setRowCount(registered_users)
+        registeredemployees = cur.execute(counter).fetchone()[0]
+        self.tableWidget.setRowCount(registeredemployees)
         self.tableWidget.setColumnWidth(0,100)
-        
         
         for row in cur.execute(sqlquery):
             self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0])) # column 1
             self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
             self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
-            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 3
-            self.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(row[4])) # column 3
+            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 4
+            self.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(row[4])) # column 5
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -446,7 +449,7 @@ class RecordsScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM registered_user WHERE id_number=(:id_number)",
+            c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
                     {
                         'id_number':idName,
                     }
@@ -480,7 +483,7 @@ class RecordsScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM registered_user WHERE id_number=(:id_number)",
+        c.execute("SELECT * FROM registeredemployee WHERE id_number=(:id_number)",
                     {
                         'id_number':cellValue,
                     }
