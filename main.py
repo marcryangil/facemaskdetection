@@ -149,12 +149,40 @@ class LogScreen(QMainWindow):
     def __init__(self):
         super(LogScreen, self).__init__()
         loadUi("log.ui", self)
+
+        self.whiteemp.hide()
+        #self.whiteguest.hide()
+        #self.blackemp.hide()
+        self.blackguest.hide()
+        self.hidden = True;
+
+        self.guestbtn.clicked.connect(self.changeiconguesttrigger)
+        self.empbtn.clicked.connect(self.changeiconemptrigger)
+
         self.tableWidget.setHorizontalHeaderLabels(["ID", "DATE", "EMPLOYEE ID", 'USER ID'])
         self.loaddata()
         self.gobackbtn.clicked.connect(self.gotoDashboard)
         # To stretch the item lists on tableWidget
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        
+
+    def changeiconguesttrigger(self):
+        self.whiteguest.hide()
+        self.blackemp.hide()
+        self.whiteemp.show()
+        self.blackguest.show()
+
+        self.guestbtn.setStyleSheet(stylesheets.activatedstyle)
+        self.empbtn.setStyleSheet(stylesheets.inactivestyle)
+
+    def changeiconemptrigger(self):
+        self.whiteguest.show()
+        self.blackemp.show()
+        self.whiteemp.hide()
+        self.blackguest.hide()
+
+        self.empbtn.setStyleSheet(stylesheets.activatedstyle)
+        self.guestbtn.setStyleSheet(stylesheets.inactivestyle)
+
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()

@@ -134,7 +134,7 @@
       <widget class="QPushButton" name="gobackbtn">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>10</y>
          <width>41</width>
          <height>41</height>
@@ -210,7 +210,7 @@ border-bottom-left-radius: 8px;</string>
       <widget class="QLabel" name="label_9">
        <property name="geometry">
         <rect>
-         <x>78</x>
+         <x>70</x>
          <y>15</y>
          <width>271</width>
          <height>31</height>
@@ -282,16 +282,14 @@ QPushButton:pressed{
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>60</y>
+         <y>90</y>
          <width>801</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(30, 248, 188);
-border: none;
-border-top-right-radius: 8px;
-border-top-left-radius: 8px;</string>
+border: none;</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -484,9 +482,9 @@ border-radius: 8px;</string>
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>80</y>
+         <y>110</y>
          <width>801</width>
-         <height>321</height>
+         <height>291</height>
         </rect>
        </property>
        <property name="font">
@@ -537,6 +535,186 @@ QTableView::item{
         </property>
        </column>
       </widget>
+      <widget class="QPushButton" name="empbtn">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>60</y>
+         <width>141</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>12</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	padding-left: 18px;
+	background-color: rgb(30, 248, 188);
+	border: none;
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Employees</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="guestbtn">
+       <property name="geometry">
+        <rect>
+         <x>225</x>
+         <y>60</y>
+         <width>141</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>12</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	padding-left: 18px;
+	background-color: rgb(38,180,141);
+	border: none;
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+	color: white;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
+       </property>
+       <property name="text">
+        <string>Guests</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="blackemp">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>65</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/emp-black.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="whiteguest">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>65</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/guest-white.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="whiteemp">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>65</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/emp-white.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="blackguest">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>65</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:transparent;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/guest-black.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
       <zorder>tableWidget</zorder>
       <zorder>lineSearch_2</zorder>
       <zorder>gobackbtn</zorder>
@@ -544,6 +722,12 @@ QTableView::item{
       <zorder>label_9</zorder>
       <zorder>btnSearch_2</zorder>
       <zorder>frame_6</zorder>
+      <zorder>empbtn</zorder>
+      <zorder>guestbtn</zorder>
+      <zorder>blackemp</zorder>
+      <zorder>whiteguest</zorder>
+      <zorder>whiteemp</zorder>
+      <zorder>blackguest</zorder>
      </widget>
     </item>
     <item>
