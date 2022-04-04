@@ -198,7 +198,7 @@ class SystemLogScreen(QMainWindow):
 
         # Remove horizontal gridlines
         self.tableWidget.setShowGrid(False)
-        self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
+        #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
         
         # self.tableWidget.setTextAlignment()
         
