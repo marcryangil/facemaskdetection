@@ -176,11 +176,12 @@ class LogScreen(QMainWindow):
         self.guestbtn.clicked.connect(self.changeiconguesttrigger)
         self.empbtn.clicked.connect(self.changeiconemptrigger)
 
-        self.tableWidget.setHorizontalHeaderLabels(["ID", "DATE", "EMPLOYEE ID", 'USER ID'])
+        # self.tableWidget.setHorizontalHeaderLabels(["ID", "DATE", "EMPLOYEE ID", 'USER ID'])
         self.loaddata()
         self.gobackbtn.clicked.connect(self.gotoDashboard)
         # To stretch the item lists on tableWidget
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.loaddataguest()
 
     def changeiconguesttrigger(self):
         self.whiteguest.hide()
@@ -190,6 +191,10 @@ class LogScreen(QMainWindow):
 
         self.guestbtn.setStyleSheet(stylesheets.activatedstyle)
         self.empbtn.setStyleSheet(stylesheets.inactivestyle)
+        
+        self.label_27.hide()
+        self.tableWidget.hide()
+        self.tableWidgetGuest.show()
 
     def changeiconemptrigger(self):
         self.whiteguest.show()
@@ -199,19 +204,53 @@ class LogScreen(QMainWindow):
 
         self.empbtn.setStyleSheet(stylesheets.activatedstyle)
         self.guestbtn.setStyleSheet(stylesheets.inactivestyle)
+        
+        self.label_27.show()
+        self.tableWidget.show()
+        self.tableWidgetGuest.hide()
 
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM users"
+        sqlquery = "SELECT * FROM detection_logs"
+        
+        counter = "SELECT COUNT(id) FROM detection_logs"
         tablerow = 0
 
-        self.tableWidget.setRowCount(3)
+        # to count how many rows in registered user
+        detectionlogs = cur.execute(counter).fetchone()[0]
+        self.tableWidget.setRowCount(detectionlogs)
+
+        
 
         for row in cur.execute(sqlquery):
-            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0])) # column 1
+            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
             self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
             self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
+            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 4
+            tablerow+=1
+
+        print(cur.execute(sqlquery).rowcount)
+    
+    def loaddataguest(self):
+        connection = sqlite3.connect("facemaskdetectionDB.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM detection_logs_guest"
+        
+        counter = "SELECT COUNT(id) FROM detection_logs_guest"
+        tablerow = 0
+
+         # To stretch the item lists on tableWidget
+        self.tableWidgetGuest.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        
+        # to count how many rows in registered user
+        detectionlogsguest = cur.execute(counter).fetchone()[0]
+        self.tableWidgetGuest.setRowCount(detectionlogsguest)
+
+        for row in cur.execute(sqlquery):
+            self.tableWidgetGuest.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
+            self.tableWidgetGuest.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
+            self.tableWidgetGuest.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -221,6 +260,7 @@ class LogScreen(QMainWindow):
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    
 class SystemLogScreen(QMainWindow):
     def __init__(self):
         super(SystemLogScreen, self).__init__()

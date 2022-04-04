@@ -68,6 +68,8 @@ class DatabaseManager():
         conn.commit()
         # Close connection
         conn.close()
+    
+    
         
 class InsertDatabase():
     def insert_system_logs(self, action, user_id):

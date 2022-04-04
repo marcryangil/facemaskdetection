@@ -715,6 +715,59 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
       </widget>
+      <widget class="QTableWidget" name="tableWidgetGuest">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>110</y>
+         <width>801</width>
+         <height>291</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+
+QTableWidget{
+	color: rgb(90,90,90);
+	background-color: rgb(255,255,255);
+}
+
+QTableView::item{
+	border-bottom: 1px solid #696969;
+}</string>
+       </property>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
+      </widget>
+      <zorder>tableWidgetGuest</zorder>
       <zorder>tableWidget</zorder>
       <zorder>lineSearch_2</zorder>
       <zorder>gobackbtn</zorder>
