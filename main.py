@@ -266,7 +266,28 @@ class RegisterScreen(QMainWindow):
         self.statusbtn.clicked.connect(self.showStatusMenu)
         self.activebtn.clicked.connect(self.changeStatusToActive)
         self.inactivebtn.clicked.connect(self.changeStatusToInactive)
-
+        self.lineId.textChanged.connect(self.idvalue)
+        self.lineFirstName.textChanged.connect(self.fnamevalue)
+        self.lineLastName.textChanged.connect(self.lnamevalue)
+    
+    def idvalue(self):
+        if len(self.lineId.text()) != 0:
+            self.lineId.setStyleSheet(stylesheets.hasnoerrorline)
+        else:
+            self.lineId.setStyleSheet(stylesheets.haserrorline)
+            
+    def fnamevalue(self):
+        if len(self.lineFirstName.text()) != 0:
+            self.lineFirstName.setStyleSheet(stylesheets.hasnoerrorline)
+        else:
+            self.lineFirstName.setStyleSheet(stylesheets.haserrorline)
+        
+    def lnamevalue(self):
+        if len(self.lineLastName.text()) != 0:
+            self.lineLastName.setStyleSheet(stylesheets.hasnoerrorline)
+        else:
+            self.lineLastName.setStyleSheet(stylesheets.haserrorline)
+    
     def showStatusMenu(self):
         if self.hidden:
             self.activebtn.show()
@@ -279,7 +300,7 @@ class RegisterScreen(QMainWindow):
 
     def changeStatusToActive(self):
         self.statusbtn.setText(self.activebtn.text())
-        self.statusbtn.setStyleSheet(stylesheets.statusstyle);
+        self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus);
         self.activebtn.hide()
         self.inactivebtn.hide()
         self.hidden = True
@@ -290,47 +311,48 @@ class RegisterScreen(QMainWindow):
         self.inactivebtn.hide()
         self.hidden = True
     
-    def has_error(self):
-        # added .replace(' ','') to remove whitespaces
+    def has_error_id(self): 
         id = self.lineId.text().replace(' ','')
-        first_name = self.lineFirstName.text().replace(' ','')
-        last_name = self.lineLastName.text().replace(' ','')
-        return not bool(len(id) and len(first_name) and len(last_name))
-        
-
+        # IF id has value then is a valid id
+        return not bool(id)
+    
+    def has_error_first_name(self): 
+        id = self.lineFirstName.text().replace(' ','')
+        # IF id has value then is a valid first name
+        return not bool(id)
+    
+    def has_error_last_name(self): 
+        id = self.lineLastName.text().replace(' ','')
+        # IF id has value then is a valid last name
+        return not bool(id)
+    
+    def has_error_status(self):
+        check_status = self.statusbtn.text() == 'active' or self.statusbtn.text() == 'inactive'
+        return not check_status
     
     # to clear details after successful submit
     def clearDetails(self):
         self.lineId.clear()
         self.lineFirstName.clear()
         self.lineLastName.clear()
+        # CLEARING ERROR COLORS
+        self.lineId.setStyleSheet(stylesheets.hasnoerrorline)
+        self.lineFirstName.setStyleSheet(stylesheets.hasnoerrorline)
+        self.lineLastName.setStyleSheet(stylesheets.hasnoerrorline)
+        self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
     
     def saveIt(self, _id= None, _first=None, _last=None, _status=None):
-        
-        if self.has_error():
-            self.labelError.setText('Error, please check fields')
-            self.statusbtn.setStyleSheet(
-                                                "color: rgb(0,0,0);\n"
-                                "background-color: rgb(255,255,255);\n"
-                                "border-style: solid;\n"
-                                "border-width: 1px;\n"
-                                "border-radius: 8px;\n"
-                                "border-color: rgb(140, 140, 140)\n;"
-                                "padding-left: 10px;\n"
-                                "padding-right: 10px;\n"
-                                "border-color: red;\n"
-                )
+        if self.has_error_id() or self.has_error_first_name() and self.has_error_last_name() or self.has_error_status():
+            if self.has_error_id():
+                self.lineId.setStyleSheet(stylesheets.haserrorline)
+            if self.has_error_first_name():
+                self.lineFirstName.setStyleSheet(stylesheets.haserrorline)
+            if self.has_error_last_name():
+                self.lineLastName.setStyleSheet(stylesheets.haserrorline)
+            if self.has_error_status():
+                self.statusbtn.setStyleSheet(stylesheets.haserrorstatus)
         else:
-            self.statusbtn.setStyleSheet(
-                                                 "color: rgb(0,0,0);\n"
-                                "background-color: rgb(255,255,255);\n"
-                                "border-style: solid;\n"
-                                "border-width: 1px;\n"
-                                "border-radius: 8px;\n"
-                                "border-color: rgb(140, 140, 140)\n;"
-                                "padding-left: 10px;\n"
-                                "padding-right: 10px;\n"
-                )
+            self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
             try:
                 self.labelError.setText('')
                 # Create a database or connect to one
@@ -371,6 +393,7 @@ class RegisterScreen(QMainWindow):
                 
                 self.clearDetails()
             except sqlite3.Error as er:
+                self.lineId.setStyleSheet(stylesheets.haserrorline)
                 msg = QMessageBox()
                 msg.setWindowTitle('ERROR!')
                 msg.setText('Id number must be unique')
