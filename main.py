@@ -24,6 +24,21 @@ class LoginScreen(QMainWindow):
         self.loginbtn.clicked.connect(self.loginfunction)
         
         self._login_username = ''
+        
+        self.usernamefield.textChanged.connect(self.usernamevalue)
+        self.passwordfield.textChanged.connect(self.passwordvalue)
+        
+    
+    def usernamevalue(self):
+        if len(self.usernamefield.text()) != 0:
+            self.usernamefield.setStyleSheet(stylesheets.hasnoerrorline)
+        else:
+            self.usernamefield.setStyleSheet(stylesheets.haserrorline)
+    def passwordvalue(self):
+        if len(self.passwordfield.text()) != 0:
+            self.passwordfield.setStyleSheet(stylesheets.hasnoerrorline)
+        else:
+            self.passwordfield.setStyleSheet(stylesheets.haserrorline)
 
     def loginfunction(self):
         username = self.usernamefield.text()
@@ -52,6 +67,8 @@ class LoginScreen(QMainWindow):
                 
             else:
                 self.errorlabel.setText("Invalid username or password.")
+                self.usernamefield.setStyleSheet(stylesheets.haserrorline)
+                self.passwordfield.setStyleSheet(stylesheets.haserrorline)
                 
     
     def gotoDashboard(self):
