@@ -221,13 +221,23 @@ class LogScreen(QMainWindow):
         detectionlogs = cur.execute(counter).fetchone()[0]
         self.tableWidget.setRowCount(detectionlogs)
 
-        
+
 
         for row in cur.execute(sqlquery):
-            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
-            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
-            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
-            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 4
+
+            item0 = QTableWidgetItem(str(row[0]))
+            item0.setTextAlignment(Qt.AlignCenter)
+            item1 = QTableWidgetItem(row[1])
+            item1.setTextAlignment(Qt.AlignCenter)
+            item2 = QTableWidgetItem(row[2])
+            item2.setTextAlignment(Qt.AlignCenter)
+            item3 = QTableWidgetItem(row[3])
+            item3.setTextAlignment(Qt.AlignCenter)
+
+            self.tableWidget.setItem(tablerow, 0, item0)  # column 1
+            self.tableWidget.setItem(tablerow, 1, item1)  # column 2
+            self.tableWidget.setItem(tablerow, 2, item2)  # column 3
+            self.tableWidget.setItem(tablerow, 3, item3)  # column 3
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -248,9 +258,17 @@ class LogScreen(QMainWindow):
         self.tableWidgetGuest.setRowCount(detectionlogsguest)
 
         for row in cur.execute(sqlquery):
-            self.tableWidgetGuest.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
-            self.tableWidgetGuest.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
-            self.tableWidgetGuest.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
+
+            item0 = QTableWidgetItem(str(row[0]))
+            item0.setTextAlignment(Qt.AlignCenter)
+            item1 = QTableWidgetItem(row[1])
+            item1.setTextAlignment(Qt.AlignCenter)
+            item2 = QTableWidgetItem(row[2])
+            item2.setTextAlignment(Qt.AlignCenter)
+
+            self.tableWidgetGuest.setItem(tablerow, 0, item0) # column 1
+            self.tableWidgetGuest.setItem(tablerow, 1, item1) # column 2
+            self.tableWidgetGuest.setItem(tablerow, 2, item2) # column 3
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -287,12 +305,22 @@ class SystemLogScreen(QMainWindow):
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
         
         # self.tableWidget.setTextAlignment()
-        
+
         for row in cur.execute(sqlquery):
-            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(str(row[0]))) # column 1
-            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
-            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
-            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 3
+
+            item0 = QTableWidgetItem(str(row[0]))
+            item0.setTextAlignment(Qt.AlignCenter)
+            item1 = QTableWidgetItem(row[1])
+            item1.setTextAlignment(Qt.AlignCenter)
+            item2 = QTableWidgetItem(row[2])
+            item2.setTextAlignment(Qt.AlignCenter)
+            item3 = QTableWidgetItem(row[3])
+            item3.setTextAlignment(Qt.AlignCenter)
+
+            self.tableWidget.setItem(tablerow, 0, item0) # column 1
+            self.tableWidget.setItem(tablerow, 1, item1) # column 2
+            self.tableWidget.setItem(tablerow, 2, item2) # column 3
+            self.tableWidget.setItem(tablerow, 3, item3) # column 3
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -521,13 +549,25 @@ class RecordsScreen(QMainWindow):
         registeredemployees = cur.execute(counter).fetchone()[0]
         self.tableWidget.setRowCount(registeredemployees)
         self.tableWidget.setColumnWidth(0,100)
-        
+
         for row in cur.execute(sqlquery):
-            self.tableWidget.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(row[0])) # column 1
-            self.tableWidget.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(row[1])) # column 2
-            self.tableWidget.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(row[2])) # column 3
-            self.tableWidget.setItem(tablerow, 3, QtWidgets.QTableWidgetItem(row[3])) # column 4
-            self.tableWidget.setItem(tablerow, 4, QtWidgets.QTableWidgetItem(row[4])) # column 5
+
+            item0 = QTableWidgetItem(row[0])
+            item0.setTextAlignment(Qt.AlignCenter)
+            item1 = QTableWidgetItem(row[1])
+            item1.setTextAlignment(Qt.AlignCenter)
+            item2 = QTableWidgetItem(row[2])
+            item2.setTextAlignment(Qt.AlignCenter)
+            item3 = QTableWidgetItem(row[3])
+            item3.setTextAlignment(Qt.AlignCenter)
+            item4 = QTableWidgetItem(row[4])
+            item4.setTextAlignment(Qt.AlignCenter)
+
+            self.tableWidget.setItem(tablerow, 0, item0) # column 1
+            self.tableWidget.setItem(tablerow, 1, item1) # column 2
+            self.tableWidget.setItem(tablerow, 2, item2) # column 3
+            self.tableWidget.setItem(tablerow, 3, item3) # column 4
+            self.tableWidget.setItem(tablerow, 4, item4) # column 5
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)

@@ -330,32 +330,14 @@ border-top-left-radius: 8px;</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>801</width>
+          <width>791</width>
           <height>41</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_14">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QLabel" name="label_9">
            <property name="font">
@@ -374,6 +356,9 @@ border-radius: 8px;</string>
            </property>
            <property name="text">
             <string>ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -396,26 +381,8 @@ border-radius: 8px;</string>
            <property name="text">
             <string>Date</string>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_16">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string/>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -438,26 +405,8 @@ border-radius: 8px;</string>
            <property name="text">
             <string>Action</string>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_18">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string/>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -480,26 +429,8 @@ border-radius: 8px;</string>
            <property name="text">
             <string>User ID</string>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_22">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string/>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
