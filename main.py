@@ -62,7 +62,6 @@ class LoginScreen(QMainWindow):
             cur.execute(query)
             result_pass = cur.fetchone()
             
-            
             if result_pass is not None:
                 result_pass = result_pass[0]
 
@@ -83,6 +82,9 @@ class LoginScreen(QMainWindow):
                 self.errorlabel.setText("")
                 self.gotoDashboard()
                 insert_database.insert_system_logs('Login', LOGIN_USER)
+                
+                self.usernamefield.setText("")
+                self.passwordfield.setText("")
                 
             else:
                 self.errorlabel.setText("Invalid username or password.")
@@ -120,15 +122,24 @@ class DashboardScreen(QMainWindow):
         
         self.btnLogout.clicked.connect(self.gotoLogout)
         self.btnProfile.clicked.connect(self.gotoProfile)
+        
     ################################################################
     #  BUTTON MENU FOR LOGS
     ################################################################
     def gotoLogout(self):
         qm = QMessageBox()
-        ret = qm.question(self,'WARNING!', "Are you sure you want to exit?", qm.Yes | qm.No)
+        ret = qm.question(self,'WARNING!', "Are you sure you want to logout?", qm.Yes | qm.No)
         if ret == qm.Yes:
-            sys.exit(app.exec_())
-        
+            # global LOGIN_ID
+            # global LOGIN_USER
+            # global LOGIN_PASS
+            
+            # LOGIN_ID = ''
+            # LOGIN_USER = ''
+            # LOGIN_PASS = ''
+            widget.removeWidget(widget.currentWidget())
+    
+    
     def showLogsMenu(self):
         if self.hidden:
             self.detectionbtn.show()
