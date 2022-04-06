@@ -96,6 +96,7 @@ class DashboardScreen(QMainWindow):
         insert_database.insert_system_logs('Dashboard', ACCOUNT_LOGIN)
         
         self.btnLogout.clicked.connect(self.gotoLogout)
+        self.btnProfile.clicked.connect(self.gotoProfile)
     ################################################################
     #  BUTTON MENU FOR LOGS
     ################################################################
@@ -104,7 +105,7 @@ class DashboardScreen(QMainWindow):
         ret = qm.question(self,'WARNING!', "Are you sure you want to exit?", qm.Yes | qm.No)
         if ret == qm.Yes:
             sys.exit(app.exec_())
-            
+        
     def showLogsMenu(self):
         if self.hidden:
             self.detectionbtn.show()
@@ -147,7 +148,11 @@ class DashboardScreen(QMainWindow):
         widget.addWidget(records)
         widget.setCurrentIndex(widget.currentIndex() + 1)
     
-    
+    def gotoProfile(self):
+        profile = ProfileScreen()
+        widget.addWidget(profile)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+        
     @QtCore.pyqtSlot()
     def openFile(self):
         insert_database.insert_system_logs('Get Started', ACCOUNT_LOGIN)
@@ -655,6 +660,25 @@ class RecordsScreen(QMainWindow):
         register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+    
+class ProfileScreen(QMainWindow):
+    # loading up the register
+    def __init__(self):
+        super(ProfileScreen, self).__init__()
+        loadUi('profile.ui', self)
+        self.btnBack.clicked.connect(self.gotoDashboard)
+        
+        self.linePassword.setEchoMode(QLineEdit.Password)
+
+    # def on_btn_show_pwd_toggled(self, checked):
+    #     if checked:
+    #         self.linePassword.setEchoMode(QLineEdit.Password)
+    #     else:
+    #         self.linePassword.setEchoMode(QLineEdit.Normal)
+        
+    def gotoDashboard(self):
+        widget.removeWidget(widget.currentWidget())
+      
     
 # main
 app = QApplication(sys.argv)

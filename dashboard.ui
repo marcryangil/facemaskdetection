@@ -552,9 +552,9 @@ QPushButton:pressed{
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgb(255,255,255);
+	background-color: rgb(33, 113, 93);
 	border: none;
-	color: rgb(255,255,255);
+	color: rgb(255, 255, 255);
 	border-radius: 20px;
 }
 QPushButton:hover{
@@ -581,13 +581,13 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnUserProfile">
+      <widget class="QPushButton" name="btnProfile">
        <property name="geometry">
         <rect>
          <x>810</x>
          <y>20</y>
          <width>41</width>
-         <height>41</height>
+         <height>43</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -606,9 +606,9 @@ QPushButton:pressed{
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgb(255,255,255);
+	background-color: rgb(33, 113, 93);
 	border: none;
-	color: rgb(255,255,255);
+	color: rgb(255, 255, 255);
 	border-radius: 20px;
 }
 QPushButton:hover{
