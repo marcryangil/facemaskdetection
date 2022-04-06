@@ -5,7 +5,7 @@ from datetime import datetime
 class DatabaseManager():
     
     def open_db_registeredemployee(self):
-        # print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
+        # print("THE ACCOUNT: "+ LOGIN_USER)
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
@@ -27,7 +27,7 @@ class DatabaseManager():
         conn.close()
     
     def open_db_system_logs(self):
-        # print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
+        # print("THE ACCOUNT: "+ LOGIN_USER)
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
@@ -49,7 +49,7 @@ class DatabaseManager():
         
         
     def open_db_detection_logs(self):
-        # print("THE ACCOUNT: "+ ACCOUNT_LOGIN)
+        # print("THE ACCOUNT: "+ LOGIN_USER)
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor

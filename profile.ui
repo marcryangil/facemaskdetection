@@ -102,7 +102,7 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnSave">
+      <widget class="QPushButton" name="btnUpdate">
        <property name="geometry">
         <rect>
          <x>580</x>
@@ -140,7 +140,7 @@ QPushButton:pressed{
 }</string>
        </property>
        <property name="text">
-        <string>SAVE</string>
+        <string>UPDATE</string>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -306,6 +306,9 @@ QPushButton:pressed{
        </property>
       </widget>
       <widget class="QLineEdit" name="lineId">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -318,6 +321,8 @@ QPushButton:pressed{
         <font>
          <family>Work Sans</family>
          <pointsize>12</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
@@ -417,27 +422,17 @@ color:red;</string>
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="label_8">
+      <widget class="QCheckBox" name="checkBox">
        <property name="geometry">
         <rect>
-         <x>808</x>
-         <y>215</y>
-         <width>91</width>
-         <height>61</height>
+         <x>770</x>
+         <y>175</y>
+         <width>92</width>
+         <height>23</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <family>Work Sans Medium</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: transparent;
-color:  rgb(192,192,192);</string>
-       </property>
        <property name="text">
-        <string>⏷</string>
+        <string>Show</string>
        </property>
       </widget>
      </widget>
@@ -504,7 +499,7 @@ color:  rgb(192,192,192);</string>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>btnSave</tabstop>
+  <tabstop>btnUpdate</tabstop>
   <tabstop>btnBack</tabstop>
  </tabstops>
  <resources>

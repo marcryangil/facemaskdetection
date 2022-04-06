@@ -9,7 +9,9 @@ import resources
 from db_management import DatabaseManager, InsertDatabase
 import stylesheets
 
-ACCOUNT_LOGIN = ''
+LOGIN_ID = ''
+LOGIN_USER = ''
+LOGIN_PASS = ''
 SYSTEM_LOGS = []
 insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
@@ -52,24 +54,38 @@ class LoginScreen(QMainWindow):
             query = 'SELECT password FROM users WHERE username = \'' + username + "\'"
             cur.execute(query)
             result_pass = cur.fetchone()
-
+            
+            
             if result_pass is not None:
                 result_pass = result_pass[0]
 
             if result_pass == password:
-                global ACCOUNT_LOGIN
-                ACCOUNT_LOGIN = username
+                global LOGIN_ID
+                global LOGIN_USER
+                global LOGIN_PASS
+                
+                getId = 'SELECT * FROM users WHERE username= \'' + username + "\'"
+                cur.execute(getId)
+                
+                LOGIN_ID = cur.fetchone()[0]
+                LOGIN_USER = username
+                LOGIN_PASS = password
+                
                 open_database = DatabaseManager()
                 open_database.open_db_system_logs()
                 self.errorlabel.setText("")
                 self.gotoDashboard()
-                insert_database.insert_system_logs('Login', ACCOUNT_LOGIN)
+                insert_database.insert_system_logs('Login', LOGIN_USER)
                 
             else:
                 self.errorlabel.setText("Invalid username or password.")
                 self.usernamefield.setStyleSheet(stylesheets.haserrorline)
                 self.passwordfield.setStyleSheet(stylesheets.haserrorline)
-                
+            
+            # Commit changes
+            conn.commit()
+            # Close connection
+            conn.close()
     
     def gotoDashboard(self):
         dashboard = DashboardScreen()
@@ -93,7 +109,7 @@ class DashboardScreen(QMainWindow):
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
         
-        insert_database.insert_system_logs('Dashboard', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Dashboard', LOGIN_USER)
         
         self.btnLogout.clicked.connect(self.gotoLogout)
         self.btnProfile.clicked.connect(self.gotoProfile)
@@ -117,19 +133,19 @@ class DashboardScreen(QMainWindow):
             self.hidden = True
 
     def gotoLogs(self):
-        insert_database.insert_system_logs('Logs', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Logs', LOGIN_USER)
         logs = LogScreen()
         widget.addWidget(logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def gotoRegister(self):
-        insert_database.insert_system_logs('Register Face', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Register Face', LOGIN_USER)
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def gotoLaunch(self):
-        insert_database.insert_system_logs('Launch', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Launch', LOGIN_USER)
         ######################################################
         # Temporarily unavailable
         msg = QMessageBox()
@@ -143,7 +159,7 @@ class DashboardScreen(QMainWindow):
         os.system('python detect/mask.py')
 
     def gotoRecords(self):
-        insert_database.insert_system_logs('Records', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Records', LOGIN_USER)
         records = RecordsScreen()
         widget.addWidget(records)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -155,7 +171,7 @@ class DashboardScreen(QMainWindow):
         
     @QtCore.pyqtSlot()
     def openFile(self):
-        insert_database.insert_system_logs('Get Started', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Get Started', LOGIN_USER)
         ######################################################
         # Temporarily unavailable
         msg = QMessageBox()
@@ -168,7 +184,7 @@ class DashboardScreen(QMainWindow):
         QtGui.QDesktopServices.openUrl(url)
         
     def gotoSystemLogs(self):
-        insert_database.insert_system_logs('Logs - System', ACCOUNT_LOGIN)
+        insert_database.insert_system_logs('Logs - System', LOGIN_USER)
         system_logs = SystemLogScreen()
         widget.addWidget(system_logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -463,7 +479,7 @@ class RegisterScreen(QMainWindow):
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
-                                'registered_by':ACCOUNT_LOGIN,
+                                'registered_by':LOGIN_USER,
                             }
                             )
                 elif self.btnSave.text() == 'UPDATE':
@@ -473,7 +489,7 @@ class RegisterScreen(QMainWindow):
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
-                                'registered_by':ACCOUNT_LOGIN,
+                                'registered_by':LOGIN_USER,
                             }
                             )
                 # Commit changes
@@ -669,15 +685,53 @@ class ProfileScreen(QMainWindow):
         self.btnBack.clicked.connect(self.gotoDashboard)
         
         self.linePassword.setEchoMode(QLineEdit.Password)
-
-    # def on_btn_show_pwd_toggled(self, checked):
-    #     if checked:
-    #         self.linePassword.setEchoMode(QLineEdit.Password)
-    #     else:
-    #         self.linePassword.setEchoMode(QLineEdit.Normal)
+        self.checkBox.clicked.connect(self.toggleVisibility)
         
+        self.lineId.setText(LOGIN_ID)
+        self.lineUsername.setText(LOGIN_USER)
+        self.linePassword.setText(LOGIN_PASS)
+        self.btnUpdate.clicked.connect(self.updateProfile)
+    #     self.loaddata()
+    # def loaddata(self):
+    #     connection = sqlite3.connect("facemaskdetectionDB.db")
+    #     cur = connection.cursor()
+    #     query = 'SELECT * FROM users WHERE username= \'' + LOGIN_USER + "\'"
+    #     cur.execute(query)
+    #     id = cur.fetchone()
+
+    #     print(id)
+    
+    def toggleVisibility(self):
+        if self.linePassword.echoMode()==QLineEdit.Normal:
+            self.linePassword.setEchoMode(QLineEdit.Password)
+        else:
+            self.linePassword.setEchoMode(QLineEdit.Normal)
+   
+    def updateProfile(self):
+        
+        if (len(self.lineUsername.text().replace(' ','')) != 0 and len(self.linePassword.text().replace(' ','')) != 0):
+            conn = sqlite3.connect('facemaskdetectionDB.db')
+            c = conn.cursor()
+                # Insert user to the database
+            c.execute("REPLACE INTO users VALUES(:id, :username, :password)",
+                    {
+                        'id': self.lineId.text(),
+                        'username': self.lineUsername.text(),
+                        'password': self.linePassword.text(),
+                        }
+                    )
+            # self.lineUsername.setText(USERNAME)
+            # self.linePassword.setText(LOGIN_PASS)
+                    # Commit changes
+            conn.commit()
+            # Close connection
+            conn.close()
+            print('UPDATED')
+            
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
+   
+    
       
     
 # main
