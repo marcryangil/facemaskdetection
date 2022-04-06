@@ -29,7 +29,14 @@ class LoginScreen(QMainWindow):
         
         self.usernamefield.textChanged.connect(self.usernamevalue)
         self.passwordfield.textChanged.connect(self.passwordvalue)
+        self.passwordfield.setEchoMode(QLineEdit.Password)
+        self.checkBox.clicked.connect(self.toggleVisibility)
         
+    def toggleVisibility(self):
+        if self.passwordfield.echoMode()==QLineEdit.Normal:
+            self.passwordfield.setEchoMode(QLineEdit.Password)
+        else:
+            self.passwordfield.setEchoMode(QLineEdit.Normal)
     
     def usernamevalue(self):
         if len(self.usernamefield.text()) != 0:
