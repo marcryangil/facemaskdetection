@@ -7,4 +7,8 @@
     <file>back_white.png</file>
     <file>logo.png</file>
   </qresource>
+  <qresource prefix="images">
+    <file>images/logout.png</file>
+    <file>images/user.png</file>
+  </qresource>
 </RCC>

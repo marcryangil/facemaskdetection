@@ -94,10 +94,17 @@ class DashboardScreen(QMainWindow):
         self.recordsbtn.clicked.connect(self.gotoRecords)
         
         insert_database.insert_system_logs('Dashboard', ACCOUNT_LOGIN)
-
+        
+        self.btnLogout.clicked.connect(self.gotoLogout)
     ################################################################
     #  BUTTON MENU FOR LOGS
     ################################################################
+    def gotoLogout(self):
+        qm = QMessageBox()
+        ret = qm.question(self,'WARNING!', "Are you sure you want to exit?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            sys.exit(app.exec_())
+            
     def showLogsMenu(self):
         if self.hidden:
             self.detectionbtn.show()
