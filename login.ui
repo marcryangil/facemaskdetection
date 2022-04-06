@@ -92,7 +92,9 @@
     <item>
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255))</string>
+       <string notr="true">QFrame{
+background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255))
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -293,7 +295,7 @@ color: red;</string>
       <widget class="QCheckBox" name="checkBox">
        <property name="geometry">
         <rect>
-         <x>510</x>
+         <x>520</x>
          <y>280</y>
          <width>92</width>
          <height>23</height>
