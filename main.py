@@ -83,9 +83,6 @@ class LoginScreen(QMainWindow):
                 self.gotoDashboard()
                 insert_database.insert_system_logs('Login', LOGIN_USER)
                 
-                self.usernamefield.setText("")
-                self.passwordfield.setText("")
-                
             else:
                 self.errorlabel.setText("Invalid username or password.")
                 self.usernamefield.setStyleSheet(stylesheets.haserrorline)
@@ -130,15 +127,10 @@ class DashboardScreen(QMainWindow):
         qm = QMessageBox()
         ret = qm.question(self,'WARNING!', "Are you sure you want to logout?", qm.Yes | qm.No)
         if ret == qm.Yes:
-            # global LOGIN_ID
-            # global LOGIN_USER
-            # global LOGIN_PASS
-            
-            # LOGIN_ID = ''
-            # LOGIN_USER = ''
-            # LOGIN_PASS = ''
-            widget.removeWidget(widget.currentWidget())
-    
+            # widget.removeWidget(widget.currentWidget())
+            login = LoginScreen()
+            widget.addWidget(login)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def showLogsMenu(self):
         if self.hidden:
@@ -727,11 +719,12 @@ class ProfileScreen(QMainWindow):
    
     def updateProfile(self):
         
+
         if (len(self.lineUsername.text().replace(' ','')) != 0 and len(self.linePassword.text().replace(' ','')) != 0):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             c = conn.cursor()
                 # Insert user to the database
-            c.execute("REPLACE INTO users VALUES(:id, :username, :password)",
+            c.execute("INSERT OR REPLACE INTO users VALUES(:id, :username, :password)",
                     {
                         'id': self.lineId.text(),
                         'username': self.lineUsername.text(),
@@ -744,6 +737,14 @@ class ProfileScreen(QMainWindow):
             conn.commit()
             # Close connection
             conn.close()
+            global LOGIN_ID
+            global LOGIN_USER
+            global LOGIN_PASS
+                
+            LOGIN_ID = self.lineId.text()
+            LOGIN_USER = self.lineUsername.text()
+            LOGIN_PASS = self.linePassword.text()
+            
             msg = QMessageBox()
             msg.setWindowTitle('CHANGES SAVED!')
             msg.setText('User has been saved')
