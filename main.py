@@ -726,7 +726,12 @@ class ProfileScreen(QMainWindow):
             conn.commit()
             # Close connection
             conn.close()
-            print('UPDATED')
+            msg = QMessageBox()
+            msg.setWindowTitle('CHANGES SAVED!')
+            msg.setText('User has been saved')
+            msg.setIcon(QMessageBox.Information)
+            x = msg.exec_()
+            
             
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
