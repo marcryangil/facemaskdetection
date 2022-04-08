@@ -338,7 +338,7 @@ QPushButton:pressed{
 </string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineUsername">
+      <widget class="QLineEdit" name="usernamefield">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -366,7 +366,7 @@ QPushButton:pressed{
 </string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="linePassword">
+      <widget class="QLineEdit" name="passwordfield">
        <property name="geometry">
         <rect>
          <x>510</x>
@@ -389,7 +389,7 @@ QPushButton:pressed{
     border-radius: 8px;
     border-color: rgb(192,192,192);
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 50px; 
 }
 </string>
        </property>
@@ -422,19 +422,85 @@ color:red;</string>
         <string/>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QPushButton" name="pushButtonHide">
        <property name="geometry">
         <rect>
-         <x>770</x>
-         <y>175</y>
-         <width>92</width>
-         <height>23</height>
+         <x>799</x>
+         <y>180</y>
+         <width>21</width>
+         <height>16</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color:transparent;
+	border: none;
+}
+</string>
+       </property>
        <property name="text">
-        <string>Show</string>
+        <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="label_hide">
+       <property name="geometry">
+        <rect>
+         <x>802</x>
+         <y>180</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/images/hide.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_show">
+       <property name="geometry">
+        <rect>
+         <x>802</x>
+         <y>180</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/images/show.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <zorder>btnUpdate</zorder>
+      <zorder>label_4</zorder>
+      <zorder>label_1</zorder>
+      <zorder>label_2</zorder>
+      <zorder>btnBack</zorder>
+      <zorder>label_7</zorder>
+      <zorder>lineId</zorder>
+      <zorder>usernamefield</zorder>
+      <zorder>passwordfield</zorder>
+      <zorder>labelError</zorder>
+      <zorder>label_hide</zorder>
+      <zorder>label_show</zorder>
+      <zorder>pushButtonHide</zorder>
      </widget>
     </item>
     <item>

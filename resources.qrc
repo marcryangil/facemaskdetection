@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>images/hide.png</file>
+    <file>images/show.png</file>
     <file>user.png</file>
     <file>logout.png</file>
     <file>emp-black.png</file>

@@ -5,17 +5,17 @@ haserrorline = '''QLineEdit{
     border-radius: 8px;
     border-color: red;
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 35px; 
 }
 '''
-hasnoerrorline = '''QLineEdit{
+hasnoerrorline = '''QLineEdit{ 
 	background-color: rgb(255, 255, 255);
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
     border-color: rgb(192,192,192);
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 35px; 
 }
 '''
 
@@ -26,7 +26,7 @@ haserrorstatus = '''QPushButton{
     border-radius: 8px;
     border-color: red;
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 50px; 
 	color:  rgb(0,0,0);
 	text-align: left;
 }
@@ -44,7 +44,7 @@ hasnoerrorstatus = '''QPushButton{
     border-radius: 8px;
     
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 50px; 
 	color:  rgb(0,0,0);
 	text-align: left;
 }

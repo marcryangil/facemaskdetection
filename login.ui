@@ -251,9 +251,9 @@ Mandate Mask.</string>
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(140, 140, 140);
+    border-color: rgb(192,192,192);
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 50px; 
 }
 </string>
        </property>
@@ -292,19 +292,81 @@ color: red;</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QPushButton" name="pushButtonHide">
        <property name="geometry">
         <rect>
-         <x>520</x>
-         <y>280</y>
-         <width>92</width>
-         <height>23</height>
+         <x>550</x>
+         <y>285</y>
+         <width>21</width>
+         <height>16</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color:transparent;
+	border: none;
+}
+</string>
+       </property>
        <property name="text">
-        <string>Show</string>
+        <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="label_show">
+       <property name="geometry">
+        <rect>
+         <x>553</x>
+         <y>285</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/images/show.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_hide">
+       <property name="geometry">
+        <rect>
+         <x>553</x>
+         <y>285</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="resources.qrc">:/newPrefix/images/hide.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <zorder>passwordfield</zorder>
+      <zorder>loginbtn</zorder>
+      <zorder>label_2</zorder>
+      <zorder>label</zorder>
+      <zorder>usernamefield</zorder>
+      <zorder>errorlabel</zorder>
+      <zorder>label_show</zorder>
+      <zorder>label_hide</zorder>
+      <zorder>pushButtonHide</zorder>
      </widget>
     </item>
     <item>

@@ -13,6 +13,8 @@ LOGIN_ID = ''
 LOGIN_USER = ''
 LOGIN_PASS = ''
 SYSTEM_LOGS = []
+temp_user = ''
+temp_pass = ''
 insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -30,13 +32,28 @@ class LoginScreen(QMainWindow):
         self.usernamefield.textChanged.connect(self.usernamevalue)
         self.passwordfield.textChanged.connect(self.passwordvalue)
         self.passwordfield.setEchoMode(QLineEdit.Password)
-        self.checkBox.clicked.connect(self.toggleVisibility)
+
+        self.pushButtonHide.clicked.connect(self.toggleVisibility)
+        self.label_hide.hide()
+
 
     def toggleVisibility(self):
-        if self.passwordfield.echoMode()==QLineEdit.Normal:
+        if self.passwordfield.echoMode() == QLineEdit.Normal:
             self.passwordfield.setEchoMode(QLineEdit.Password)
+            self.label_show.show()
+            self.label_hide.hide()
+            print('HIDING')
         else:
             self.passwordfield.setEchoMode(QLineEdit.Normal)
+            print('SHOWING')
+            self.label_hide.show()
+            self.label_show.hide()
+
+    # def toggleVisibility(self):
+    #     if self.passwordfield.echoMode()==QLineEdit.Normal:
+    #         self.passwordfield.setEchoMode(QLineEdit.Password)
+    #     else:
+    #         self.passwordfield.setEchoMode(QLineEdit.Normal)
 
     def usernamevalue(self):
         if len(self.usernamefield.text()) != 0:
@@ -363,6 +380,7 @@ class SystemLogScreen(QMainWindow):
 #
 # Register window
 #
+
 class RegisterScreen(QMainWindow):
     # loading up the register
     def __init__(self):
@@ -685,46 +703,59 @@ class ProfileScreen(QMainWindow):
         super(ProfileScreen, self).__init__()
         loadUi('profile.ui', self)
         self.btnBack.clicked.connect(self.gotoDashboard)
-
-        self.linePassword.setEchoMode(QLineEdit.Password)
-        self.checkBox.clicked.connect(self.toggleVisibility)
-
+        self.passwordfield.setEchoMode(QLineEdit.Password)
+        self.pushButtonHide.clicked.connect(self.toggleVisibility)
+        self.label_hide.hide()
         self.lineId.setText(LOGIN_ID)
-        self.lineUsername.setText(LOGIN_USER)
-        self.linePassword.setText(LOGIN_PASS)
+        self.usernamefield.setText(LOGIN_USER)
+        self.passwordfield.setText(LOGIN_PASS)
+        self.btnUpdate.setEnabled(False)
+        self.usernamefield.textChanged.connect(self.enableUpdateButton)
+        self.passwordfield.textChanged.connect(self.enableUpdateButton)
         self.btnUpdate.clicked.connect(self.updateProfile)
-    #     self.loaddata()
-    # def loaddata(self):
-    #     connection = sqlite3.connect("facemaskdetectionDB.db")
-    #     cur = connection.cursor()
-    #     query = 'SELECT * FROM users WHERE username= \'' + LOGIN_USER + "\'"
-    #     cur.execute(query)
-    #     id = cur.fetchone()
 
-    #     print(id)
+        global temp_user
+        global temp_pass
+        temp_user = self.usernamefield.text()
+        temp_pass = self.passwordfield.text()
 
+    def enableUpdateButton(self):
+        self.btnUpdate.setEnabled(True)
     def toggleVisibility(self):
-        if self.linePassword.echoMode()==QLineEdit.Normal:
-            self.linePassword.setEchoMode(QLineEdit.Password)
+        if self.passwordfield.echoMode() == QLineEdit.Normal:
+            self.passwordfield.setEchoMode(QLineEdit.Password)
+            self.label_show.show()
+            self.label_hide.hide()
+            print('HIDING')
         else:
-            self.linePassword.setEchoMode(QLineEdit.Normal)
+            self.passwordfield.setEchoMode(QLineEdit.Normal)
+            print('SHOWING')
+            self.label_hide.show()
+            self.label_show.hide()
+            # self.pushButtonHide.show()
 
     def updateProfile(self):
-
-
-        if (len(self.lineUsername.text().replace(' ','')) != 0 and len(self.linePassword.text().replace(' ','')) != 0):
+        # print('temp user: '+str(temp_user))
+        # print('temp pass: '+str(temp_pass))
+        if (temp_user == self.usernamefield.text() and temp_pass == self.passwordfield.text()):
+            msg = QMessageBox()
+            msg.setWindowTitle('NO CHANGES SAVED!')
+            msg.setText('NO CHANGES COMMITTED')
+            msg.setIcon(QMessageBox.Information)
+            x = msg.exec_()
+        elif (len(self.usernamefield.text().replace(' ','')) != 0 and len(self.passwordfield.text().replace(' ','')) != 0):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             c = conn.cursor()
                 # Insert user to the database
             c.execute("INSERT OR REPLACE INTO users VALUES(:id, :username, :password)",
                     {
                         'id': self.lineId.text(),
-                        'username': self.lineUsername.text(),
-                        'password': self.linePassword.text(),
+                        'username': self.usernamefield.text(),
+                        'password': self.passwordfield.text(),
                         }
                     )
-            # self.lineUsername.setText(USERNAME)
-            # self.linePassword.setText(LOGIN_PASS)
+            # self.usernamefield.setText(USERNAME)
+            # self.passwordfield.setText(LOGIN_PASS)
                     # Commit changes
             conn.commit()
             # Close connection
@@ -732,11 +763,14 @@ class ProfileScreen(QMainWindow):
             global LOGIN_ID
             global LOGIN_USER
             global LOGIN_PASS
-
+            # global temp_user
+            # global temp_pass
             LOGIN_ID = self.lineId.text()
-            LOGIN_USER = self.lineUsername.text()
-            LOGIN_PASS = self.linePassword.text()
+            LOGIN_USER = self.usernamefield.text()
+            LOGIN_PASS = self.passwordfield.text()
 
+            # temp_user = self.usernamefield.text()
+            # temp_pass = self.passwordfield.text()
             msg = QMessageBox()
             msg.setWindowTitle('CHANGES SAVED!')
             msg.setText('User has been saved')
