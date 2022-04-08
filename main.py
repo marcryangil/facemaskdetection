@@ -20,24 +20,24 @@ class LoginScreen(QMainWindow):
         # self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
         #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        
+
         loadUi("login.ui", self)
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginbtn.clicked.connect(self.loginfunction)
-        
+
         self._login_username = ''
-        
+
         self.usernamefield.textChanged.connect(self.usernamevalue)
         self.passwordfield.textChanged.connect(self.passwordvalue)
         self.passwordfield.setEchoMode(QLineEdit.Password)
         self.checkBox.clicked.connect(self.toggleVisibility)
-        
+
     def toggleVisibility(self):
         if self.passwordfield.echoMode()==QLineEdit.Normal:
             self.passwordfield.setEchoMode(QLineEdit.Password)
         else:
             self.passwordfield.setEchoMode(QLineEdit.Normal)
-    
+
     def usernamevalue(self):
         if len(self.usernamefield.text()) != 0:
             self.usernamefield.setStyleSheet(stylesheets.hasnoerrorline)
@@ -61,7 +61,7 @@ class LoginScreen(QMainWindow):
             query = 'SELECT password FROM users WHERE username = \'' + username + "\'"
             cur.execute(query)
             result_pass = cur.fetchone()
-            
+
             if result_pass is not None:
                 result_pass = result_pass[0]
 
@@ -69,30 +69,30 @@ class LoginScreen(QMainWindow):
                 global LOGIN_ID
                 global LOGIN_USER
                 global LOGIN_PASS
-                
+
                 getId = 'SELECT * FROM users WHERE username= \'' + username + "\'"
                 cur.execute(getId)
-                
+
                 LOGIN_ID = cur.fetchone()[0]
                 LOGIN_USER = username
                 LOGIN_PASS = password
-                
+
                 open_database = DatabaseManager()
                 open_database.open_db_system_logs()
                 self.errorlabel.setText("")
                 self.gotoDashboard()
                 insert_database.insert_system_logs('Login', LOGIN_USER)
-                
+
             else:
                 self.errorlabel.setText("Invalid username or password.")
                 self.usernamefield.setStyleSheet(stylesheets.haserrorline)
                 self.passwordfield.setStyleSheet(stylesheets.haserrorline)
-            
+
             # Commit changes
             conn.commit()
             # Close connection
             conn.close()
-    
+
     def gotoDashboard(self):
         dashboard = DashboardScreen()
         widget.addWidget(dashboard)
@@ -110,16 +110,16 @@ class DashboardScreen(QMainWindow):
         self.hidden = True
         self.systembtn.clicked.connect(self.gotoSystemLogs)
         self.detectionbtn.clicked.connect(self.gotoLogs)
-        
+
         self.logsbtn.clicked.connect(self.showLogsMenu)
         self.registerbtn.clicked.connect(self.gotoRegister)
         self.recordsbtn.clicked.connect(self.gotoRecords)
-        
+
         insert_database.insert_system_logs('Dashboard', LOGIN_USER)
-        
+
         self.btnLogout.clicked.connect(self.gotoLogout)
         self.btnProfile.clicked.connect(self.gotoProfile)
-        
+
     ################################################################
     #  BUTTON MENU FOR LOGS
     ################################################################
@@ -131,7 +131,7 @@ class DashboardScreen(QMainWindow):
             login = LoginScreen()
             widget.addWidget(login)
             widget.setCurrentIndex(widget.currentIndex() + 1)
-    
+
     def showLogsMenu(self):
         if self.hidden:
             self.detectionbtn.show()
@@ -153,32 +153,30 @@ class DashboardScreen(QMainWindow):
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-    
+
     def gotoLaunch(self):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
-        ######################################################
-        # Temporarily unavailable
-        msg = QMessageBox()
-        msg.setWindowTitle('UNDER CONSTRUCTION')
-        msg.setText('Temporarily Unavailable')
-        msg.setIcon(QMessageBox.Critical)
-        x = msg.exec_()
-        ######################################################
-        
-        import os
-        os.system('python detect/mask.py')
+
+        #import SaveFace
+        #SaveFace.start()
+        import test
+
+        launch = test.MainWindow()
+        widget.addWidget(launch)
+        #widget.setCurrentIndex(widget.currentIndex() + 1)
+
 
     def gotoRecords(self):
         insert_database.insert_system_logs('Records', LOGIN_USER)
         records = RecordsScreen()
         widget.addWidget(records)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-    
+
     def gotoProfile(self):
         profile = ProfileScreen()
         widget.addWidget(profile)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        
+
     @QtCore.pyqtSlot()
     def openFile(self):
         insert_database.insert_system_logs('Get Started', LOGIN_USER)
@@ -192,7 +190,7 @@ class DashboardScreen(QMainWindow):
         ######################################################
         url = QtCore.QUrl.fromLocalFile("Get Started.pdf")
         QtGui.QDesktopServices.openUrl(url)
-        
+
     def gotoSystemLogs(self):
         insert_database.insert_system_logs('Logs - System', LOGIN_USER)
         system_logs = SystemLogScreen()
@@ -229,7 +227,7 @@ class LogScreen(QMainWindow):
 
         self.guestbtn.setStyleSheet(stylesheets.activatedstyle)
         self.empbtn.setStyleSheet(stylesheets.inactivestyle)
-        
+
         self.label_27.hide()
         self.tableWidget.hide()
         self.tableWidgetGuest.show()
@@ -242,7 +240,7 @@ class LogScreen(QMainWindow):
 
         self.empbtn.setStyleSheet(stylesheets.activatedstyle)
         self.guestbtn.setStyleSheet(stylesheets.inactivestyle)
-        
+
         self.label_27.show()
         self.tableWidget.show()
         self.tableWidgetGuest.hide()
@@ -251,7 +249,7 @@ class LogScreen(QMainWindow):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
         sqlquery = "SELECT * FROM detection_logs"
-        
+
         counter = "SELECT COUNT(id) FROM detection_logs"
         tablerow = 0
 
@@ -279,18 +277,18 @@ class LogScreen(QMainWindow):
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
-    
+
     def loaddataguest(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
         sqlquery = "SELECT * FROM detection_logs_guest"
-        
+
         counter = "SELECT COUNT(id) FROM detection_logs_guest"
         tablerow = 0
 
          # To stretch the item lists on tableWidget
         self.tableWidgetGuest.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        
+
         # to count how many rows in registered user
         detectionlogsguest = cur.execute(counter).fetchone()[0]
         self.tableWidgetGuest.setRowCount(detectionlogsguest)
@@ -316,7 +314,7 @@ class LogScreen(QMainWindow):
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    
+
 class SystemLogScreen(QMainWindow):
     def __init__(self):
         super(SystemLogScreen, self).__init__()
@@ -324,14 +322,14 @@ class SystemLogScreen(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(["ID", "Username", "Password"])
         self.loaddata()
         self.btnBack.clicked.connect(self.gotoDashboard)
-        
+
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
         sqlquery = "SELECT * FROM system_logs"
         counter = "SELECT COUNT(id) FROM system_logs"
         tablerow = 0
-        
+
         # To count how many rows in registered user
         system_logs_qty = cur.execute(counter).fetchone()[0]
         self.tableWidget.setRowCount(system_logs_qty)
@@ -341,7 +339,7 @@ class SystemLogScreen(QMainWindow):
         # Remove horizontal gridlines
         self.tableWidget.setShowGrid(False)
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
-        
+
         # self.tableWidget.setTextAlignment()
 
         for row in cur.execute(sqlquery):
@@ -375,9 +373,9 @@ class RegisterScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(RegisterScreen, self).__init__()
-        
+
         loadUi('register.ui', self)
-        
+
         db_open = DatabaseManager()
         db_open.open_db_registeredemployee()
         self.btnBack.clicked.connect(self.gotoDashboard)
@@ -392,25 +390,25 @@ class RegisterScreen(QMainWindow):
         self.lineId.textChanged.connect(self.idvalue)
         self.lineFirstName.textChanged.connect(self.fnamevalue)
         self.lineLastName.textChanged.connect(self.lnamevalue)
-    
+
     def idvalue(self):
         if len(self.lineId.text()) != 0:
             self.lineId.setStyleSheet(stylesheets.hasnoerrorline)
         else:
             self.lineId.setStyleSheet(stylesheets.haserrorline)
-            
+
     def fnamevalue(self):
         if len(self.lineFirstName.text()) != 0:
             self.lineFirstName.setStyleSheet(stylesheets.hasnoerrorline)
         else:
             self.lineFirstName.setStyleSheet(stylesheets.haserrorline)
-        
+
     def lnamevalue(self):
         if len(self.lineLastName.text()) != 0:
             self.lineLastName.setStyleSheet(stylesheets.hasnoerrorline)
         else:
             self.lineLastName.setStyleSheet(stylesheets.haserrorline)
-    
+
     def showStatusMenu(self):
         if self.hidden:
             self.activebtn.show()
@@ -433,26 +431,26 @@ class RegisterScreen(QMainWindow):
         self.activebtn.hide()
         self.inactivebtn.hide()
         self.hidden = True
-    
-    def has_error_id(self): 
+
+    def has_error_id(self):
         id = self.lineId.text().replace(' ','')
         # IF id has value then is a valid id
         return not bool(id)
-    
-    def has_error_first_name(self): 
+
+    def has_error_first_name(self):
         id = self.lineFirstName.text().replace(' ','')
         # IF id has value then is a valid first name
         return not bool(id)
-    
-    def has_error_last_name(self): 
+
+    def has_error_last_name(self):
         id = self.lineLastName.text().replace(' ','')
         # IF id has value then is a valid last name
         return not bool(id)
-    
+
     def has_error_status(self):
         check_status = self.statusbtn.text() == 'active' or self.statusbtn.text() == 'inactive'
         return not check_status
-    
+
     # to clear details after successful submit
     def clearDetails(self):
         self.lineId.clear()
@@ -463,7 +461,7 @@ class RegisterScreen(QMainWindow):
         self.lineFirstName.setStyleSheet(stylesheets.hasnoerrorline)
         self.lineLastName.setStyleSheet(stylesheets.hasnoerrorline)
         self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
-    
+
     def saveIt(self, _id= None, _first=None, _last=None, _status=None):
         if self.has_error_id() or self.has_error_first_name() and self.has_error_last_name() or self.has_error_status():
             if self.has_error_id():
@@ -506,14 +504,14 @@ class RegisterScreen(QMainWindow):
                 conn.commit()
                 # Close connection
                 conn.close()
-                
+
                 # Pop up message box
                 msg = QMessageBox()
                 msg.setWindowTitle('Saved to the Database!')
                 msg.setText('User has been saved')
                 msg.setIcon(QMessageBox.Information)
                 x = msg.exec_()
-                
+
                 self.clearDetails()
             except sqlite3.Error as er:
                 self.lineId.setStyleSheet(stylesheets.haserrorline)
@@ -526,10 +524,10 @@ class RegisterScreen(QMainWindow):
                 # print("Exception class is: ", er.__class__)
                 # print('SQLite traceback: ')
                 # exc_type, exc_value, exc_tb = sys.exc_info()
-                # print(traceback.format_exception(exc_type, exc_value, exc_tb))   
-    
+                # print(traceback.format_exception(exc_type, exc_value, exc_tb))
+
     ################################################################
-    # To update details 
+    # To update details
     ################################################################
     def loadDetails(self, _id= None, _first=None, _last=None, _status=None):
         self.lineId.setText(_id)
@@ -538,14 +536,14 @@ class RegisterScreen(QMainWindow):
         self.lineLastName.setText(_last)
         self.statusbtn.setText(_status)
         self.btnSave.setText('UPDATE')
-        
-    
+
+
     def gotoDashboard(self):
         #register = RegisterScreen()
         widget.removeWidget(widget.currentWidget())
         #widget.setCurrentIndex(widget.currentIndex() - 1)
-        
-        
+
+
 
 #
 # Records window
@@ -555,27 +553,27 @@ class RecordsScreen(QMainWindow):
     def __init__(self):
         super(RecordsScreen, self).__init__()
         loadUi('records.ui', self)
-        
+
         db_open = DatabaseManager()
         db_open.open_db_registeredemployee()
-        
+
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         # Remove horizontal gridlines
         self.tableWidget.setShowGrid(False)
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
-        
+
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnRegister.clicked.connect(self.gotoRegister)
         self.btnDelete.clicked.connect(self.gotoDelete)
         self.lineSearch.textChanged.connect(self.search)
         self.btnEdit.clicked.connect(self.edit)
-        
+
         # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
         # item = QTableWidgetItem(scraped_age) # create the item
         # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
-        
+
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
@@ -609,28 +607,28 @@ class RecordsScreen(QMainWindow):
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
-    
+
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
-        
+
     def gotoRegister(self):
         #self.gotoDashboard()
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-    
+
     def gotoDelete(self):
         # set current row on table
         row = self.tableWidget.currentRow()
         # set current column on table
-        # col = self.tableWidget.currentColumn() 
-        
+        # col = self.tableWidget.currentColumn()
+
         cellValue = self.tableWidget.item(row,0).text()
         print('ROW: '+str(row))
-        
+
         idName = str(self.input_delete_id(cellValue))
         print("id name: "+idName)
-        
+
         if idName:
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
@@ -642,30 +640,30 @@ class RecordsScreen(QMainWindow):
                     )
             conn.commit()
             conn.close()
-        
+
         # reload the data after deletion
         self.loaddata()
-    
+
     def input_delete_id(self,cell_name):
         text, result = QtWidgets.QInputDialog.getText(self, 'Delete Record', 'Enter id number: ',text=cell_name)
 
         if result == True:
             return text
-    
+
     def search(self):
         name = self.lineSearch.text()
         for row in range(self.tableWidget.rowCount()):
             item = self.tableWidget.item(row, 0)
             # if the search is *not* in the item's text *do not hide* the row
-            self.tableWidget.setRowHidden(row, name not in item.text().lower())    
-    
+            self.tableWidget.setRowHidden(row, name not in item.text().lower())
+
     def edit(self):
         register = RegisterScreen()
-        
+
         row = self.tableWidget.currentRow()
-        
+
         cellValue = self.tableWidget.item(row,0).text()
-        
+
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
@@ -675,28 +673,28 @@ class RecordsScreen(QMainWindow):
                     }
                     )
         rows = c.fetchall()[0]
-        values = [] 
+        values = []
         for row in rows:
             values.append(row)
 
-        
+
         conn.commit()
         conn.close()
 
         register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-    
+
 class ProfileScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(ProfileScreen, self).__init__()
         loadUi('profile.ui', self)
         self.btnBack.clicked.connect(self.gotoDashboard)
-        
+
         self.linePassword.setEchoMode(QLineEdit.Password)
         self.checkBox.clicked.connect(self.toggleVisibility)
-        
+
         self.lineId.setText(LOGIN_ID)
         self.lineUsername.setText(LOGIN_USER)
         self.linePassword.setText(LOGIN_PASS)
@@ -710,15 +708,15 @@ class ProfileScreen(QMainWindow):
     #     id = cur.fetchone()
 
     #     print(id)
-    
+
     def toggleVisibility(self):
         if self.linePassword.echoMode()==QLineEdit.Normal:
             self.linePassword.setEchoMode(QLineEdit.Password)
         else:
             self.linePassword.setEchoMode(QLineEdit.Normal)
-   
+
     def updateProfile(self):
-        
+
 
         if (len(self.lineUsername.text().replace(' ','')) != 0 and len(self.linePassword.text().replace(' ','')) != 0):
             conn = sqlite3.connect('facemaskdetectionDB.db')
@@ -740,24 +738,24 @@ class ProfileScreen(QMainWindow):
             global LOGIN_ID
             global LOGIN_USER
             global LOGIN_PASS
-                
+
             LOGIN_ID = self.lineId.text()
             LOGIN_USER = self.lineUsername.text()
             LOGIN_PASS = self.linePassword.text()
-            
+
             msg = QMessageBox()
             msg.setWindowTitle('CHANGES SAVED!')
             msg.setText('User has been saved')
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_()
-            
-            
+
+
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
-   
-    
-      
-    
+
+
+
+
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()
@@ -765,6 +763,8 @@ widget = QStackedWidget()
 widget.addWidget(login)
 widget.setFixedSize(942, 495)
 widget.show()
+
+
 
 try:
     sys.exit(app.exec())
