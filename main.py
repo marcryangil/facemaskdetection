@@ -158,9 +158,7 @@ class DashboardScreen(QMainWindow):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
 
         import savefaceimage
-        savefaceimage.start()
-
-
+        savefaceimage.start(credentials="test")
 
     def gotoRecords(self):
         insert_database.insert_system_logs('Records', LOGIN_USER)

@@ -66,7 +66,7 @@ def video_init(camera_source=0,resolution="480",to_write=False,save_dir=None):
 
     return cap,height,width,writer
 
-def stream(pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=False,save_dir=None):
+def stream(credentials,pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=False,save_dir=None):
 
 
     #----var
@@ -230,7 +230,7 @@ def stream(pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=
     if writer is not None:
         writer.release()
 
-def start():
+def start(credentials):
     camera_source = 0
     pb_path = r"pb_model_select_num=15.pb"
 
@@ -241,4 +241,4 @@ def start():
                  }
     ref_dir = r"C:\Users\gilma\Documents\UdemyThesis\test_database"
 
-    stream(pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="720", to_write=False, save_dir=None)
+    stream(credentials,pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="1080", to_write=False, save_dir=None)
