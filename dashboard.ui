@@ -92,7 +92,9 @@
     <item>
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255))</string>
+       <string notr="true">QFrame{
+background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255))
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -530,8 +532,8 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btnLogout">
        <property name="geometry">
         <rect>
-         <x>860</x>
-         <y>20</y>
+         <x>880</x>
+         <y>10</y>
          <width>41</width>
          <height>41</height>
         </rect>
@@ -568,13 +570,13 @@ QPushButton:pressed{
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>images/logout.png</normaloff>images/logout.png</iconset>
+        <iconset resource="resources.qrc">
+         <normaloff>:/newPrefix/logout.png</normaloff>:/newPrefix/logout.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>45</width>
-         <height>45</height>
+         <width>35</width>
+         <height>40</height>
         </size>
        </property>
        <property name="flat">
@@ -584,10 +586,10 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btnProfile">
        <property name="geometry">
         <rect>
-         <x>810</x>
-         <y>20</y>
+         <x>830</x>
+         <y>10</y>
          <width>41</width>
-         <height>43</height>
+         <height>41</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -622,13 +624,13 @@ QPushButton:pressed{
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>images/user.png</normaloff>images/user.png</iconset>
+        <iconset resource="resources.qrc">
+         <normaloff>:/newPrefix/user.png</normaloff>:/newPrefix/user.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>45</width>
-         <height>45</height>
+         <width>35</width>
+         <height>40</height>
         </size>
        </property>
        <property name="flat">

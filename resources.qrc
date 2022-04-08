@@ -1,14 +1,12 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>user.png</file>
+    <file>logout.png</file>
     <file>emp-black.png</file>
     <file>emp-white.png</file>
     <file>guest-black.png</file>
     <file>guest-white.png</file>
     <file>back_white.png</file>
     <file>logo.png</file>
-  </qresource>
-  <qresource prefix="images">
-    <file>images/logout.png</file>
-    <file>images/user.png</file>
   </qresource>
 </RCC>
