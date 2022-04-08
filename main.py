@@ -157,13 +157,9 @@ class DashboardScreen(QMainWindow):
     def gotoLaunch(self):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
 
-        #import SaveFace
-        #SaveFace.start()
-        import test
+        import savefaceimage
+        savefaceimage.start()
 
-        launch = test.MainWindow()
-        widget.addWidget(launch)
-        #widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
     def gotoRecords(self):
