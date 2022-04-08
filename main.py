@@ -13,8 +13,7 @@ LOGIN_ID = ''
 LOGIN_USER = ''
 LOGIN_PASS = ''
 SYSTEM_LOGS = []
-temp_user = ''
-temp_pass = ''
+
 insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
     def __init__(self):
@@ -714,10 +713,8 @@ class ProfileScreen(QMainWindow):
         self.passwordfield.textChanged.connect(self.enableUpdateButton)
         self.btnUpdate.clicked.connect(self.updateProfile)
 
-        global temp_user
-        global temp_pass
-        temp_user = self.usernamefield.text()
-        temp_pass = self.passwordfield.text()
+        self.temp_user = self.usernamefield.text()
+        self.temp_pass = self.passwordfield.text()
 
     def enableUpdateButton(self):
         self.btnUpdate.setEnabled(True)
@@ -735,9 +732,7 @@ class ProfileScreen(QMainWindow):
             # self.pushButtonHide.show()
 
     def updateProfile(self):
-        # print('temp user: '+str(temp_user))
-        # print('temp pass: '+str(temp_pass))
-        if (temp_user == self.usernamefield.text() and temp_pass == self.passwordfield.text()):
+        if (self.temp_user == self.usernamefield.text() and self.temp_pass == self.passwordfield.text()):
             msg = QMessageBox()
             msg.setWindowTitle('NO CHANGES SAVED!')
             msg.setText('NO CHANGES COMMITTED')
@@ -763,14 +758,13 @@ class ProfileScreen(QMainWindow):
             global LOGIN_ID
             global LOGIN_USER
             global LOGIN_PASS
-            # global temp_user
-            # global temp_pass
+
             LOGIN_ID = self.lineId.text()
             LOGIN_USER = self.usernamefield.text()
             LOGIN_PASS = self.passwordfield.text()
 
-            # temp_user = self.usernamefield.text()
-            # temp_pass = self.passwordfield.text()
+            self.temp_user = self.usernamefield.text()
+            self.temp_pass = self.passwordfield.text()
             msg = QMessageBox()
             msg.setWindowTitle('CHANGES SAVED!')
             msg.setText('User has been saved')
