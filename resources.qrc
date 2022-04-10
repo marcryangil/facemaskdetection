@@ -8,6 +8,7 @@
     <file>emp-white.png</file>
     <file>guest-black.png</file>
     <file>guest-white.png</file>
+    <file>close.png</file>
     <file>back_white.png</file>
     <file>logo.png</file>
   </qresource>

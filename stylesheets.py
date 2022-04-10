@@ -8,6 +8,22 @@ haserrorline = '''QLineEdit{
 	padding-right: 35px; 
 }
 '''
+
+haserrorbtnlaunch = '''
+QPushButton{
+	background-color: rgb(33, 113, 93);
+	border: 1px solid red;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}
+'''
+
 hasnoerrorline = '''QLineEdit{ 
 	background-color: rgb(255, 255, 255);
 	border-style: solid;

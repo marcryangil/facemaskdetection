@@ -5,6 +5,8 @@ import os
 import tensorflow
 import time
 
+from PyQt5.QtCore import pyqtSignal
+
 from face_alignment import FaceMaskDetection
 from tools import model_restore_from_pb
 
@@ -66,7 +68,7 @@ def video_init(camera_source=0,resolution="480",to_write=False,save_dir=None):
 
     return cap,height,width,writer
 
-def stream(credentials,pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=False,save_dir=None):
+def stream(pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=False,save_dir=None):
 
 
     #----var
@@ -169,6 +171,8 @@ def stream(credentials,pb_path, node_dict,ref_dir,camera_source=0,resolution="48
 
         feed_dict_2 = {tf_ref: embeddings_ref}
 
+    #----Send Signal
+    signal_saved_image = False
 
     #----Get an image
     while(cap.isOpened()):
@@ -214,9 +218,10 @@ def stream(credentials,pb_path, node_dict,ref_dir,camera_source=0,resolution="48
                 if len(bboxes) > 0:
                     img_temp = img_copy[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2], :]
                     save_path = "img_crop.jpg"
-                    save_path = os.path.join(ref_dir,save_path)
-                    cv2.imwrite(save_path,img_temp)
-                    print("An image is saved to ",save_path)
+                    save_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), save_path)
+                    cv2.imwrite(save_path, img_temp)
+                    print("An image is saved to ", save_path)
+                    signal_saved_image = True
             if cv2.getWindowProperty("UFMDS", cv2.WND_PROP_VISIBLE) < 1:
                 break
 
@@ -229,8 +234,9 @@ def stream(credentials,pb_path, node_dict,ref_dir,camera_source=0,resolution="48
     cv2.destroyAllWindows()
     if writer is not None:
         writer.release()
+    return signal_saved_image
 
-def start(credentials):
+def start():
     camera_source = 0
     pb_path = r"pb_model_select_num=15.pb"
 
@@ -241,4 +247,7 @@ def start(credentials):
                  }
     ref_dir = r"C:\Users\gilma\Documents\UdemyThesis\test_database"
 
-    stream(credentials,pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="1080", to_write=False, save_dir=None)
+    test = stream(pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="1080", to_write=False, save_dir=None)
+
+    return test
+

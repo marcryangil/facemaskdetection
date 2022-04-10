@@ -1,9 +1,11 @@
+import base64
+import os
 import sqlite3, traceback
 import sys
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, QTableWidgetItem
 import resources
 from db_management import DatabaseManager, InsertDatabase
@@ -172,9 +174,6 @@ class DashboardScreen(QMainWindow):
 
     def gotoLaunch(self):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
-
-        import savefaceimage
-        savefaceimage.start(credentials="test")
 
     def gotoRecords(self):
         insert_database.insert_system_logs('Records', LOGIN_USER)
@@ -391,10 +390,14 @@ class RegisterScreen(QMainWindow):
         db_open.open_db_registeredemployee()
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnSave.clicked.connect(self.saveIt)
+        self.btnLaunch.clicked.connect(self.launch)
+        self.btnshowlaunch.clicked.connect(self.showbtnlaunch)
 
         self.activebtn.hide()
         self.inactivebtn.hide()
         self.hidden = True
+        self.launchhidden = False
+
         self.statusbtn.clicked.connect(self.showStatusMenu)
         self.activebtn.clicked.connect(self.changeStatusToActive)
         self.inactivebtn.clicked.connect(self.changeStatusToInactive)
@@ -402,11 +405,29 @@ class RegisterScreen(QMainWindow):
         self.lineFirstName.textChanged.connect(self.fnamevalue)
         self.lineLastName.textChanged.connect(self.lnamevalue)
 
+    def showbtnlaunch(self):
+        self.btnLaunch.show()
+        self.launchhidden = False
+
+    def setbtntext(self, text):
+        if text:
+            self.btnSave.setText(f'SAVE {text}')
+        else:
+            self.btnSave.setText('SAVE')
+
     def idvalue(self):
         if len(self.lineId.text()) != 0:
             self.lineId.setStyleSheet(stylesheets.hasnoerrorline)
         else:
             self.lineId.setStyleSheet(stylesheets.haserrorline)
+
+    def launch(self):
+        import savefaceimage
+        self.testtest = savefaceimage.start()
+
+        if self.testtest == True:
+            self.btnLaunch.hide()
+            self.launchhidden = True
 
     def fnamevalue(self):
         if len(self.lineFirstName.text()) != 0:
@@ -474,7 +495,10 @@ class RegisterScreen(QMainWindow):
         self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
 
     def saveIt(self, _id= None, _first=None, _last=None, _status=None):
-        if self.has_error_id() or self.has_error_first_name() and self.has_error_last_name() or self.has_error_status():
+
+        idnumber = self.lineId.text()
+
+        if self.has_error_id() or self.has_error_first_name() or self.has_error_last_name() or self.has_error_status() or not self.launchhidden:
             if self.has_error_id():
                 self.lineId.setStyleSheet(stylesheets.haserrorline)
             if self.has_error_first_name():
@@ -483,38 +507,67 @@ class RegisterScreen(QMainWindow):
                 self.lineLastName.setStyleSheet(stylesheets.haserrorline)
             if self.has_error_status():
                 self.statusbtn.setStyleSheet(stylesheets.haserrorstatus)
+            if not self.launchhidden:
+                self.btnLaunch.setStyleSheet(stylesheets.haserrorbtnlaunch)
         else:
             self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
             try:
+
                 self.labelError.setText('')
                 # Create a database or connect to one
                 conn = sqlite3.connect('facemaskdetectionDB.db')
                 c = conn.cursor()
                 # Insert user to the database
-                if self.btnSave.text() == 'SAVE':
+                if self.btnSave.text() == 'SAVE' and self.launchhidden:
                     c.execute("INSERT INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
-                                'id_number': self.lineId.text(),
+                                'id_number': idnumber,
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
-                                'registered_by':LOGIN_USER,
+                                'registered_by': LOGIN_USER,
                             }
                             )
+                    conn.commit()
+                    self.clearDetails()
+
                 elif self.btnSave.text() == 'UPDATE':
                     c.execute("INSERT OR REPLACE INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
                             {
-                                'id_number': self.lineId.text(),
+                                'id_number': idnumber,
                                 'first_name': self.lineFirstName.text(),
                                 'last_name': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
                                 'registered_by':LOGIN_USER,
                             }
                             )
-                # Commit changes
-                conn.commit()
+
+                    conn.commit()
+
                 # Close connection
                 conn.close()
+
+                conn = sqlite3.connect('facemaskdetectionDB.db')
+                c = conn.cursor()
+
+                if self.btnSave.text() == 'SAVE' and self.launchhidden:
+                    file = open('img_crop.jpg', 'rb').read()
+                    file = base64.b64encode(file)
+                    c.execute(
+                        "INSERT INTO RegisteredFaces VALUES(:id, :employee_id, :face, :added_by)",
+                        {
+                            'id': None,
+                            'employee_id': idnumber,
+                            'face': file,
+                            'added_by': LOGIN_USER,
+                        }
+                    )
+                    conn.commit()
+                    conn.close()
+                    self.clearDetails()
+                    self.btnLaunch.show()
+                    self.launchhidden = False
+
 
                 # Pop up message box
                 msg = QMessageBox()
@@ -523,7 +576,7 @@ class RegisterScreen(QMainWindow):
                 msg.setIcon(QMessageBox.Information)
                 x = msg.exec_()
 
-                self.clearDetails()
+
             except sqlite3.Error as er:
                 self.lineId.setStyleSheet(stylesheets.haserrorline)
                 msg = QMessageBox()
