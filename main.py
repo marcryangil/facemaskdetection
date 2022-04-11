@@ -12,6 +12,7 @@ from db_management import DatabaseManager, InsertDatabase
 import stylesheets
 import real_time_face_recognition
 import savetolocal
+import verifylocal
 
 LOGIN_ID = ''
 LOGIN_USER = ''
@@ -177,6 +178,7 @@ class DashboardScreen(QMainWindow):
     def gotoLaunch(self):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
         savetolocal.save()
+        verifylocal.start()
         real_time_face_recognition.start(LOGIN_USER)
 
     def gotoRecords(self):
