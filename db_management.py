@@ -25,54 +25,6 @@ class DatabaseManager():
         conn.commit()
         # Close connection
         conn.close()
-
-    def save_face(self, employee_id, face, added_by):
-        try:
-            self.labelError.setText('')
-            # Create a database or connect to one
-            conn = sqlite3.connect('facemaskdetectionDB.db')
-            c = conn.cursor()
-            # Insert user to the database
-            if self.btnSave.text() == 'SAVE':
-                c.execute(
-                    "INSERT INTO registeredemployee VALUES(:employee_id, :face, :added_by)",
-                    {
-                        'employee_id': employee_id,
-                        'face': face,
-                        'added_by': added_by,
-                    }
-                    )
-            elif self.btnSave.text() == 'UPDATE':
-                c.execute(
-                    "INSERT OR REPLACE INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
-                    {
-                        'id_number': self.lineId.text(),
-                        'first_name': self.lineFirstName.text(),
-                        'last_name': self.lineLastName.text(),
-                        'status': self.statusbtn.text(),
-                        'registered_by': LOGIN_USER,
-                    }
-                    )
-            # Commit changes
-            conn.commit()
-            # Close connection
-            conn.close()
-
-            # Pop up message box
-            msg = QMessageBox()
-            msg.setWindowTitle('Saved to the Database!')
-            msg.setText('User has been saved')
-            msg.setIcon(QMessageBox.Information)
-            x = msg.exec_()
-
-            self.clearDetails()
-        except sqlite3.Error as er:
-            self.lineId.setStyleSheet(stylesheets.haserrorline)
-            msg = QMessageBox()
-            msg.setWindowTitle('ERROR!')
-            msg.setText('Id number must be unique')
-            msg.setIcon(QMessageBox.Critical)
-            x = msg.exec_()
     
     def open_db_system_logs(self):
         # print("THE ACCOUNT: "+ LOGIN_USER)

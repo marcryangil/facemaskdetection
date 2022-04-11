@@ -10,6 +10,8 @@ from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStacke
 import resources
 from db_management import DatabaseManager, InsertDatabase
 import stylesheets
+import real_time_face_recognition
+import savetolocal
 
 LOGIN_ID = ''
 LOGIN_USER = ''
@@ -20,7 +22,7 @@ insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
-        # self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
+        #self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
         #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
@@ -174,6 +176,8 @@ class DashboardScreen(QMainWindow):
 
     def gotoLaunch(self):
         insert_database.insert_system_logs('Launch', LOGIN_USER)
+        savetolocal.save()
+        real_time_face_recognition.start(LOGIN_USER)
 
     def gotoRecords(self):
         insert_database.insert_system_logs('Records', LOGIN_USER)
