@@ -15,7 +15,7 @@ def save():
                    "FROM RegisteredFaces"
 
         for row in cur.execute(sqlquery):
-            directory = row[0] + '-' + row[1] + '-' + row[2]
+            directory = row[0] + ',' + row[1] + ' ' + row[2]
             parent_dir = r"C:\UFMDSdatabase"
             path = os.path.join(parent_dir, directory)
 

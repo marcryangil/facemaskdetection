@@ -231,7 +231,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                     #             cv2.FONT_HERSHEY_SIMPLEX, 0.8, color)
 
                     # ----face recognition
-                    name = "guest"
+                    name = "Guest"
                     if len_ref_path > 0:
                         img_fr = img_rgb[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2], :]  # crop
                         img_fr = cv2.resize(img_fr, (model_shape[2], model_shape[1]))  # resize
@@ -266,17 +266,18 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
 
                     elif display_mode == 2:#with score and lowest distance in upper position
                         display_msg = "{}-{},{}".format(id2class[class_id], confi, name)
-                        result_coor = (bbox[0] + 2, bbox[1] - 2)
+                        result_coor = (bbox[0] + 2, bbox[1] - 6)
                     elif display_mode == 3:#with score and lowest distance in lower position
                         display_msg = "{}-{},{}".format(id2class[class_id], confi, name)
                         result_coor = (bbox[0], bbox[1] + bbox[3] + 20)
                     else:#no score and lowest distance in upper position
                         display_msg = "{},{}".format(id2class[class_id], name)
-                        result_coor = (bbox[0] + 2, bbox[1] - 2)
+                        display_msg = "{}".format(name)
+                        result_coor = (bbox[0], bbox[1] - 6)
 
-                    cv2.putText(img,display_msg,result_coor,cv2.FONT_HERSHEY_SIMPLEX, 0.8, color)
+                    cv2.putText(img,display_msg,result_coor,cv2.FONT_HERSHEY_DUPLEX, 0.8, color)
 
-                    textvar = display_msg + '-' + time.ctime(time.time())
+                    textvar = display_msg
                     #print(display_msg, time.ctime(time.time()))
 
             if class_id != 0:
@@ -285,7 +286,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                 frame_count += 1
                 if frame_count >= 20:
                     # FPS = "FPS=%1f" % (10 / (time.time() - t_start))
-                    textvar = textvar.split(',')[1].split('-')
+                    textvar = textvar.split(',')
                     printit(textvar)
                     #print(id_number)
                     savetodetection.save(textvar[0], userid)
