@@ -215,6 +215,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
             img_fd = cv2.resize(img_rgb, fmd.img_size)
             img_fd = np.expand_dims(img_fd, axis=0)
 
+            class_id = 0
             bboxes, re_confidence, re_classes, re_mask_id = fmd.inference(img_fd, height, width)
             if len(bboxes) > 0:
                 for num, bbox in enumerate(bboxes):
