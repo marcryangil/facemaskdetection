@@ -7,7 +7,8 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, \
-    QTableWidgetItem, QPushButton, QHBoxLayout, QFormLayout
+    QTableWidgetItem, QPushButton, QHBoxLayout, QFormLayout, QLabel
+from PyQt5.QtGui import QPixmap
 import resources
 from db_management import DatabaseManager, InsertDatabase
 import stylesheets
@@ -870,6 +871,7 @@ class RegisteredFacesScreen(QMainWindow):
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
 
         self.btnBack.clicked.connect(self.gotoDashboard)
+        # samplelabel = QLabel()
         # self.btnView.
         # self.btnRegister.clicked.connect(self.gotoRegister)
         # self.btnDelete.clicked.connect(self.gotoDelete)
@@ -879,8 +881,8 @@ class RegisteredFacesScreen(QMainWindow):
         # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
         # item = QTableWidgetItem(scraped_age) # create the item
         # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
-    #     self.btn.clicked.connect(self.hello)
-    # def hello(self):
+    #     self.btn.clicked.connect(self.popupImage)
+    # def popupImage(self):
     #     print(self.btn.text())
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
@@ -910,17 +912,11 @@ class RegisteredFacesScreen(QMainWindow):
             #item2.setTextAlignment(Qt.AlignCenter)
             item3 = QTableWidgetItem(row[3])
             item3.setTextAlignment(Qt.AlignCenter)
-            # msg = QMessageBox()
-            # msg.setIcon(QMessageBox.Information)
-            # msg.setText("This is a message box")
-            # msg.setInformativeText("This is additional information")
-            # msg.setWindowTitle("MessageBox demo")
-            # msg.setDetailedText("The details are as follows:")
 
             btn = QPushButton()
             btn.setText('View')
             btn.setStyleSheet(stylesheets.tablewidgetbutton)
-            btn.clicked.connect(self.hello)
+            btn.clicked.connect(self.popupImage)
             #btn.setFixedWidth(50)
 
             self.tableWidget.setItem(tablerow, 0, item0) # column 1
@@ -932,16 +928,77 @@ class RegisteredFacesScreen(QMainWindow):
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
-    def hello(self):
+
+    def popupImage(self):
         row = self.tableWidget.currentRow()
         print(row)
         cellValue = self.tableWidget.item(row,1).text()
-        msg = QMessageBox()
-        msg.setWindowTitle('Face Data for '+cellValue)
-        msg.setText('IMAGE LOADING UNDER CONSTRUCTION')
-        msg.setIcon(QMessageBox.Information)
-        x = msg.exec_()
+        facevalues = self.getFacesData(cellValue)
+        recordvalues = self.getRecordsData(cellValue)
+        # msg = QMessageBox()
+        # msg.setWindowTitle('Face Data for '+recordvalues[2] + ", "+recordvalues[1])
+        # msg.setText('IMAGE LOADING UNDER CONSTRUCTION')
+        
 
+
+        with open("new_image.png", "wb") as new_file:
+            new_file.write(base64.decodebytes(facevalues[2]))
+
+
+        # Create widget
+        # samplelabel = QLabel('This is label',self)
+        # pixmap = self.QPixmap('new_image.png')
+        # self.samplelabel.setPixmap(pixmap)
+        # self.resize(pixmap.width(),pixmap.height())
+        
+        
+
+        # msg.setIcon(QMessageBox.Information)
+        # x = msg.exec_()
+
+        self.gotoLoadFace(facevalues[2])
+        
+
+    def getFacesData(self, id):
+        conn = sqlite3.connect('facemaskdetectionDB.db')
+        # Create a cursor
+        c = conn.cursor()
+        c.execute("SELECT * FROM RegisteredFaces WHERE employee_id= \'"+id+ "\'")
+                    
+        rows = c.fetchall()[0]
+        values = []
+        for row in rows:
+            values.append(row)
+            # print(row)
+    
+        conn.commit()
+        conn.close()
+
+        return values
+    
+    def getRecordsData(self, id):
+        conn = sqlite3.connect('facemaskdetectionDB.db')
+        # Create a cursor
+        c = conn.cursor()
+        c.execute("SELECT * FROM registeredemployee WHERE id_number= \'"+id+ "\'")
+                    
+        rows = c.fetchall()[0]
+        values = []
+        for row in rows:
+            values.append(row)
+            # print(row)
+    
+        conn.commit()
+        conn.close()
+
+        return values
+    
+    def gotoLoadFace(self, imagestring):
+        loadface = LoadFaceScreen()
+
+        loadface.loadData(imagestring)
+        widget.addWidget(loadface)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
     #
@@ -1018,6 +1075,31 @@ class RegisteredFacesScreen(QMainWindow):
         # register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
         # widget.addWidget(register)
         # widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class LoadFaceScreen(QMainWindow):
+    # loading up the register
+    def __init__(self):
+        super(LoadFaceScreen, self).__init__()
+        loadUi('loadface.ui', self)
+        # self.setGeometry(0,0, 445, 338)
+        self.loadData()
+        
+    def loadData(self, imagestring=None):
+        # print(imagestring)
+        self.label.setText(str(imagestring))
+        
+        # with open("new_image.png", "wb") as new_file:
+        #     new_file.write(base64.decodebytes(str(imagestring)))
+        # self.label
+        # pixmap = self.QPixmap('new_image.png')
+        # self.label.setPixmap(pixmap)
+        # self.resize(pixmap.width(),pixmap.height())
+        # self.label.setText(imagestring)
+        # label = QLabel() 
+        pixmap = QPixmap('new_image.png')
+        self.label.setPixmap(pixmap)
+
 
 
 # main
