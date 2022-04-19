@@ -252,18 +252,13 @@ QTableView::item{
          <string>New Column</string>
         </property>
        </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
       </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
          <x>68</x>
          <y>15</y>
-         <width>181</width>
+         <width>441</width>
          <height>31</height>
         </rect>
        </property>
@@ -279,7 +274,7 @@ QTableView::item{
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>RECORDS</string>
+        <string>RECORDS &gt; REGISTERED FACES</string>
        </property>
       </widget>
       <widget class="QPushButton" name="btnRegister">
@@ -332,7 +327,7 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btnDelete">
        <property name="geometry">
         <rect>
-         <x>250</x>
+         <x>160</x>
          <y>60</y>
          <width>81</width>
          <height>31</height>
@@ -371,53 +366,6 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string>DELETE</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnEdit">
-       <property name="geometry">
-        <rect>
-         <x>160</x>
-         <y>60</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgb(251,192,0);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-}
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
-       </property>
-       <property name="text">
-        <string>EDIT</string>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -579,7 +527,7 @@ border-top-left-radius: 8px;</string>
        <widget class="QWidget" name="horizontalLayoutWidget">
         <property name="geometry">
          <rect>
-          <x>-1</x>
+          <x>5</x>
           <y>0</y>
           <width>791</width>
           <height>41</height>
@@ -632,7 +580,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>First Name</string>
+            <string>EMPLOYEE ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -656,7 +604,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Last Name</string>
+            <string>FACE</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -680,31 +628,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Status</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string>Registered By</string>
+            <string>ADDED BY</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -734,53 +658,6 @@ border-bottom-left-radius: 8px;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnRegisteredFaces">
-       <property name="geometry">
-        <rect>
-         <x>680</x>
-         <y>60</y>
-         <width>191</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgb(27, 185, 146);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-}
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
-       </property>
-       <property name="text">
-        <string>REGISTERED FACES</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
        </property>
       </widget>
      </widget>

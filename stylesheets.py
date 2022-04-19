@@ -9,6 +9,8 @@ haserrorline = '''QLineEdit{
 }
 '''
 
+
+
 haserrorbtnlaunch = '''
 QPushButton{
 	background-color: rgb(33, 113, 93);
@@ -97,4 +99,20 @@ QPushButton:pressed{
 	background-color: rgb(22, 154, 121)
 }
 
+'''
+
+tablewidgetbutton = '''
+QPushButton{
+	background-color: rgb(27, 185, 146);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+	margin: 1px 60px 1px;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}
 '''

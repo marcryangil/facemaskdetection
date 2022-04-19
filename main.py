@@ -6,7 +6,8 @@ import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, \
+    QTableWidgetItem, QPushButton, QHBoxLayout, QFormLayout
 import resources
 from db_management import DatabaseManager, InsertDatabase
 import stylesheets
@@ -24,9 +25,14 @@ class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
         #self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
-        #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        # self.setWindowFlags(Qt.Tool | Qt.CustomizeWindowHint)
+        # self.setWindowFlag(Qt.FramelessWindowHint)
 
+        # self.windowFlags.hide()
+        # flags = Qt.WindowFlags()
+        # self.FramelessWindowHint()
         loadUi("login.ui", self)
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginbtn.clicked.connect(self.loginfunction)
@@ -500,7 +506,7 @@ class RegisterScreen(QMainWindow):
         self.lineLastName.setStyleSheet(stylesheets.hasnoerrorline)
         self.statusbtn.setStyleSheet(stylesheets.hasnoerrorstatus)
 
-    def saveIt(self, _id= None, _first=None, _last=None, _status=None):
+    def saveIt(self, _id=None, _first=None, _last=None, _status=None):
 
         idnumber = self.lineId.text()
 
@@ -606,7 +612,12 @@ class RegisterScreen(QMainWindow):
         self.lineLastName.setText(_last)
         self.statusbtn.setText(_status)
         self.btnSave.setText('UPDATE')
-
+        self.label_7.setText('UPDATE')
+        self.facedatalbl.hide()
+        self.imagelabel.hide()
+        self.btnshowlaunch.hide()
+        self.btnLaunch.hide()
+        self.btnSave.setGeometry(382, 280, 191, 41)
 
     def gotoDashboard(self):
         #register = RegisterScreen()
@@ -639,7 +650,7 @@ class RecordsScreen(QMainWindow):
         self.btnDelete.clicked.connect(self.gotoDelete)
         self.lineSearch.textChanged.connect(self.search)
         self.btnEdit.clicked.connect(self.edit)
-
+        self.btnRegisteredFaces.clicked.connect(self.gotoRegisteredFaces)
         # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
         # item = QTableWidgetItem(scraped_age) # create the item
         # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
@@ -755,6 +766,13 @@ class RecordsScreen(QMainWindow):
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def gotoRegisteredFaces(self):
+
+        registeredfaces = RegisteredFacesScreen()
+        # pass
+        widget.addWidget(registeredfaces)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 class ProfileScreen(QMainWindow):
     # loading up the register
     def __init__(self):
@@ -835,6 +853,159 @@ class ProfileScreen(QMainWindow):
         widget.removeWidget(widget.currentWidget())
 
 
+class RegisteredFacesScreen(QMainWindow):
+    # loading up the register
+    def __init__(self):
+        super(RegisteredFacesScreen, self).__init__()
+        loadUi('registeredfaces.ui', self)
+
+        db_open = DatabaseManager()
+        db_open.open_db_registeredemployee()
+
+        self.tableWidget.setHorizontalHeaderLabels(["Id", "Employee ID", "Faces",'Added by', 'Registered By'])
+        self.loaddata()
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        # Remove horizontal gridlines
+        self.tableWidget.setShowGrid(False)
+        #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
+
+        self.btnBack.clicked.connect(self.gotoDashboard)
+        # self.btnView.
+        # self.btnRegister.clicked.connect(self.gotoRegister)
+        # self.btnDelete.clicked.connect(self.gotoDelete)
+        # self.lineSearch.textChanged.connect(self.search)
+        # self.btnEdit.clicked.connect(self.edit)
+
+        # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
+        # item = QTableWidgetItem(scraped_age) # create the item
+        # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
+    def gotoDashboard(self):
+        widget.removeWidget(widget.currentWidget())
+    def loaddata(self):
+        connection = sqlite3.connect("facemaskdetectionDB.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM RegisteredFaces"
+        counter = "SELECT COUNT(id) FROM RegisteredFaces"
+        tablerow = 0
+
+        # to count how many rows in registered user
+        registeredfaces = cur.execute(counter).fetchone()[0]
+        self.tableWidget.setRowCount(registeredfaces)
+        self.tableWidget.setColumnWidth(0,100)
+
+
+        for row in cur.execute(sqlquery):
+            # btn = QtGui.QPushButton('View')
+            item0 = QTableWidgetItem(str(row[0]))
+            item0.setTextAlignment(Qt.AlignCenter)
+            item1 = QTableWidgetItem(row[1])
+            item1.setTextAlignment(Qt.AlignCenter)
+            #item2 = QTableWidgetItem(row[2])
+            # item2 = QTableWidgetItem(self.btnView)
+            # button = self.QPushButton('View')
+            # item2 = QTableWidgetItem(button)
+            #item2.setTextAlignment(Qt.AlignCenter)
+            item3 = QTableWidgetItem(row[3])
+            item3.setTextAlignment(Qt.AlignCenter)
+            # msg = QMessageBox()
+            # msg.setIcon(QMessageBox.Information)
+            # msg.setText("This is a message box")
+            # msg.setInformativeText("This is additional information")
+            # msg.setWindowTitle("MessageBox demo")
+            # msg.setDetailedText("The details are as follows:")
+
+            btn = QPushButton()
+
+            btn.setText('View')
+            btn.setStyleSheet(stylesheets.tablewidgetbutton)
+            #btn.setFixedWidth(50)
+
+            self.tableWidget.setItem(tablerow, 0, item0) # column 1
+            self.tableWidget.setItem(tablerow, 1, item1) # column 2
+            self.tableWidget.setCellWidget(tablerow, 2, btn) # column 3
+            #self.tableWidget.setAlignment(Qt.AlignHCenter)
+            self.tableWidget.setItem(tablerow, 3, item3) # column 4
+
+            tablerow+=1
+
+        print(cur.execute(sqlquery).rowcount)
+
+    # def gotoDashboard(self):
+    #     widget.removeWidget(widget.currentWidget())
+    #
+    # def gotoRegister(self):
+    #     #self.gotoDashboard()
+    #     register = RegisterScreen()
+    #     widget.addWidget(register)
+    #     widget.setCurrentIndex(widget.currentIndex() + 1)
+    #
+    # def gotoDelete(self):
+    #     # set current row on table
+    #     row = self.tableWidget.currentRow()
+    #     # set current column on table
+    #     # col = self.tableWidget.currentColumn()
+    #
+    #     cellValue = self.tableWidget.item(row,0).text()
+    #     print('ROW: '+str(row))
+    #
+    #     idName = str(self.input_delete_id(cellValue))
+    #     print("id name: "+idName)
+    #
+    #     if idName:
+    #         conn = sqlite3.connect('facemaskdetectionDB.db')
+    #         # Create a cursor
+    #         c = conn.cursor()
+    #         c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
+    #                 {
+    #                     'id_number':idName,
+    #                 }
+    #                 )
+    #         conn.commit()
+    #         conn.close()
+    #
+    #     # reload the data after deletion
+    #     self.loaddata()
+    #
+    # def input_delete_id(self,cell_name):
+    #     text, result = QtWidgets.QInputDialog.getText(self, 'Delete Record', 'Enter id number: ',text=cell_name)
+    #
+    #     if result == True:
+    #         return text
+    #
+    # def search(self):
+    #     name = self.lineSearch.text()
+    #     for row in range(self.tableWidget.rowCount()):
+    #         item = self.tableWidget.item(row, 0)
+    #         # if the search is *not* in the item's text *do not hide* the row
+    #         self.tableWidget.setRowHidden(row, name not in item.text().lower())
+    #
+    # def edit(self):
+    #     register = RegisterScreen()
+    #
+    #     row = self.tableWidget.currentRow()
+    #
+    #     cellValue = self.tableWidget.item(row,0).text()
+    #
+    #     conn = sqlite3.connect('facemaskdetectionDB.db')
+    #     # Create a cursor
+    #     c = conn.cursor()
+    #     c.execute("SELECT * FROM registeredemployee WHERE id_number=(:id_number)",
+    #                 {
+    #                     'id_number':cellValue,
+    #                 }
+    #                 )
+    #     rows = c.fetchall()[0]
+    #     values = []
+    #     for row in rows:
+    #         values.append(row)
+    #
+    #
+    #     conn.commit()
+    #     conn.close()
+
+        # register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
+        # widget.addWidget(register)
+        # widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
 # main
@@ -851,3 +1022,4 @@ try:
     sys.exit(app.exec())
 except:
     print("Exiting")
+
