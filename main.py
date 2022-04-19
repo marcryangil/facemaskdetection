@@ -879,6 +879,9 @@ class RegisteredFacesScreen(QMainWindow):
         # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
         # item = QTableWidgetItem(scraped_age) # create the item
         # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
+    #     self.btn.clicked.connect(self.hello)
+    # def hello(self):
+    #     print(self.btn.text())
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
     def loaddata(self):
@@ -915,9 +918,9 @@ class RegisteredFacesScreen(QMainWindow):
             # msg.setDetailedText("The details are as follows:")
 
             btn = QPushButton()
-
             btn.setText('View')
             btn.setStyleSheet(stylesheets.tablewidgetbutton)
+            btn.clicked.connect(self.hello)
             #btn.setFixedWidth(50)
 
             self.tableWidget.setItem(tablerow, 0, item0) # column 1
@@ -929,6 +932,15 @@ class RegisteredFacesScreen(QMainWindow):
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
+    def hello(self):
+        row = self.tableWidget.currentRow()
+        print(row)
+        cellValue = self.tableWidget.item(row,1).text()
+        msg = QMessageBox()
+        msg.setWindowTitle('Face Data for '+cellValue)
+        msg.setText('IMAGE LOADING UNDER CONSTRUCTION')
+        msg.setIcon(QMessageBox.Information)
+        x = msg.exec_()
 
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
