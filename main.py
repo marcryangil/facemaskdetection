@@ -1003,18 +1003,7 @@ class RegisteredFacesScreen(QMainWindow):
         # widget.removeWidget(widget.currentWidget())
         #widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    def center(self):
-        # geometry of the main window
-        qr = self.frameGeometry()
 
-        # center point of screen
-        cp = QDesktopWidget().availableGeometry().center()
-
-        # move rectangle's center point to screen's center point
-        qr.moveCenter(cp)
-
-        # top left of rectangle becomes top left of window centering it
-        self.move(qr.topLeft())
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
     #
