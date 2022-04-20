@@ -7,7 +7,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QStackedWidget, QMessageBox, QMenu, QLineEdit, \
-    QTableWidgetItem, QPushButton, QHBoxLayout, QFormLayout, QLabel
+    QTableWidgetItem, QPushButton, QHBoxLayout, QFormLayout, QLabel, QDesktopWidget
 from PyQt5.QtGui import QPixmap
 import resources
 from db_management import DatabaseManager, InsertDatabase
@@ -995,13 +995,26 @@ class RegisteredFacesScreen(QMainWindow):
     
     def gotoLoadFace(self, imagestring):
 
-        loadface = LoadFaceScreen()
-
+        self.loadface = LoadFaceScreen()
+        self.loadface.show()
         # loadface.loadData(imagestring)
         # widget.addWidget(loadface)
-        widget.addWidget(loadface)
+        #widget.addWidget(loadface)
         # widget.removeWidget(widget.currentWidget())
-        widget.setCurrentIndex(widget.currentIndex() + 1)
+        #widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def center(self):
+        # geometry of the main window
+        qr = self.frameGeometry()
+
+        # center point of screen
+        cp = QDesktopWidget().availableGeometry().center()
+
+        # move rectangle's center point to screen's center point
+        qr.moveCenter(cp)
+
+        # top left of rectangle becomes top left of window centering it
+        self.move(qr.topLeft())
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
     #
