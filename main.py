@@ -994,10 +994,13 @@ class RegisteredFacesScreen(QMainWindow):
         return values
     
     def gotoLoadFace(self, imagestring):
+
         loadface = LoadFaceScreen()
 
-        loadface.loadData(imagestring)
+        # loadface.loadData(imagestring)
+        # widget.addWidget(loadface)
         widget.addWidget(loadface)
+        # widget.removeWidget(widget.currentWidget())
         widget.setCurrentIndex(widget.currentIndex() + 1)
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
@@ -1082,8 +1085,13 @@ class LoadFaceScreen(QMainWindow):
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
         loadUi('loadface.ui', self)
-        # self.setGeometry(0,0, 445, 338)
+        self.setGeometry(0,0, 500, 500)
         self.loadData()
+        # enable custom window hint
+        # self.setWindowFlags(self.windowFlags() | QtCore.Qt.CustomizeWindowHint)
+
+        # disable (but not hide) close button
+        # self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
         
     def loadData(self, imagestring=None):
         # print(imagestring)

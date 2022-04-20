@@ -6,100 +6,59 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>338</height>
+    <width>340</width>
+    <height>399</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>445</width>
-    <height>338</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>942</width>
-    <height>495</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>0</number>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>341</width>
+      <height>401</height>
+     </rect>
     </property>
-    <property name="leftMargin">
-     <number>0</number>
+    <property name="styleSheet">
+     <string notr="true">QFrame{
+background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255));
+}</string>
     </property>
-    <property name="topMargin">
-     <number>0</number>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="rightMargin">
-     <number>0</number>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <item>
-     <widget class="QFrame" name="frame_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>445</width>
-        <height>1000</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>338</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(137, 213, 194)</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>10</y>
-         <width>351</width>
-         <height>321</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:white;</string>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </widget>
-    </item>
-   </layout>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>321</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel{
+background-color: white;
+border-radius: 8px;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
