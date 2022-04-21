@@ -2,7 +2,7 @@ import base64
 import os
 import sqlite3, traceback
 import sys
-
+from datetime import datetime
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt, pyqtSignal
@@ -202,14 +202,6 @@ class DashboardScreen(QMainWindow):
     @QtCore.pyqtSlot()
     def openFile(self):
         insert_database.insert_system_logs('Get Started', LOGIN_USER)
-        ######################################################
-        # Temporarily unavailable
-        msg = QMessageBox()
-        msg.setWindowTitle('UNDER CONSTRUCTION')
-        msg.setText('Temporarily Unavailable')
-        msg.setIcon(QMessageBox.Critical)
-        x = msg.exec_()
-        ######################################################
         url = QtCore.QUrl.fromLocalFile("Get Started.pdf")
         QtGui.QDesktopServices.openUrl(url)
 
@@ -285,6 +277,8 @@ class LogScreen(QMainWindow):
 
             item0 = QTableWidgetItem(str(row[0]))
             item0.setTextAlignment(Qt.AlignCenter)
+            # d = datetime.strptime(row[1], "%d-%b-%Y-%H:%M:%S")
+            # item1 = QTableWidgetItem(d.strftime("YYYY-MM-DD HH:mm:ss (%Y-%m-%d %H:%M:%S)"))
             item1 = QTableWidgetItem(row[1])
             item1.setTextAlignment(Qt.AlignCenter)
             item2 = QTableWidgetItem(row[2])
@@ -652,10 +646,8 @@ class RecordsScreen(QMainWindow):
         self.lineSearch.textChanged.connect(self.search)
         self.btnEdit.clicked.connect(self.edit)
         self.btnRegisteredFaces.clicked.connect(self.gotoRegisteredFaces)
-        # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
-        # item = QTableWidgetItem(scraped_age) # create the item
-        # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
 
+        
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
@@ -871,19 +863,49 @@ class RegisteredFacesScreen(QMainWindow):
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
 
         self.btnBack.clicked.connect(self.gotoDashboard)
-        # samplelabel = QLabel()
-        # self.btnView.
-        # self.btnRegister.clicked.connect(self.gotoRegister)
-        # self.btnDelete.clicked.connect(self.gotoDelete)
-        # self.lineSearch.textChanged.connect(self.search)
-        # self.btnEdit.clicked.connect(self.edit)
+        self.btnDelete.clicked.connect(self.gotoDelete)
+        # reuse btnRegister and btnDelete of records
+        # recordsScreen = RecordsScreen()
 
-        # self.tableWidget.setItem(0,0, QTableWidgetItem.setTextAlignment(4))
-        # item = QTableWidgetItem(scraped_age) # create the item
-        # item.setTextAlignment(Qt.AlignHCenter) # change the alignment
-    #     self.btn.clicked.connect(self.popupImage)
-    # def popupImage(self):
-    #     print(self.btn.text())
+        self.btnRegister.clicked.connect(self.gotoRegister)
+
+        self.lineSearch.textChanged.connect(self.search)
+    def gotoRegister(self):
+        recordsScreen = RecordsScreen()
+        recordsScreen.gotoRegister()
+        # print('I HAVE REUSED THE FUNCTION')
+    def gotoDelete(self):
+        # set current row on table
+        row = self.tableWidget.currentRow()
+        # set current column on table
+        # col = self.tableWidget.currentColumn()
+
+        cellValue = self.tableWidget.item(row,0).text()
+        print('ROW: '+str(row))
+
+        idName = str(self.input_delete_id(cellValue))
+        print("id name: "+idName)
+
+        if idName:
+            conn = sqlite3.connect('facemaskdetectionDB.db')
+            # Create a cursor
+            c = conn.cursor()
+            c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
+                    {
+                        'id_number':idName,
+                    }
+                    )
+            conn.commit()
+            conn.close()
+
+        # reload the data after deletion
+        self.loaddata()
+
+    def input_delete_id(self,cell_name):
+        text, result = QtWidgets.QInputDialog.getText(self, 'Delete Record', 'Enter id number: ',text=cell_name)
+
+        if result == True:
+            return text
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
     def loaddata(self):
@@ -935,28 +957,10 @@ class RegisteredFacesScreen(QMainWindow):
         cellValue = self.tableWidget.item(row,1).text()
         facevalues = self.getFacesData(cellValue)
         recordvalues = self.getRecordsData(cellValue)
-        # msg = QMessageBox()
-        # msg.setWindowTitle('Face Data for '+recordvalues[2] + ", "+recordvalues[1])
-        # msg.setText('IMAGE LOADING UNDER CONSTRUCTION')
-        
-
-
         with open("new_image.png", "wb") as new_file:
             new_file.write(base64.decodebytes(facevalues[2]))
 
-
-        # Create widget
-        # samplelabel = QLabel('This is label',self)
-        # pixmap = self.QPixmap('new_image.png')
-        # self.samplelabel.setPixmap(pixmap)
-        # self.resize(pixmap.width(),pixmap.height())
-        
-        
-
-        # msg.setIcon(QMessageBox.Information)
-        # x = msg.exec_()
-
-        self.gotoLoadFace(facevalues[2])
+        self.gotoLoadFace(facevalues[2], recordvalues)
         
 
     def getFacesData(self, id):
@@ -993,17 +997,30 @@ class RegisteredFacesScreen(QMainWindow):
 
         return values
     
-    def gotoLoadFace(self, imagestring):
+    def gotoLoadFace(self, imagestring, values):
 
         self.loadface = LoadFaceScreen()
+        # temporarily removed 'Face Data for '
+        # self.loadface.setWindowTitle('Face Data for '+values[2]+", "+values[1])
+        self.loadface.setWindowTitle(values[2]+", "+values[1],)
         self.loadface.show()
+        
         # loadface.loadData(imagestring)
         # widget.addWidget(loadface)
         #widget.addWidget(loadface)
         # widget.removeWidget(widget.currentWidget())
         #widget.setCurrentIndex(widget.currentIndex() + 1)
 
-
+    def search(self):
+        name = self.lineSearch.text()
+        for row in range(self.tableWidget.rowCount()):
+            item = self.tableWidget.item(row, 1)
+            # if the search is *not* in the item's text *do not hide* the row
+            self.tableWidget.setRowHidden(row, name not in item.text().lower())
+            # self.tableWidget.setStyleSheet('''
+            #     color: red;
+            # ''')
+        
     # def gotoDashboard(self):
     #     widget.removeWidget(widget.currentWidget())
     #
@@ -1087,29 +1104,31 @@ class LoadFaceScreen(QMainWindow):
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
         loadUi('loadface.ui', self)
-        self.setGeometry(0,0, 500, 500)
+        self.setGeometry(500,300, 500, 500)
         self.loadData()
+        # self.setWindowTitle('Face Data for, ')
         # enable custom window hint
         # self.setWindowFlags(self.windowFlags() | QtCore.Qt.CustomizeWindowHint)
 
         # disable (but not hide) close button
         # self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
         
-    def loadData(self, imagestring=None):
+    def getDetails(self, values):
+        return values
+    def loadData(self, imagestring=None, values= None):
         # print(imagestring)
         self.label.setText(str(imagestring))
-        
-        # with open("new_image.png", "wb") as new_file:
-        #     new_file.write(base64.decodebytes(str(imagestring)))
-        # self.label
-        # pixmap = self.QPixmap('new_image.png')
-        # self.label.setPixmap(pixmap)
-        # self.resize(pixmap.width(),pixmap.height())
-        # self.label.setText(imagestring)
-        # label = QLabel() 
         pixmap = QPixmap('new_image.png')
+        # self.label.setStyleSheet('''
+        #     QLabel{
+        # 	background-color: white;
+	    #     border-radius: 25px;
+        #         }
+        # ''')
         self.label.setPixmap(pixmap)
-
+        
+        # todo > remove the image after using the app
+    
 
 
 # main
@@ -1119,6 +1138,7 @@ widget = QStackedWidget()
 widget.addWidget(login)
 widget.setFixedSize(942, 495)
 widget.show()
+
 
 
 

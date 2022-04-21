@@ -58,7 +58,7 @@ class DatabaseManager():
         # Create table
         c.execute("""CREATE TABLE if not exists detection_logs(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                date TEXT,
+                date: datetime.now().isoformat(' ', 'seconds'),
                 employee_id TEXT,
                 user_id TEXT
             )

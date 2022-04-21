@@ -309,6 +309,7 @@ QTableView::item{
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
+       
 }
 QPushButton:hover{
 	background-color: rgb(31, 211, 166);

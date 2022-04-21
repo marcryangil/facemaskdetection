@@ -67,7 +67,7 @@
      <property name="styleSheet">
       <string notr="true">QLabel{
 background-color: white;
-border-radius: 8px;
+border-radius: 20px;
 }</string>
      </property>
      <property name="lineWidth">
