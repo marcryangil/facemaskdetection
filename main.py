@@ -171,7 +171,7 @@ class DashboardScreen(QMainWindow):
             self.hidden = True
 
     def gotoLogs(self):
-        insert_database.insert_system_logs('Logs', LOGIN_USER)
+        insert_database.insert_system_logs('Logs - Detection', LOGIN_USER)
         logs = LogScreen()
         widget.addWidget(logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
