@@ -259,7 +259,7 @@ QPushButton:pressed{
 }</string>
        </property>
        <property name="text">
-        <string>REGISTER A FACE</string>
+        <string>REGISTER</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>

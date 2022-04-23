@@ -1104,7 +1104,7 @@ class LoadFaceScreen(QMainWindow):
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
         loadUi('loadface.ui', self)
-        self.setGeometry(500,300, 500, 500)
+        self.setGeometry(500,200, 500, 500)
         self.loadData()
         # self.setWindowTitle('Face Data for, ')
         # enable custom window hint
