@@ -211,7 +211,7 @@ class DashboardScreen(QMainWindow):
         widget.addWidget(system_logs)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
-
+# FOR LOGS - DETECTION
 class LogScreen(QMainWindow):
     def __init__(self):
         super(LogScreen, self).__init__()
@@ -262,9 +262,9 @@ class LogScreen(QMainWindow):
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM detection_logs"
+        sqlquery = "SELECT * FROM detection_logs WHERE NOT employee_id= \'"+'Guest'+"\'"
 
-        counter = "SELECT COUNT(id) FROM detection_logs"
+        counter = "SELECT COUNT(id) FROM detection_logs WHERE NOT employee_id= \'"+'Guest'+"\'"
         tablerow = 0
 
         # to count how many rows in registered user
@@ -277,8 +277,6 @@ class LogScreen(QMainWindow):
 
             item0 = QTableWidgetItem(str(row[0]))
             item0.setTextAlignment(Qt.AlignCenter)
-            # d = datetime.strptime(row[1], "%d-%b-%Y-%H:%M:%S")
-            # item1 = QTableWidgetItem(d.strftime("YYYY-MM-DD HH:mm:ss (%Y-%m-%d %H:%M:%S)"))
             item1 = QTableWidgetItem(row[1])
             item1.setTextAlignment(Qt.AlignCenter)
             item2 = QTableWidgetItem(row[2])
@@ -707,11 +705,9 @@ class RecordsScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
-                    {
-                        'id_number':idName,
-                    }
-                    )
+            c.execute("DELETE FROM registeredemployee WHERE id_number=\'"+idName+"\'")
+
+                    
             conn.commit()
             conn.close()
 
@@ -890,11 +886,7 @@ class RegisteredFacesScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
-                    {
-                        'id_number':idName,
-                    }
-                    )
+            c.execute("DELETE FROM registeredemployee WHERE id_number=\'"+idName+"\'")
             conn.commit()
             conn.close()
 
@@ -1017,86 +1009,6 @@ class RegisteredFacesScreen(QMainWindow):
             item = self.tableWidget.item(row, 1)
             # if the search is *not* in the item's text *do not hide* the row
             self.tableWidget.setRowHidden(row, name not in item.text().lower())
-            # self.tableWidget.setStyleSheet('''
-            #     color: red;
-            # ''')
-        
-    # def gotoDashboard(self):
-    #     widget.removeWidget(widget.currentWidget())
-    #
-    # def gotoRegister(self):
-    #     #self.gotoDashboard()
-    #     register = RegisterScreen()
-    #     widget.addWidget(register)
-    #     widget.setCurrentIndex(widget.currentIndex() + 1)
-    #
-    # def gotoDelete(self):
-    #     # set current row on table
-    #     row = self.tableWidget.currentRow()
-    #     # set current column on table
-    #     # col = self.tableWidget.currentColumn()
-    #
-    #     cellValue = self.tableWidget.item(row,0).text()
-    #     print('ROW: '+str(row))
-    #
-    #     idName = str(self.input_delete_id(cellValue))
-    #     print("id name: "+idName)
-    #
-    #     if idName:
-    #         conn = sqlite3.connect('facemaskdetectionDB.db')
-    #         # Create a cursor
-    #         c = conn.cursor()
-    #         c.execute("DELETE FROM registeredemployee WHERE id_number=(:id_number)",
-    #                 {
-    #                     'id_number':idName,
-    #                 }
-    #                 )
-    #         conn.commit()
-    #         conn.close()
-    #
-    #     # reload the data after deletion
-    #     self.loaddata()
-    #
-    # def input_delete_id(self,cell_name):
-    #     text, result = QtWidgets.QInputDialog.getText(self, 'Delete Record', 'Enter id number: ',text=cell_name)
-    #
-    #     if result == True:
-    #         return text
-    #
-    # def search(self):
-    #     name = self.lineSearch.text()
-    #     for row in range(self.tableWidget.rowCount()):
-    #         item = self.tableWidget.item(row, 0)
-    #         # if the search is *not* in the item's text *do not hide* the row
-    #         self.tableWidget.setRowHidden(row, name not in item.text().lower())
-    #
-    # def edit(self):
-    #     register = RegisterScreen()
-    #
-    #     row = self.tableWidget.currentRow()
-    #
-    #     cellValue = self.tableWidget.item(row,0).text()
-    #
-    #     conn = sqlite3.connect('facemaskdetectionDB.db')
-    #     # Create a cursor
-    #     c = conn.cursor()
-    #     c.execute("SELECT * FROM registeredemployee WHERE id_number=(:id_number)",
-    #                 {
-    #                     'id_number':cellValue,
-    #                 }
-    #                 )
-    #     rows = c.fetchall()[0]
-    #     values = []
-    #     for row in rows:
-    #         values.append(row)
-    #
-    #
-    #     conn.commit()
-    #     conn.close()
-
-        # register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
-        # widget.addWidget(register)
-        # widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
 class LoadFaceScreen(QMainWindow):
@@ -1119,12 +1031,6 @@ class LoadFaceScreen(QMainWindow):
         # print(imagestring)
         self.label.setText(str(imagestring))
         pixmap = QPixmap('new_image.png')
-        # self.label.setStyleSheet('''
-        #     QLabel{
-        # 	background-color: white;
-	    #     border-radius: 25px;
-        #         }
-        # ''')
         self.label.setPixmap(pixmap)
         
         # todo > remove the image after using the app
