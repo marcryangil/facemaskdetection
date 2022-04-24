@@ -156,6 +156,7 @@ class DashboardScreen(QMainWindow):
         ret = qm.question(self,'WARNING!', "Are you sure you want to logout?", qm.Yes | qm.No)
         if ret == qm.Yes:
             # widget.removeWidget(widget.currentWidget())
+            insert_database.insert_system_logs('Logged out', LOGIN_USER)
             login = LoginScreen()
             widget.addWidget(login)
             widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -195,6 +196,7 @@ class DashboardScreen(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def gotoProfile(self):
+        insert_database.insert_system_logs('Profile', LOGIN_USER)
         profile = ProfileScreen()
         widget.addWidget(profile)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -831,6 +833,7 @@ class ProfileScreen(QMainWindow):
 
             self.temp_user = self.usernamefield.text()
             self.temp_pass = self.passwordfield.text()
+            insert_database.insert_system_logs('Profile - Updated', LOGIN_USER)
             msg = QMessageBox()
             msg.setWindowTitle('CHANGES SAVED!')
             msg.setText('User has been saved')
