@@ -723,11 +723,12 @@ class RecordsScreen(QMainWindow):
             return text
 
     def search(self):
-        name = self.lineSearch.text()
+        name = self.lineSearch.text().lower()
         for row in range(self.tableWidget.rowCount()):
-            item = self.tableWidget.item(row, 0)
-            # if the search is *not* in the item's text *do not hide* the row
+            item = self.tableWidget.item(row, 0) # id number
+            
             self.tableWidget.setRowHidden(row, name not in item.text().lower())
+            
 
     def edit(self):
         register = RegisterScreen()
