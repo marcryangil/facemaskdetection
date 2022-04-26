@@ -725,11 +725,11 @@ class RecordsScreen(QMainWindow):
     def search(self):
         name = self.lineSearch.text().lower()
         for row in range(self.tableWidget.rowCount()):
-            found = 0
+            found = False
             for col in range(self.tableWidget.columnCount()):
                 item = self.tableWidget.item(row,col)
                 if name in item.text().lower():
-                    found = found + 1
+                    found = True
             self.tableWidget.setRowHidden(row, not bool(found))
             
 
