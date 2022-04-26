@@ -725,9 +725,12 @@ class RecordsScreen(QMainWindow):
     def search(self):
         name = self.lineSearch.text().lower()
         for row in range(self.tableWidget.rowCount()):
-            item = self.tableWidget.item(row, 0) # id number
-            
-            self.tableWidget.setRowHidden(row, name not in item.text().lower())
+            show = 0
+            for col in range(self.tableWidget.columnCount()):
+                item = self.tableWidget.item(row,col)
+                if name in item.text().lower():
+                    show = show + 1
+            self.tableWidget.setRowHidden(row, not bool(show))
             
 
     def edit(self):
