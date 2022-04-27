@@ -873,6 +873,7 @@ class RegisteredFacesScreen(QMainWindow):
         self.btnRegister.clicked.connect(self.gotoRegister)
 
         self.lineSearch.textChanged.connect(self.search)
+        
     def gotoRegister(self):
         recordsScreen = RecordsScreen()
         recordsScreen.gotoRegister()
@@ -1011,13 +1012,16 @@ class RegisteredFacesScreen(QMainWindow):
         #widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def search(self):
-        name = self.lineSearch.text()
+        name = self.lineSearch.text().lower()
         for row in range(self.tableWidget.rowCount()):
-            item = self.tableWidget.item(row, 1)
-            # if the search is *not* in the item's text *do not hide* the row
-            self.tableWidget.setRowHidden(row, name not in item.text().lower())
-
-
+            found = False
+            for col in range(self.tableWidget.columnCount()):
+                # DON'T INCLUDE THE FACE BUTTON
+                if col != 2:
+                    item = self.tableWidget.item(row,col)
+                    if name in item.text().lower():
+                        found = True
+            self.tableWidget.setRowHidden(row, not bool(found))
 class LoadFaceScreen(QMainWindow):
     # loading up the register
     def __init__(self):
