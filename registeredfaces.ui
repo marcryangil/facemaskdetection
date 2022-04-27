@@ -395,7 +395,7 @@ QPushButton:pressed{
     border-radius: 8px;
     border-color: rgb(140, 140, 140);
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 30px; 
 }
 </string>
        </property>

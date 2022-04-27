@@ -47,6 +47,8 @@ class LoginScreen(QMainWindow):
         self.pushButtonHide.clicked.connect(self.toggleVisibility)
         self.label_hide.hide()
 
+        self.usernamefield.setMaxLength(20)
+        self.passwordfield.setMaxLength(20)
 
     def toggleVisibility(self):
         if self.passwordfield.echoMode() == QLineEdit.Normal:
@@ -646,7 +648,8 @@ class RecordsScreen(QMainWindow):
         self.lineSearch.textChanged.connect(self.search)
         self.btnEdit.clicked.connect(self.edit)
         self.btnRegisteredFaces.clicked.connect(self.gotoRegisteredFaces)
-
+        
+        self.lineSearch.setMaxLength(20)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -723,7 +726,7 @@ class RecordsScreen(QMainWindow):
             return text
 
     def search(self):
-        name = self.lineSearch.text().lower()
+        name = self.lineSearch.text().lower()        
         for row in range(self.tableWidget.rowCount()):
             found = False
             for col in range(self.tableWidget.columnCount()):
@@ -787,6 +790,9 @@ class ProfileScreen(QMainWindow):
 
         self.temp_user = self.usernamefield.text()
         self.temp_pass = self.passwordfield.text()
+
+        self.usernamefield.setMaxLength(20)
+        self.passwordfield.setMaxLength(20)
 
     def enableUpdateButton(self):
         self.btnUpdate.setEnabled(True)
@@ -873,7 +879,7 @@ class RegisteredFacesScreen(QMainWindow):
         self.btnRegister.clicked.connect(self.gotoRegister)
 
         self.lineSearch.textChanged.connect(self.search)
-        
+        self.lineSearch.setMaxLength(20)
     def gotoRegister(self):
         recordsScreen = RecordsScreen()
         recordsScreen.gotoRegister()
