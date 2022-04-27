@@ -26,7 +26,10 @@ class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
         #self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
-        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+
+        flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(flags)
         #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         # self.setWindowFlags(Qt.Tool | Qt.CustomizeWindowHint)
         # self.setWindowFlag(Qt.FramelessWindowHint)
@@ -1082,6 +1085,8 @@ class LoadFaceScreen(QMainWindow):
 app = QApplication(sys.argv)
 login = LoginScreen()
 widget = QStackedWidget()
+flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+widget.setWindowFlags(flags)
 widget.addWidget(login)
 widget.setFixedSize(942, 495)
 widget.show()
