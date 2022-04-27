@@ -991,9 +991,10 @@ class RegisteredFacesScreen(QMainWindow):
         recordvalues = self.getRecordsData(cellValue)
         with open("new_image.png", "wb") as new_file:
             new_file.write(base64.decodebytes(facevalues[2]))
+        # facevalues[2] for the image
 
         self.gotoLoadFace(facevalues[2], recordvalues)
-        
+        print(recordvalues)
 
     def getFacesData(self, id):
         conn = sqlite3.connect('facemaskdetectionDB.db')
@@ -1034,7 +1035,8 @@ class RegisteredFacesScreen(QMainWindow):
         self.loadface = LoadFaceScreen()
         # temporarily removed 'Face Data for '
         # self.loadface.setWindowTitle('Face Data for '+values[2]+", "+values[1])
-        self.loadface.setWindowTitle(values[2]+", "+values[1],)
+        # self.loadface.setWindowTitle(values[2]+", "+values[1],)
+        self.loadface.loadData(values)
         self.loadface.show()
         
         # loadface.loadData(imagestring)
@@ -1059,7 +1061,9 @@ class LoadFaceScreen(QMainWindow):
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
         loadUi('loadface.ui', self)
-        self.setGeometry(500,200, 500, 500)
+        # flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint )#| QtCore.Qt.WindowStaysOnTopHint)
+        # widget.setWindowFlags(flags)
+        # self.setGeometry(500,200, 500, 500)
         self.loadData()
         # self.setWindowTitle('Face Data for, ')
         # enable custom window hint
@@ -1072,6 +1076,9 @@ class LoadFaceScreen(QMainWindow):
         return values
     def loadData(self, imagestring=None, values= None):
         # print(imagestring)
+        self.titlelabel.setText('Face Data for ' )#+ str(values[2])+", "+ str(values))
+        print('hello')
+        print(values)
         self.label.setText(str(imagestring))
         pixmap = QPixmap('new_image.png')
         self.label.setPixmap(pixmap)
@@ -1084,7 +1091,7 @@ class LoadFaceScreen(QMainWindow):
 app = QApplication(sys.argv)
 login = LoginScreen()
 widget = QStackedWidget()
-flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint )#| QtCore.Qt.WindowStaysOnTopHint)
 widget.setWindowFlags(flags)
 widget.addWidget(login)
 widget.setFixedSize(942, 495)
