@@ -100,7 +100,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLineEdit" name="lineSearch_2">
+      <widget class="QLineEdit" name="lineSearch">
        <property name="geometry">
         <rect>
          <x>710</x>
@@ -123,7 +123,7 @@
     border-radius: 8px;
     border-color: rgb(140, 140, 140);
 	padding-left: 10px;
-	padding-right: 10px; 
+	padding-right: 30px; 
 }
 </string>
        </property>
@@ -671,7 +671,7 @@ QTableView::item{
       </widget>
       <zorder>tableWidgetGuest</zorder>
       <zorder>tableWidget</zorder>
-      <zorder>lineSearch_2</zorder>
+      <zorder>lineSearch</zorder>
       <zorder>gobackbtn</zorder>
       <zorder>frame_7</zorder>
       <zorder>label_9</zorder>

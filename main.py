@@ -236,6 +236,30 @@ class LogScreen(QMainWindow):
         # To stretch the item lists on tableWidget
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.loaddataguest()
+        
+        self.lineSearch.textChanged.connect(self.search)
+        self.lineSearch.setMaxLength(30)
+        
+    def search(self):
+        # TABLE WIDGET FOR NORMAL USERS
+        name = self.lineSearch.text().lower()        
+        for row in range(self.tableWidget.rowCount()):
+            found = False
+            for col in range(self.tableWidget.columnCount()):
+                item = self.tableWidget.item(row,col)
+                if name in item.text().lower():
+                    found = True
+            self.tableWidget.setRowHidden(row, not bool(found))
+        
+        # TABLE WIDGET FOR GUESTS
+        for row in range(self.tableWidgetGuest.rowCount()):
+            found = False
+            for col in range(self.tableWidgetGuest.columnCount()):
+                item = self.tableWidgetGuest.item(row,col)
+                if name in item.text().lower():
+                    found = True
+            self.tableWidgetGuest.setRowHidden(row, not bool(found))
+
 
     def changeiconguesttrigger(self):
         self.whiteguest.hide()
