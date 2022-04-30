@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>images/exit.png</file>
     <file>images/hide.png</file>
     <file>images/show.png</file>
     <file>user.png</file>

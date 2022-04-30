@@ -1067,22 +1067,15 @@ class LoadFaceScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
-        self.setWindowFlag(Qt.FramelessWindowHint)
-        loadUi('loadface.ui', self)
-        # self.setWindowTitle()
-        # flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint )#| QtCore.Qt.WindowStaysOnTopHint)
+        # flags = self.setWindowFlag(Qt.FramelessWindowHint)
         # widget.setWindowFlags(flags)
-        # self.setGeometry(500,200, 500, 500)
-        # self.setWindowTitle('Face Data for, ')
-        # enable custom window hint
-        # self.setWindowFlags(self.windowFlags() | QtCore.Qt.CustomizeWindowHint)
-
-        # disable (but not hide) close button
-        # self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint, True)
+        self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint, True)
+        loadUi('loadface.ui', self)
+        self.exitbtn.clicked.connect(self.close)
         
-
         self.loadData()
-        
+
     def getDetails(self, values):
         return values
     def getValues(self, values):
