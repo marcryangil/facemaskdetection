@@ -1067,8 +1067,8 @@ class LoadFaceScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
-        # flags = self.setWindowFlag(Qt.FramelessWindowHint)
-        # widget.setWindowFlags(flags)
+        
+        # REMOVE WINDOWS TITLE BUTTONS
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint, True)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint, True)
         loadUi('loadface.ui', self)
@@ -1084,22 +1084,12 @@ class LoadFaceScreen(QMainWindow):
         global LNAME
         FNAME = values[1]
         LNAME = values[2]
-    def loadData(self):
-        
-        self.titlelabel.setText('Face Data for ' +FNAME+", "+LNAME)#+ self.first_name+", "+ self.last_name)
-        # print(values)
-        # print(values)
-        print('FIRST NAME: '+FNAME)
-        print('LAST NAME: '+LNAME)
 
-        # self.label.setText(str(imagestring))
+    def loadData(self):
+        self.titlelabel.setText('Face Data for ' +LNAME+", "+FNAME)
         pixmap = QPixmap('new_image.png')
         self.label.setPixmap(pixmap)
-        
-        # todo > remove the image after using the app
-    
-
-
+       
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()

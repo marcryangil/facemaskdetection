@@ -126,7 +126,7 @@ border-radius: 20px;
       <property name="geometry">
        <rect>
         <x>275</x>
-        <y>5</y>
+        <y>4</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -139,8 +139,8 @@ border-radius: 20px;
       </property>
       <property name="font">
        <font>
-        <family>Work Sans SemiBold</family>
-        <pointsize>12</pointsize>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
