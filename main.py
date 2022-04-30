@@ -20,6 +20,8 @@ LOGIN_ID = ''
 LOGIN_USER = ''
 LOGIN_PASS = ''
 SYSTEM_LOGS = []
+FNAME = ''
+LNAME = ''
 
 insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
@@ -902,7 +904,7 @@ class RegisteredFacesScreen(QMainWindow):
         # reuse btnRegister and btnDelete of records
         # recordsScreen = RecordsScreen()
 
-        self.btnRegister.clicked.connect(self.gotoRegister)
+        # self.btnRegister.clicked.connect(self.gotoRegister)
 
         self.lineSearch.textChanged.connect(self.search)
         self.lineSearch.setMaxLength(20)
@@ -993,8 +995,13 @@ class RegisteredFacesScreen(QMainWindow):
             new_file.write(base64.decodebytes(facevalues[2]))
         # facevalues[2] for the image
 
-        self.gotoLoadFace(facevalues[2], recordvalues)
+        # self.gotoLoadFace(imagstring=facevalues[2], values=recordvalues)
         print(recordvalues)
+        # LOAD FACE SCREEN
+        self.loadface = LoadFaceScreen()
+        self.loadface.getValues(recordvalues)
+        self.loadface.loadData()
+        self.loadface.show()
 
     def getFacesData(self, id):
         conn = sqlite3.connect('facemaskdetectionDB.db')
@@ -1030,15 +1037,15 @@ class RegisteredFacesScreen(QMainWindow):
 
         return values
     
-    def gotoLoadFace(self, imagestring, values):
+    # def gotoLoadFace(self, imagestring, values):
 
-        self.loadface = LoadFaceScreen()
+    #     self.loadface = LoadFaceScreen()
+    #     self.loadface.loadData(values)
+    #     self.loadface.show()
+        
         # temporarily removed 'Face Data for '
         # self.loadface.setWindowTitle('Face Data for '+values[2]+", "+values[1])
         # self.loadface.setWindowTitle(values[2]+", "+values[1],)
-        self.loadface.loadData(values)
-        self.loadface.show()
-        
         # loadface.loadData(imagestring)
         # widget.addWidget(loadface)
         #widget.addWidget(loadface)
@@ -1060,11 +1067,12 @@ class LoadFaceScreen(QMainWindow):
     # loading up the register
     def __init__(self):
         super(LoadFaceScreen, self).__init__()
+        self.setWindowFlag(Qt.FramelessWindowHint)
         loadUi('loadface.ui', self)
+        # self.setWindowTitle()
         # flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint )#| QtCore.Qt.WindowStaysOnTopHint)
         # widget.setWindowFlags(flags)
         # self.setGeometry(500,200, 500, 500)
-        self.loadData()
         # self.setWindowTitle('Face Data for, ')
         # enable custom window hint
         # self.setWindowFlags(self.windowFlags() | QtCore.Qt.CustomizeWindowHint)
@@ -1072,14 +1080,26 @@ class LoadFaceScreen(QMainWindow):
         # disable (but not hide) close button
         # self.setWindowFlags(self.windowFlags() & ~QtCore.Qt.WindowCloseButtonHint)
         
+
+        self.loadData()
+        
     def getDetails(self, values):
         return values
-    def loadData(self, imagestring=None, values= None):
-        # print(imagestring)
-        self.titlelabel.setText('Face Data for ' )#+ str(values[2])+", "+ str(values))
-        print('hello')
-        print(values)
-        self.label.setText(str(imagestring))
+    def getValues(self, values):
+        # print(values)
+        global FNAME
+        global LNAME
+        FNAME = values[1]
+        LNAME = values[2]
+    def loadData(self):
+        
+        self.titlelabel.setText('Face Data for ' +FNAME+", "+LNAME)#+ self.first_name+", "+ self.last_name)
+        # print(values)
+        # print(values)
+        print('FIRST NAME: '+FNAME)
+        print('LAST NAME: '+LNAME)
+
+        # self.label.setText(str(imagestring))
         pixmap = QPixmap('new_image.png')
         self.label.setPixmap(pixmap)
         
