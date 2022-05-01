@@ -54,6 +54,19 @@ class LoginScreen(QMainWindow):
         self.usernamefield.setMaxLength(20)
         self.passwordfield.setMaxLength(20)
 
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        qm = QMessageBox()
+        ret = qm.question(self,'WARNING!', "Are you sure you want to exit?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            # widget.removeWidget(widget.currentWidget())
+            insert_database.insert_system_logs('Exit', LOGIN_USER)
+            # PROPERLY EXIT THE RUNNING UP
+            sys.exit(app.exec())
+           
+
+
     def toggleVisibility(self):
         if self.passwordfield.echoMode() == QLineEdit.Normal:
             self.passwordfield.setEchoMode(QLineEdit.Password)
