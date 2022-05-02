@@ -105,7 +105,7 @@ class LoginScreen(QMainWindow):
         else:
             conn = sqlite3.connect("facemaskdetectionDB.db")
             cur = conn.cursor()
-            query = 'SELECT password FROM users WHERE username = \'' + username + "\'"
+            query = 'SELECT password FROM admin WHERE username = \'' + username + "\'"
             cur.execute(query)
             result_pass = cur.fetchone()
 
@@ -117,7 +117,7 @@ class LoginScreen(QMainWindow):
                 global LOGIN_USER
                 global LOGIN_PASS
 
-                getId = 'SELECT * FROM users WHERE username= \'' + username + "\'"
+                getId = 'SELECT * FROM admin WHERE username= \'' + username + "\'"
                 cur.execute(getId)
 
                 LOGIN_ID = cur.fetchone()[0]
@@ -228,8 +228,8 @@ class DashboardScreen(QMainWindow):
 
     def gotoSystemLogs(self):
         insert_database.insert_system_logs('Logs - System', LOGIN_USER)
-        system_logs = SystemLogScreen()
-        widget.addWidget(system_logs)
+        systemlog = SystemLogScreen()
+        widget.addWidget(systemlog)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
 # FOR LOGS - DETECTION
@@ -307,9 +307,9 @@ class LogScreen(QMainWindow):
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM detection_logs WHERE NOT employee_id= \'"+'Guest'+"\'"
+        sqlquery = "SELECT * FROM detectionlogpersonnel WHERE NOT personnelid= \'"+'Guest'+"\'"
 
-        counter = "SELECT COUNT(id) FROM detection_logs WHERE NOT employee_id= \'"+'Guest'+"\'"
+        counter = "SELECT COUNT(id) FROM detectionlogpersonnel WHERE NOT personnelid= \'"+'Guest'+"\'"
         tablerow = 0
 
         # to count how many rows in registered user
@@ -340,9 +340,9 @@ class LogScreen(QMainWindow):
     def loaddataguest(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM detection_logs_guest"
+        sqlquery = "SELECT * FROM detectionlogguest"
 
-        counter = "SELECT COUNT(id) FROM detection_logs_guest"
+        counter = "SELECT COUNT(id) FROM detectionlogguest"
         tablerow = 0
 
          # To stretch the item lists on tableWidget
@@ -385,8 +385,8 @@ class SystemLogScreen(QMainWindow):
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM system_logs"
-        counter = "SELECT COUNT(id) FROM system_logs"
+        sqlquery = "SELECT * FROM systemlog"
+        counter = "SELECT COUNT(id) FROM systemlog"
         tablerow = 0
 
         # To count how many rows in registered user
@@ -604,10 +604,10 @@ class RegisterScreen(QMainWindow):
                     file = open('img_crop.jpg', 'rb').read()
                     file = base64.b64encode(file)
                     c.execute(
-                        "INSERT INTO RegisteredFaces VALUES(:id, :employee_id, :face, :added_by)",
+                        "INSERT INTO RegisteredFaces VALUES(:id, :personnelid, :face, :added_by)",
                         {
                             'id': None,
-                            'employee_id': idnumber,
+                            'personnelid': idnumber,
                             'face': file,
                             'added_by': LOGIN_USER,
                         }
@@ -861,7 +861,7 @@ class ProfileScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             c = conn.cursor()
                 # Insert user to the database
-            c.execute("INSERT OR REPLACE INTO users VALUES(:id, :username, :password)",
+            c.execute("INSERT OR REPLACE INTO admin VALUES(:id, :username, :password)",
                     {
                         'id': self.lineId.text(),
                         'username': self.usernamefield.text(),
@@ -1020,7 +1020,7 @@ class RegisteredFacesScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM RegisteredFaces WHERE employee_id= \'"+id+ "\'")
+        c.execute("SELECT * FROM RegisteredFaces WHERE personnelid= \'"+id+ "\'")
                     
         rows = c.fetchall()[0]
         values = []

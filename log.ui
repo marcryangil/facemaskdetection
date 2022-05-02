@@ -325,7 +325,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>EMPLOYEE ID</string>
+            <string>PERSONNEL ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -349,7 +349,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>USER ID</string>
+            <string>ADMIN ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -452,7 +452,7 @@ QTableView::item{
 </string>
        </property>
        <property name="text">
-        <string>Employees</string>
+        <string>Personnels</string>
        </property>
        <property name="flat">
         <bool>false</bool>

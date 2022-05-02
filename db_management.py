@@ -38,7 +38,7 @@ class DatabaseManager():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT,
                 action TEXT,
-                user_id TEXT
+                adminid TEXT
             )
             """) 
 
@@ -56,11 +56,11 @@ class DatabaseManager():
         c = conn.cursor()
         
         # Create table
-        c.execute("""CREATE TABLE if not exists detection_logs(
+        c.execute("""CREATE TABLE if not exists detectionlogpersonnel(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date: datetime.now().isoformat(' ', 'seconds'),
-                employee_id TEXT,
-                user_id TEXT
+                personnelid TEXT,
+                adminid TEXT
             )
             """) 
 
@@ -72,16 +72,16 @@ class DatabaseManager():
     
         
 class InsertDatabase():
-    def insert_system_logs(self, action, user_id):
+    def insert_system_logs(self, action, adminid):
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("INSERT INTO system_logs VALUES(null, :date, :action, :user_id)",
+        c.execute("INSERT INTO system_logs VALUES(null, :date, :action, :adminid)",
                 {
                     'date': datetime.now().isoformat(' ', 'seconds'),
                     'action': action,
-                    'user_id': user_id,      
+                    'adminid': adminid,      
                 }
                 )
         
@@ -91,16 +91,16 @@ class InsertDatabase():
         conn.close()
         
         
-    def insert_detection_logs(self, employee_id, user_id):
+    def insert_detection_logs(self, personnelid, adminid):
         # Create a database or connect to one
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("INSERT INTO detection_logs VALUES(null, :date, :employee_id, :user_id)",
+        c.execute("INSERT INTO detectionlogpersonnel VALUES(null, :date, :personnelid, :adminid)",
                 {
                     'date': datetime.now().isoformat(' ', 'seconds'),
-                    'employee_id': employee_id,
-                    'user_id': user_id,      
+                    'personnelid': personnelid,
+                    'adminid': adminid,      
                 }
                 )
         

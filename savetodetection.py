@@ -7,19 +7,19 @@ def save(idnumber, userid):
         cur = connection.cursor()
 
         if idnumber == 'guest':
-            sqlquery = "INSERT INTO detection_logs_guest VALUES(:id, :date, :user_id)"
+            sqlquery = "INSERT INTO detection_logs_guest VALUES(:id, :date, :adminid)"
             cur.execute(sqlquery, {
                 'id': None,
                 'date': datetime.now().isoformat(' ', 'seconds'),
-                'user_id': userid,
+                'adminid': userid,
             })
         else:
-            sqlquery = "INSERT INTO detection_logs VALUES(:id, :date, :employee_id, :user_id)"
+            sqlquery = "INSERT INTO detectionlogpersonnel VALUES(:id, :date, :personnelid, :adminid)"
             cur.execute(sqlquery, {
                                     'id': None,
                                     'date': datetime.now().isoformat(' ', 'seconds'),
-                                    'employee_id': idnumber,
-                                    'user_id': userid,
+                                    'personnelid': idnumber,
+                                    'adminid': userid,
                                   })
         connection.commit()
         connection.close()

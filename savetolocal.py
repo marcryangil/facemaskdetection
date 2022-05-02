@@ -7,9 +7,9 @@ def save():
     try:
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT employee_id," \
-                   "(SELECT first_name FROM registeredemployee WHERE id_number = RegisteredFaces.employee_id) AS fname," \
-                   "(SELECT last_name FROM registeredemployee WHERE id_number = RegisteredFaces.employee_id) AS lname , " \
+        sqlquery = "SELECT personnelid," \
+                   "(SELECT first_name FROM registeredemployee WHERE id_number = RegisteredFaces.personnelid) AS fname," \
+                   "(SELECT last_name FROM registeredemployee WHERE id_number = RegisteredFaces.personnelid) AS lname , " \
                    "face," \
                    "id " \
                    "FROM RegisteredFaces"

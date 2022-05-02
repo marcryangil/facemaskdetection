@@ -427,7 +427,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>User ID</string>
+            <string>ADMIN ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
