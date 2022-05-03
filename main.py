@@ -569,29 +569,35 @@ class RegisterScreen(QMainWindow):
                 c = conn.cursor()
                 # Insert user to the database
                 if self.btnSave.text() == 'SAVE' and self.launchhidden:
-                    c.execute("INSERT INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
+                    c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate)", #, :modifiedby, :modifieddate)",
                             {
-                                'id_number': idnumber,
-                                'first_name': self.lineFirstName.text(),
-                                'last_name': self.lineLastName.text(),
+                                'id': idnumber,
+                                'firstname': self.lineFirstName.text(),
+                                'lastname': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
-                                'registered_by': LOGIN_USER,
+                                'registeredby': LOGIN_USER,
+                                'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
+                                # 'modifiedby': '-',
+                                # 'modifieddate': '-',
                             }
                             )
                     conn.commit()
                     self.clearDetails()
 
                 elif self.btnSave.text() == 'UPDATE':
-                    c.execute("INSERT OR REPLACE INTO registeredemployee VALUES(:id_number, :first_name, :last_name, :status, :registered_by)",
-                            {
-                                'id_number': idnumber,
-                                'first_name': self.lineFirstName.text(),
-                                'last_name': self.lineLastName.text(),
-                                'status': self.statusbtn.text(),
-                                'registered_by':LOGIN_USER,
-                            }
-                            )
-
+                    # c.execute("INSERT OR REPLACE INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, :modifiedby, :modifieddate)", #
+                    #         {
+                    #             'id': idnumber,
+                    #             'firstname': self.lineFirstName.text(),
+                    #             'lastname': self.lineLastName.text(),
+                    #             'status': self.statusbtn.text(),
+                    #             'registeredby':LOGIN_USER,
+                    #             'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
+                    #             'modifiedby': LOGIN_USER,
+                    #             'modifieddate':  datetime.now().strftime("%B %d, %Y %H:%M"),
+                    #         }
+                    #         )
+                    c.execute("UPDATE personnel WHERE id=\'"+idnumber+"\' SET modifiedby=\'"+LOGIN_USER+"\', modifieddate=\'"+datetime.now().strftime("%B %d, %Y %H:%M")+"\'")
                     conn.commit()
 
                 # Close connection
@@ -604,12 +610,12 @@ class RegisterScreen(QMainWindow):
                     file = open('img_crop.jpg', 'rb').read()
                     file = base64.b64encode(file)
                     c.execute(
-                        "INSERT INTO RegisteredFaces VALUES(:id, :personnelid, :face, :added_by)",
+                        "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :addedby)",
                         {
                             'id': None,
                             'personnelid': idnumber,
                             'face': file,
-                            'added_by': LOGIN_USER,
+                            'addedby': LOGIN_USER,
                         }
                     )
                     conn.commit()
@@ -634,11 +640,11 @@ class RegisterScreen(QMainWindow):
                 msg.setText('Id number must be unique')
                 msg.setIcon(QMessageBox.Critical)
                 x = msg.exec_()
-                # print('SQLite error: %s' % (' '.join(er.args)))
-                # print("Exception class is: ", er.__class__)
-                # print('SQLite traceback: ')
-                # exc_type, exc_value, exc_tb = sys.exc_info()
-                # print(traceback.format_exception(exc_type, exc_value, exc_tb))
+                print('SQLite error: %s' % (' '.join(er.args)))
+                print("Exception class is: ", er.__class__)
+                print('SQLite traceback: ')
+                exc_type, exc_value, exc_tb = sys.exc_info()
+                print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
     ################################################################
     # To update details
@@ -679,6 +685,7 @@ class RecordsScreen(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(["Id", "First Name", "Last Name",'Status', 'Registered By'])
         self.loaddata()
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        
         # Remove horizontal gridlines
         self.tableWidget.setShowGrid(False)
         #self.tableWidget.setStyleSheet('QTableView::item {border-bottom: 1px solid #000000;}')
@@ -695,8 +702,8 @@ class RecordsScreen(QMainWindow):
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM registeredemployee"
-        counter = "SELECT COUNT(id_number) FROM registeredemployee"
+        sqlquery = "SELECT * FROM personnel"
+        counter = "SELECT COUNT(id) FROM personnel"
         tablerow = 0
 
         # to count how many rows in registered user
@@ -716,12 +723,21 @@ class RecordsScreen(QMainWindow):
             item3.setTextAlignment(Qt.AlignCenter)
             item4 = QTableWidgetItem(row[4])
             item4.setTextAlignment(Qt.AlignCenter)
+            item5 = QTableWidgetItem(row[5])
+            item5.setTextAlignment(Qt.AlignCenter)
+            item6 = QTableWidgetItem(row[6])
+            item6.setTextAlignment(Qt.AlignCenter)
+            item7 = QTableWidgetItem(row[7])
+            item7.setTextAlignment(Qt.AlignCenter)
 
-            self.tableWidget.setItem(tablerow, 0, item0) # column 1
-            self.tableWidget.setItem(tablerow, 1, item1) # column 2
-            self.tableWidget.setItem(tablerow, 2, item2) # column 3
-            self.tableWidget.setItem(tablerow, 3, item3) # column 4
-            self.tableWidget.setItem(tablerow, 4, item4) # column 5
+            self.tableWidget.setItem(tablerow, 0, item0) # id
+            self.tableWidget.setItem(tablerow, 1, item1) # firstname
+            self.tableWidget.setItem(tablerow, 2, item2) # lastname
+            self.tableWidget.setItem(tablerow, 3, item3) # status
+            self.tableWidget.setItem(tablerow, 4, item4) # registeredby
+            self.tableWidget.setItem(tablerow, 5, item5) # registereddate
+            self.tableWidget.setItem(tablerow, 6, item6) # modifiedby
+            self.tableWidget.setItem(tablerow, 7, item7) # modifieddate
             tablerow+=1
 
         print(cur.execute(sqlquery).rowcount)
@@ -751,7 +767,7 @@ class RecordsScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM registeredemployee WHERE id_number=\'"+idName+"\'")
+            c.execute("DELETE FROM personnel WHERE id=\'"+idName+"\'")
 
                     
             conn.commit()
@@ -787,9 +803,9 @@ class RecordsScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM registeredemployee WHERE id_number=(:id_number)",
+        c.execute("SELECT * FROM personnel WHERE id=(:id)",
                     {
-                        'id_number':cellValue,
+                        'id':cellValue,
                     }
                     )
         rows = c.fetchall()[0]
@@ -941,7 +957,7 @@ class RegisteredFacesScreen(QMainWindow):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM registeredemployee WHERE id_number=\'"+idName+"\'")
+            c.execute("DELETE FROM personnel WHERE id=\'"+idName+"\'")
             conn.commit()
             conn.close()
 
@@ -958,8 +974,8 @@ class RegisteredFacesScreen(QMainWindow):
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM RegisteredFaces"
-        counter = "SELECT COUNT(id) FROM RegisteredFaces"
+        sqlquery = "SELECT * FROM personnelface"
+        counter = "SELECT COUNT(id) FROM personnelface"
         tablerow = 0
 
         # to count how many rows in registered user
@@ -1020,7 +1036,7 @@ class RegisteredFacesScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM RegisteredFaces WHERE personnelid= \'"+id+ "\'")
+        c.execute("SELECT * FROM personnelface WHERE personnelid= \'"+id+ "\'")
                     
         rows = c.fetchall()[0]
         values = []
@@ -1037,7 +1053,7 @@ class RegisteredFacesScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM registeredemployee WHERE id_number= \'"+id+ "\'")
+        c.execute("SELECT * FROM personnel WHERE id= \'"+id+ "\'")
                     
         rows = c.fetchall()[0]
         values = []

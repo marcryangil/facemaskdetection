@@ -8,11 +8,11 @@ def save():
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
         sqlquery = "SELECT personnelid," \
-                   "(SELECT first_name FROM registeredemployee WHERE id_number = RegisteredFaces.personnelid) AS fname," \
-                   "(SELECT last_name FROM registeredemployee WHERE id_number = RegisteredFaces.personnelid) AS lname , " \
+                   "(SELECT firstname FROM personnel WHERE id = personnelface.personnelid) AS fname," \
+                   "(SELECT lastname FROM personnel WHERE id = personnelface.personnelid) AS lname , " \
                    "face," \
                    "id " \
-                   "FROM RegisteredFaces"
+                   "FROM personnelface"
 
         for row in cur.execute(sqlquery):
             directory = row[0] + ',' + row[1] + ' ' + row[2]

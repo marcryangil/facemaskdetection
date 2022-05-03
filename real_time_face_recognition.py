@@ -289,7 +289,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                     # FPS = "FPS=%1f" % (10 / (time.time() - t_start))
                     textvar = textvar.split(',')
                     printit(textvar)
-                    #print(id_number)
+                    #print(id)
                     savetodetection.save(textvar[0], userid)
                     frame_count = 0
                     alarm = threading.Thread(target=voice_alarm, args=(alarm_sound,))

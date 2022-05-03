@@ -7,7 +7,7 @@ def start():
     try:
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-        sqlquery = "SELECT id FROM RegisteredFaces"
+        sqlquery = "SELECT id FROM personnelface"
 
         for row in cur.execute(sqlquery):
             savedfacesid.append(str(row[0]))

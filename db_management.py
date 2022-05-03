@@ -12,12 +12,13 @@ class DatabaseManager():
         c = conn.cursor()
         
         # Create table
-        c.execute("""CREATE TABLE if not exists registeredemployee(
-                id_number TEXT UNIQUE,
-                first_name TEXT,
-                last_name TEXT,
+        c.execute("""CREATE TABLE if not exists personnel(
+                id TEXT UNIQUE,
+                firstname TEXT,
+                lastname TEXT,
                 status TEXT,
-                registered_by TEXT
+                registeredby TEXT,
+                registereddate TEXT
             )
             """) 
 
@@ -34,7 +35,7 @@ class DatabaseManager():
         c = conn.cursor()
         
         # Create table
-        c.execute("""CREATE TABLE if not exists system_logs(
+        c.execute("""CREATE TABLE if not exists systemlog(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT,
                 action TEXT,
@@ -58,7 +59,7 @@ class DatabaseManager():
         # Create table
         c.execute("""CREATE TABLE if not exists detectionlogpersonnel(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                date: datetime.now().isoformat(' ', 'seconds'),
+                date: datetime.now().strftime("%B %d, %Y %H:%M"),
                 personnelid TEXT,
                 adminid TEXT
             )
@@ -77,9 +78,9 @@ class InsertDatabase():
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("INSERT INTO system_logs VALUES(null, :date, :action, :adminid)",
+        c.execute("INSERT INTO systemlog VALUES(null, :date, :action, :adminid)",
                 {
-                    'date': datetime.now().isoformat(' ', 'seconds'),
+                    'date': datetime.now().strftime("%B %d, %Y %H:%M"),
                     'action': action,
                     'adminid': adminid,      
                 }
@@ -98,7 +99,7 @@ class InsertDatabase():
         c = conn.cursor()
         c.execute("INSERT INTO detectionlogpersonnel VALUES(null, :date, :personnelid, :adminid)",
                 {
-                    'date': datetime.now().isoformat(' ', 'seconds'),
+                    'date': datetime.now().strftime("%B %d, %Y %H:%M"),
                     'personnelid': personnelid,
                     'adminid': adminid,      
                 }

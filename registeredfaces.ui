@@ -534,7 +534,7 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>EMPLOYEE ID</string>
+            <string>PERSONNEL ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

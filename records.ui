@@ -226,12 +226,30 @@ QTableView::item{
 
 </string>
        </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
        <attribute name="horizontalHeaderStretchLastSection">
         <bool>false</bool>
        </attribute>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
        </attribute>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>New Column</string>
+        </property>
+       </column>
        <column>
         <property name="text">
          <string>New Column</string>
@@ -641,7 +659,7 @@ border-radius: 8px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="label_8">
            <property name="font">
             <font>
              <family>Work Sans Medium</family>
@@ -658,6 +676,78 @@ border-radius: 8px;</string>
            </property>
            <property name="text">
             <string>Registered By</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>Registered Date</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>Modified By</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>Modified Date</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
