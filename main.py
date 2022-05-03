@@ -569,7 +569,7 @@ class RegisterScreen(QMainWindow):
                 c = conn.cursor()
                 # Insert user to the database
                 if self.btnSave.text() == 'SAVE' and self.launchhidden:
-                    c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, :modifiedby, :modifieddate)",
+                    c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, null, null)",
                             {
                                 'id': idnumber,
                                 'firstname': self.lineFirstName.text(),
@@ -577,8 +577,8 @@ class RegisterScreen(QMainWindow):
                                 'status': self.statusbtn.text(),
                                 'registeredby': LOGIN_USER,
                                 'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
-                                'modifiedby': '-',
-                                'modifieddate': '-',
+                                # 'modifiedby': null,
+                                # 'modifieddate': '-',
                             }
                             )
                     conn.commit()
