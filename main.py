@@ -998,7 +998,8 @@ class RegisteredFacesScreen(QMainWindow):
 
         self.btnExport.clicked.connect(self.export)
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.tableWidget.selectRow(0)
+        
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
