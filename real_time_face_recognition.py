@@ -10,8 +10,7 @@ import threading
 import winsound
 import savetodetection
 
-
-#----tensorflow version check
+# ----tensorflow version check
 if tensorflow.__version__.startswith('1.'):
     import tensorflow as tf
 else:
@@ -21,60 +20,49 @@ print("Tensorflow version: ",tf.__version__)
 
 img_format = {'png','jpg','bmp'}
 
-def video_init(camera_source=0,resolution="480",to_write=False,save_dir=None):
-    '''
 
+def video_init(camera_source=0, resolution="480", to_write=False, save_dir=None):
+
+    """
     :param camera_source:
     :param resolution: '480', '720', '1080'. Set None for videos.
     :param to_write: to record or not
-    :param save_dir: the folder to save your recording
+    :param save_dir: the folder to save recording
     :return: cap,height,width,writer
-    '''
-    #----var
-    writer = None
-    resolution_dict = {"480":[480,640],"720":[720,1280],"1080":[1080,1920]}
+    """
 
-    #----camera source connection
+    # ----var
+    writer = None
+    resolution_dict = {"480": [480, 640], "720": [720, 1280], "1080": [1080, 1920]}
+
+    # ----camera source connection
     cap = cv2.VideoCapture(camera_source)
 
-    #----resolution decision
+    # ----resolution decision
     if resolution_dict.get(resolution) is not None:
-    # if resolution in resolution_dict.keys():
+        # if resolution in resolution_dict.keys():
         width = resolution_dict[resolution][1]
         height = resolution_dict[resolution][0]
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
     else:
-        height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)#default 480
-        width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)#default 640
+        height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)# default 480
+        width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)# default 640
         print("video size is auto set")
 
-    '''
-    ref:https://docs.opencv.org/master/dd/d43/tutorial_py_video_display.html
-    FourCC is a 4-byte code used to specify the video codec. 
-    The list of available codes can be found in fourcc.org. 
-    It is platform dependent. The following codecs work fine for me.
-    In Fedora: DIVX, XVID, MJPG, X264, WMV1, WMV2. (XVID is more preferable. MJPG results in high size video. X264 gives very small size video)
-    In Windows: DIVX (More to be tested and added)
-    In OSX: MJPG (.mp4), DIVX (.avi), X264 (.mkv).
-    FourCC code is passed as `cv.VideoWriter_fourcc('M','J','P','G')or cv.VideoWriter_fourcc(*'MJPG')` for MJPG.
-    '''
     if to_write is True:
-        #fourcc = cv2.VideoWriter_fourcc('x', 'v', 'i', 'd')
-        #fourcc = cv2.VideoWriter_fourcc('X', 'V', 'I', 'D')
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         save_path = 'demo.avi'
         if save_dir is not None:
             save_path = os.path.join(save_dir,save_path)
         writer = cv2.VideoWriter(save_path, fourcc, 30, (int(width), int(height)))
 
-    return cap,height,width,writer
+    return cap, height, width, writer
 
 
-def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=False,save_dir=None):
+def stream(userid, pb_path, node_dict, ref_dir, camera_source=0, resolution="480", to_write=False, save_dir=None):
 
-
-    #----var
+    # ----var
     frame_count = 0
     FPS = "loading"
     face_mask_model_path = r'face_mask_detection.pb'
@@ -85,8 +73,8 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
     display_mode = 0
     label_type = 0
 
-    #----Video streaming initialization
-    cap,height,width,writer = video_init(camera_source=camera_source, resolution=resolution, to_write=to_write, save_dir=save_dir)
+    # ----video streaming initialization
+    cap, height, width, writer = video_init(camera_source=camera_source, resolution=resolution, to_write=to_write, save_dir=save_dir)
 
     # ----face detection init
     fmd = FaceMaskDetection(face_mask_model_path, margin, GPU_ratio=None)
@@ -96,14 +84,14 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
     tf_input = tf_dict['input']
     tf_embeddings = tf_dict['embeddings']
 
-    #----get the model shape
+    # ----get the model shape
     if tf_input.shape[1].value is None:
         model_shape = (None, 160, 160, 3)
     else:
         model_shape = (None, tf_input.shape[1].value, tf_input.shape[2].value, 3)
     print("The mode shape of face recognition:",model_shape)
 
-    #----set the feed_dict
+    # ----set the feed_dict
     feed_dict = dict()
     if 'keep_prob' in tf_dict.keys():
         tf_keep_prob = tf_dict['keep_prob']
@@ -112,7 +100,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
         tf_phase_train = tf_dict['phase_train']
         feed_dict[tf_phase_train] = False
 
-    #----read images from the database
+    # ----read images from the database
     d_t = time.time()
     paths = list()
     for dirname, subdirname, filenames in os.walk(ref_dir):
@@ -122,7 +110,6 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                     file_path = os.path.join(dirname, filename)
                     paths.append(file_path)
 
-    #     paths = [file.path for file in os.scandir(ref_dir) if file.name[-3:] in img_format]
     len_ref_path = len(paths)
     if len_ref_path == 0:
         print("No images in ", ref_dir)
@@ -136,26 +123,24 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
 
             batch_data_dim =[num_end - num_start]
             batch_data_dim.extend(model_shape[1:])
-            batch_data = np.zeros(batch_data_dim,dtype=np.float32)
+            batch_data = np.zeros(batch_data_dim, dtype=np.float32)
 
-            for idx,path in enumerate(paths[num_start:num_end]):
-                # img = cv2.imread(path)
+            for idx, path in enumerate(paths[num_start:num_end]):
                 img = cv2.imdecode(np.fromfile(path, dtype=np.uint8), 1)
                 if img is None:
-                    print("read failed:",path)
+                    print("read failed:", path)
                 else:
-                    #print("model_shape:",model_shape[1:3])
-                    img = cv2.resize(img,(model_shape[2],model_shape[1]))
-                    img = img[:,:,::-1]#change the color format
+                    img = cv2.resize(img, (model_shape[2], model_shape[1]))
+                    img = img[:, :, ::-1]# change the color format
                     batch_data[idx] = img
             batch_data /= 255
             feed_dict[tf_input] = batch_data
 
-            embeddings_ref[num_start:num_end] = sess.run(tf_embeddings,feed_dict=feed_dict)
+            embeddings_ref[num_start:num_end] = sess.run(tf_embeddings, feed_dict=feed_dict)
 
         d_t = time.time() - d_t
 
-        print("ref embedding shape",embeddings_ref.shape)
+        print("ref embedding shape", embeddings_ref.shape)
         print("It takes {} secs to get {} embeddings".format(d_t, len_ref_path))
 
     # ----tf setting for calculating distance
@@ -181,7 +166,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
         duration = 750  # Set Duration To 1000 ms == 1 second
         winsound.Beep(frequency, duration)
 
-    #----Initialize Alarm
+    # ----Initialize Alarm
     alarm_sound = pyttsx3.init()
     voices = alarm_sound.getProperty('voices')
     alarm_sound.setProperty('voice', voices[1].id)
@@ -194,24 +179,20 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
         except:
             pass
 
-    #----Initialize Printer
-
-    def printit(text):
-        print(text)
-
-    #----Get an image
+    # ----STEP 1: LIVE STREAMING
     while(cap.isOpened()):
-        ret, img = cap.read()#img is the original image with BGR format. It's used to be shown by opencv
+        # ----STEP 2: GET AN IMAGE
+        ret, img = cap.read()# img is the original image with BGR format. It's used to be shown by opencv
         img_copy = img.copy()
 
         if ret is True:
 
-            #----image processing
+            # ----STEP 3: IMAGE PROCESSING
             img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img_rgb = img_rgb.astype(np.float32)
             img_rgb /= 255
 
-            #----face detection
+            # ----STEP 4: FACE DETECTION
             img_fd = cv2.resize(img_rgb, fmd.img_size)
             img_fd = np.expand_dims(img_fd, axis=0)
 
@@ -226,12 +207,9 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                     else:
                         color = (0, 0, 255)  # (B,G,R) --> Red(without masks)
 
-
                     cv2.rectangle(img, (bbox[0], bbox[1]), (bbox[0] + bbox[2], bbox[1] + bbox[3]), color, 2)
-                    # cv2.putText(img, "%s: %.2f" % (id2class[class_id], re_confidence[num]), (bbox[0] + 2, bbox[1] - 2),
-                    #             cv2.FONT_HERSHEY_SIMPLEX, 0.8, color)
 
-                    # ----face recognition
+                    # ----STEP 5: FACE RECOGNITION
                     name = "Guest"
                     if len_ref_path > 0:
                         img_fr = img_rgb[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2], :]  # crop
@@ -245,54 +223,52 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                         arg = np.argmin(distance)  # index of the smallest distance
 
                         if distance[arg] < threshold:
-                            #----label type
+                            # ----label type
                             if label_type == 1:
-                                #name = paths[arg].split("\\")[-2]
-                                name = paths[arg].split("\\")[-2].split("-")[0]     #display ID number only
-                            #elif label_type == 2:
-                            #    name = paths[arg].split("\\")[-2].split("-")[1] + '-' + paths[arg].split("\\")[-2].split("-")[2]  #display name
+                                name = paths[arg].split("\\")[-2].split("-")[0]     # display ID number only
                             else:
-                                #name = paths[arg].split("\\")[-1].split(".")[0]    #using the file name
-                                name = paths[arg].split("\\")[-2]    #using the folder name
+                                # name = paths[arg].split("\\")[-1].split(".")[0]    # using the file name
+                                name = paths[arg].split("\\")[-2]    # using the folder name
 
-                            #----display mode
+                            # ----display mode
                             if display_mode > 1:
                                 dis = round(distance[arg],2)
                                 dis = "-" + str(dis)
                                 name += dis
 
-                    #----display results
-                    if display_mode == 1:#no score and lowest distance in lower position
+                    # ----display results
+                    if display_mode == 1:  #no score and lowest distance in lower position
                         display_msg = "{},{}".format(id2class[class_id], name)
                         result_coor = (bbox[0], bbox[1] + bbox[3] + 20)
 
-                    elif display_mode == 2:#with score and lowest distance in upper position
+                    elif display_mode == 2:  # with score and lowest distance in upper position
                         display_msg = "{}-{},{}".format(id2class[class_id], confi, name)
                         result_coor = (bbox[0] + 2, bbox[1] - 6)
-                    elif display_mode == 3:#with score and lowest distance in lower position
+                    elif display_mode == 3:  # with score and lowest distance in lower position
                         display_msg = "{}-{},{}".format(id2class[class_id], confi, name)
                         result_coor = (bbox[0], bbox[1] + bbox[3] + 20)
-                    else:#no score and lowest distance in upper position
+                    else:  # no score and lowest distance in upper position
                         display_msg = "{},{}".format(id2class[class_id], name)
                         display_msg = "{}".format(name)
                         result_coor = (bbox[0], bbox[1] - 6)
 
-                    cv2.putText(img,display_msg,result_coor,cv2.FONT_HERSHEY_DUPLEX, 0.8, color)
+                    cv2.putText(img, display_msg, result_coor, cv2.FONT_HERSHEY_DUPLEX, 0.8, color)
 
                     textvar = display_msg
-                    #print(display_msg, time.ctime(time.time()))
 
+            # ----STEP 5.1: CHECK IF NO MASK
             if class_id != 0:
                 if frame_count == 0:
                     t_start = time.time()
                 frame_count += 1
                 if frame_count >= 20:
-                    # FPS = "FPS=%1f" % (10 / (time.time() - t_start))
                     textvar = textvar.split(',')
-                    printit(textvar)
-                    #print(id)
+
+                    # ----STEP 5.2: SAVE TO DATABASE
                     savetodetection.save(textvar[0], userid)
                     frame_count = 0
+
+                    # ----STEP 5.3: START THE ALARM
                     alarm = threading.Thread(target=voice_alarm, args=(alarm_sound,))
                     alarm.start()
 
@@ -309,32 +285,25 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
             cv2.putText(img, FPS, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
             """
 
-            #----show instructions
+            # ----show instructions
             cv2.putText(img, 'Press \'q\' to quit.', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
 
-
-            #----image display
+            # ----STEP 6: IMAGE DISPLAY
             cv2.namedWindow("UFMDS", cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty("UFMDS", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("UFMDS", img)
 
-
-            #----image writing
+            # ----image writing
             if writer is not None:
                 writer.write(img)
 
-            #----keys handle
+            # ----keys handle
             key = cv2.waitKey(1) & 0xFF
+
+            # ----STEP 7: EXIT KEY IS PRESSED
             if key == ord('q'):
                 alarm_sound.endLoop()
                 break
-            #elif key == ord('s'):
-            #    if len(bboxes) > 0:
-            #        img_temp = img_copy[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2], :]
-            #        save_path = "img_crop.jpg"
-            #        save_path = os.path.join(ref_dir, save_path)
-            #        cv2.imwrite(save_path, img_temp)
-            #        print("An image is saved to ", save_path)
             elif key == ord('d'):
                 display_mode += 1
                 if display_mode > 3:
@@ -348,7 +317,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
             print("get images failed")
             break
 
-    #----release
+    # ----STEP 8: RELEASE
     cap.release()
     cv2.destroyAllWindows()
     if writer is not None:
@@ -356,12 +325,12 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
 
 
 def start(userid):
-    camera_source = 0#usb camera or laptop camera
-    #The camera source can be also the path of a clip. Examples are shown below
+    camera_source = 0
+    # usb camera or laptop camera
+    # The camera source can be also the path of a clip. Examples are shown below
     # camera_source = r"rtsp://192.168.0.137:8554/hglive"
     # camera_source = r"C:\Users\User\Downloads\demo01.avi"
 
-    #pb_path: please download pb files from Lecture 48
     pb_path = r"pb_model_select_num=15.pb"
 
     node_dict = {'input': 'input:0',
@@ -369,12 +338,11 @@ def start(userid):
                  'phase_train': 'phase_train:0',
                  'embeddings': 'embeddings:0',
                  }
-    #ref_dir: please offer a folder which contains images for face recognition
-    ref_dir = r"C:\UFMDSdatabase"
 
+    ref_dir = r"C:\UFMDSdatabase"
 
     stream(userid, pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="1080", to_write=False, save_dir=None)
     '''
-    resolution: '480', '720', '1080'. If you input videos, set None.
+    resolution: '480', '720', '1080'. If input is videos, set None.
     '''
 
