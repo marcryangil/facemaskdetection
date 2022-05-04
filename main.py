@@ -46,7 +46,9 @@ class LoginScreen(QMainWindow):
         self.passwordfield.setMaxLength(20)
 
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.showMinimized)
+    # def min(self):
+    #     self.showMinimized()
     def gotoExit(self):
         qm = QMessageBox()
         ret = qm.question(self,'WARNING!', "Are you sure you want to exit?", qm.Yes | qm.No)
