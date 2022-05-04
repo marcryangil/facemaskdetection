@@ -148,7 +148,7 @@ border-radius: 8px;</string>
 	border-radius: 8px;
 }
 QPushButton:hover{
-	background-color: rgb(31, 211, 166);
+	background-color: rgba(255,87,0,255);
 }
 QPushButton:pressed{
 	background-color: rgb(22, 154, 121)
@@ -156,6 +156,53 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string>X</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="minimizebtn">
+       <property name="geometry">
+        <rect>
+         <x>880</x>
+         <y>10</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>MS PGothic</family>
+         <pointsize>20</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: transparent;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(251,192,0);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
+       </property>
+       <property name="text">
+        <string>-</string>
        </property>
        <property name="flat">
         <bool>false</bool>

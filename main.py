@@ -18,7 +18,6 @@ import stylesheets
 import real_time_face_recognition
 import savetolocal
 import verifylocal
-# import pandas as pd
 import csv_converter
 
 LOGIN_ID = ''
@@ -50,7 +49,7 @@ class LoginScreen(QMainWindow):
 
         self.exitbtn.clicked.connect(self.gotoExit)
         self.minimizebtn.clicked.connect(self.min)
-
+    # TO MINIMIZE THE CURRENT WINDOW
     def min(self):
         win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
 
@@ -76,12 +75,6 @@ class LoginScreen(QMainWindow):
             print('SHOWING')
             self.label_hide.show()
             self.label_show.hide()
-
-    # def toggleVisibility(self):
-    #     if self.passwordfield.echoMode()==QLineEdit.Normal:
-    #         self.passwordfield.setEchoMode(QLineEdit.Password)
-    #     else:
-    #         self.passwordfield.setEchoMode(QLineEdit.Normal)
 
     def usernamevalue(self):
         if len(self.usernamefield.text()) != 0:
@@ -166,7 +159,11 @@ class DashboardScreen(QMainWindow):
         self.btnProfile.clicked.connect(self.gotoProfile)
         
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -263,7 +260,11 @@ class LogScreen(QMainWindow):
         self.btnExport.clicked.connect(self.export)
 
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -408,7 +409,11 @@ class SystemLogScreen(QMainWindow):
 
         self.btnExport.clicked.connect(self.export)
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -494,7 +499,11 @@ class RegisterScreen(QMainWindow):
         self.lineFirstName.textChanged.connect(self.fnamevalue)
         self.lineLastName.textChanged.connect(self.lnamevalue)
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -748,6 +757,10 @@ class RecordsScreen(QMainWindow):
         self.btnExport.clicked.connect(self.export)
         self.exitbtn.clicked.connect(self.gotoExit)
         self.tableWidget.selectRow(0)
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
 
     def gotoExit(self):
         loginscreen = LoginScreen()
@@ -913,7 +926,11 @@ class ProfileScreen(QMainWindow):
         self.usernamefield.setMaxLength(20)
         self.passwordfield.setMaxLength(20)
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -1004,6 +1021,10 @@ class RegisteredFacesScreen(QMainWindow):
         self.btnExport.clicked.connect(self.export)
         self.exitbtn.clicked.connect(self.gotoExit)
         self.tableWidget.selectRow(0)
+        self.minimizebtn.clicked.connect(self.min)
+    # TO MINIMIZE THE CURRENT WINDOW
+    def min(self):
+        win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
         
     def gotoExit(self):
         loginscreen = LoginScreen()
@@ -1146,21 +1167,6 @@ class RegisteredFacesScreen(QMainWindow):
         conn.close()
 
         return values
-    
-    # def gotoLoadFace(self, imagestring, values):
-
-    #     self.loadface = LoadFaceScreen()
-    #     self.loadface.loadData(values)
-    #     self.loadface.show()
-        
-        # temporarily removed 'Face Data for '
-        # self.loadface.setWindowTitle('Face Data for '+values[2]+", "+values[1])
-        # self.loadface.setWindowTitle(values[2]+", "+values[1],)
-        # loadface.loadData(imagestring)
-        # widget.addWidget(loadface)
-        #widget.addWidget(loadface)
-        # widget.removeWidget(widget.currentWidget())
-        #widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def search(self):
         name = self.lineSearch.text().lower()
@@ -1185,7 +1191,8 @@ class LoadFaceScreen(QMainWindow):
         self.exitbtn.clicked.connect(self.close)
         
         self.loadData()
-
+        self.minimizebtn.clicked.connect(self.min)
+        
     def getDetails(self, values):
         return values
     def getValues(self, values):
