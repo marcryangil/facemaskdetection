@@ -43,7 +43,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QFrame" name="frame_3">
+     <widget class="QFrame" name="header">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -85,33 +85,6 @@
        </property>
        <property name="scaledContents">
         <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_14">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>10</y>
-         <width>67</width>
-         <height>39</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans Medium</family>
-         <pointsize>12</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-       </property>
-       <property name="text">
-        <string/>
        </property>
       </widget>
       <widget class="QPushButton" name="exitbtn">
@@ -214,74 +187,7 @@ QPushButton:pressed{
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
        <string notr="true">QFrame{
-background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255));
-}
-
-
-/* VERTICAL SCROLLBAR */
- QScrollBar:vertical {
-	border: none;
-    background: rgb(220,220,220);
-    width: 14px;
-    margin: 15px 0 15px 0;
-	border-radius: 0px;
- }
-
-/*  HANDLE BAR VERTICAL */
-QScrollBar::handle:vertical {	
-	margin-top: 20px;
-	background-color: rgb(33, 113, 93);
-	min-height: 30px;
-	border-radius: 7px;
-}
-QScrollBar::handle:vertical:hover{	
-	background-color: rgb(30, 248, 188);
-}
-QScrollBar::handle:vertical:pressed {	
-	background-color:rgb(30, 248, 188);
-}
-
-/* BTN TOP - SCROLLBAR */
-QScrollBar::sub-line:vertical {
-	margin-top: 20px;
-	border: none;
-	background-color: rgb(220,220,220);
-	height: 15px;
-	border-top-left-radius: 7px;
-	border-top-right-radius: 7px;
-	subcontrol-position: top;
-	subcontrol-origin: margin;
-}
-QScrollBar::sub-line:vertical:hover {	
-	background-color:  rgb(33, 113, 93);
-}
-QScrollBar::sub-line:vertical:pressed {	
-	background-color: rgb(30, 248, 188);
-}
-
-/* BTN BOTTOM - SCROLLBAR */
-QScrollBar::add-line:vertical {
-	border: none;
-	background-color: rgb(220,220,220);
-	height: 15px;
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
-	subcontrol-position: bottom;
-	subcontrol-origin: margin;
-}
-QScrollBar::add-line:vertical:hover {	
-	background-color:  rgb(33, 113, 93);
-}
-QScrollBar::add-line:vertical:pressed {	
-	background-color: rgb(30, 248, 188);
-}
-
-/* RESET ARROW */
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-	background: none;
-}
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-	background: none;
+background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0 rgba(168, 242, 223, 255), stop:1 rgba(255, 255, 255, 255))
 }</string>
       </property>
       <property name="frameShape">
@@ -290,211 +196,150 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QPushButton" name="btnSave">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>120</y>
-         <width>801</width>
-         <height>281</height>
+         <x>382</x>
+         <y>300</y>
+         <width>191</width>
+         <height>41</height>
         </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>191</width>
+         <height>41</height>
+        </size>
        </property>
        <property name="font">
         <font>
          <family>Work Sans</family>
          <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
        <property name="styleSheet">
-        <string notr="true">QTableWidget{
-	color: rgb(90,90,90);
-	background-color: rgb(255,255,255);
+        <string notr="true">QPushButton{
+	background-color: rgb(0,168,223);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
 }
-
-QTableView::item{
-	border-bottom: 1px solid #696969;
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
 }
-
-</string>
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
        </property>
-       <attribute name="horizontalHeaderStretchLastSection">
+       <property name="text">
+        <string>SAVE</string>
+       </property>
+       <property name="flat">
         <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
+       </property>
       </widget>
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>68</x>
-         <y>15</y>
-         <width>461</width>
-         <height>31</height>
+         <x>312</x>
+         <y>100</y>
+         <width>389</width>
+         <height>17</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>20</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
+         <family>Work Sans Medium</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
-        <string>RECORDS &gt; REGISTERED FACES</string>
+        <string>ID Number</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnAdd">
+      <widget class="QLabel" name="facedatalbl">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>60</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgb(69,200,5);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-       
-}
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
-       </property>
-       <property name="text">
-        <string>ADD</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnDelete">
-       <property name="geometry">
-        <rect>
-         <x>160</x>
-         <y>60</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: rgba(255,87,0,255);
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-}
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
-       </property>
-       <property name="text">
-        <string>DELETE</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lineSearch">
-       <property name="geometry">
-        <rect>
-         <x>700</x>
-         <y>16</y>
+         <x>312</x>
+         <y>180</y>
          <width>191</width>
-         <height>31</height>
+         <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+</string>
+       </property>
+       <property name="text">
+        <string>Face Data</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnLaunch">
+       <property name="geometry">
+        <rect>
+         <x>312</x>
+         <y>210</y>
+         <width>321</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
        <property name="font">
         <font>
          <family>Work Sans</family>
          <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color: rgb(255, 255, 255);
-	border-style: solid;
-    border-width: 1px;
-    border-radius: 8px;
-    border-color: rgb(140, 140, 140);
-	padding-left: 10px;
-	padding-right: 30px; 
-}
-</string>
+       <property name="autoFillBackground">
+        <bool>false</bool>
        </property>
-       <property name="placeholderText">
-        <string>Search...</string>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(33, 113, 93);
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
+       </property>
+       <property name="text">
+        <string>LAUNCH CAMERA</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="btnBack">
@@ -551,232 +396,195 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QFrame" name="frame_2">
+      <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>102</y>
-         <width>801</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(30, 248, 188);
-border: none;
-border-top-right-radius: 8px;
-border-top-left-radius: 8px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QWidget" name="horizontalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>5</x>
-          <y>0</y>
-          <width>791</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLabel{
-	background-color: transparent;
-	border: none;
-	color: rgb(0, 0, 0);
-	border-radius: 8px;
-}</string>
-           </property>
-           <property name="text">
-            <string>ID</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string>PERSONNEL ID</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string>FACE</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string>ADDED BY</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QFrame" name="frame_5">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>399</y>
-         <width>801</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(30, 248, 188);
-border: none;
-border-bottom-right-radius: 8px;
-border-bottom-left-radius: 8px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="searchlabel">
-       <property name="geometry">
-        <rect>
-         <x>867</x>
-         <y>20</y>
-         <width>21</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:transparent;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>search.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnExport">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>60</y>
-         <width>81</width>
+         <y>14</y>
+         <width>181</width>
          <height>31</height>
         </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
        </property>
        <property name="font">
         <font>
          <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
+         <pointsize>20</pointsize>
          <weight>75</weight>
          <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;</string>
+       </property>
+       <property name="text">
+        <string>ADD FACE</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineId">
+       <property name="geometry">
+        <rect>
+         <x>312</x>
+         <y>120</y>
+         <width>321</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(255, 255, 255);
+	border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: rgb(192,192,192);
+	padding-left: 10px;
+	padding-right: 10px; 
+}
+</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelError">
+       <property name="geometry">
+        <rect>
+         <x>522</x>
+         <y>280</y>
+         <width>191</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="autoFillBackground">
         <bool>false</bool>
        </property>
        <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+color:red;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>610</x>
+         <y>215</y>
+         <width>91</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+color:  rgb(192,192,192);</string>
+       </property>
+       <property name="text">
+        <string>⏷</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="imagelabel">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>220</y>
+         <width>211</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans Medium</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;</string>
+       </property>
+       <property name="text">
+        <string>An image has been saved.</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnshowlaunch">
+       <property name="geometry">
+        <rect>
+         <x>610</x>
+         <y>220</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgba(197,0,255,255);
+	background-color: rgb(218, 24, 24);
 	border: none;
 	color: rgb(255, 255, 255);
-	border-radius: 8px;
+	border-radius: 10px;
 }
 QPushButton:hover{
-	background-color: rgb(31, 211, 166);
+	background-color: rgb(232, 116, 116);
 }
 QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
+	background-color: rgb(206, 0, 0);
 }</string>
        </property>
        <property name="text">
-        <string>EXPORT</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/newPrefix/close.png</normaloff>:/newPrefix/close.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>9</width>
+         <height>9</height>
+        </size>
        </property>
        <property name="flat">
         <bool>false</bool>
        </property>
       </widget>
+      <zorder>btnSave</zorder>
+      <zorder>btnshowlaunch</zorder>
+      <zorder>imagelabel</zorder>
+      <zorder>btnLaunch</zorder>
+      <zorder>label</zorder>
+      <zorder>facedatalbl</zorder>
+      <zorder>btnBack</zorder>
+      <zorder>label_7</zorder>
+      <zorder>lineId</zorder>
+      <zorder>labelError</zorder>
+      <zorder>label_8</zorder>
      </widget>
     </item>
     <item>
@@ -840,6 +648,10 @@ QPushButton:pressed{
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnBack</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

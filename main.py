@@ -1022,6 +1022,12 @@ class RegisteredFacesScreen(QMainWindow):
         self.exitbtn.clicked.connect(self.gotoExit)
         self.tableWidget.selectRow(0)
         self.minimizebtn.clicked.connect(self.min)
+        self.btnAdd.clicked.connect(self.gotoAddFace)
+
+    def gotoAddFace(self):
+        addface = AddFaceScreen()
+        widget.addWidget(addface)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
     # TO MINIMIZE THE CURRENT WINDOW
     def min(self):
         win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
@@ -1192,7 +1198,7 @@ class LoadFaceScreen(QMainWindow):
         
         self.loadData()
         self.minimizebtn.clicked.connect(self.min)
-        
+
     def getDetails(self, values):
         return values
     def getValues(self, values):
@@ -1206,7 +1212,16 @@ class LoadFaceScreen(QMainWindow):
         self.titlelabel.setText('Face Data for ' +LNAME+", "+FNAME)
         pixmap = QPixmap('new_image.png')
         self.label.setPixmap(pixmap)
-       
+
+class AddFaceScreen(QMainWindow):
+    # loading up the register
+    def __init__(self):
+        super(AddFaceScreen, self).__init__()
+        loadUi('addface.ui', self)
+        self.btnBack.clicked.connect(self.gotoDashboard)
+
+    def gotoDashboard(self):
+        widget.removeWidget(widget.currentWidget())
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()
