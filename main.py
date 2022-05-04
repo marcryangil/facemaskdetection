@@ -606,21 +606,21 @@ class RegisterScreen(QMainWindow):
                 c = conn.cursor()
                 # Insert user to the database
                 if self.btnSave.text() == 'SAVE' and self.launchhidden:
-                    # c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, null, null)",
-                    #         {
-                    #             'id': idnumber,
-                    #             'firstname': self.lineFirstName.text(),
-                    #             'lastname': self.lineLastName.text(),
-                    #             'status': self.statusbtn.text(),
-                    #             'registeredby': LOGIN_USER,
-                    #             'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
-                    #             # 'modifiedby': null,
-                    #             # 'modifieddate': '-',
-                    #         }
-                    #         )
-                    # conn.commit()
+                    c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, null, null)",
+                            {
+                                'id': idnumber,
+                                'firstname': self.lineFirstName.text(),
+                                'lastname': self.lineLastName.text(),
+                                'status': self.statusbtn.text(),
+                                'registeredby': LOGIN_USER,
+                                'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
+                                # 'modifiedby': null,
+                                # 'modifieddate': '-',
+                            }
+                            )
+                    conn.commit()
                     self.clearDetails()
-                    print('SAVE REGISTERED ACCOUNT')
+                    print('SAVED REGISTERED ACCOUNT')
 
                 elif self.btnSave.text() == 'UPDATE':
                     # c.execute("INSERT OR REPLACE INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate", #, :modifiedby, :modifieddate)", #
@@ -740,7 +740,8 @@ class RecordsScreen(QMainWindow):
         self.lineSearch.setMaxLength(20)
         self.btnExport.clicked.connect(self.export)
         self.exitbtn.clicked.connect(self.gotoExit)
-    
+        self.tableWidget.selectRow(0)
+
     def gotoExit(self):
         loginscreen = LoginScreen()
         loginscreen.gotoExit()
@@ -850,9 +851,9 @@ class RecordsScreen(QMainWindow):
     def edit(self):
         register = RegisterScreen()
 
-        row = self.tableWidget.currentRow()
+        row = self.tableWidget.currentRow() # is None if 0 else self.tableWidget.currentRow()
 
-        cellValue = self.tableWidget.item(row,0).text()
+        cellValue = self.tableWidget.item(row,0).text() 
 
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
