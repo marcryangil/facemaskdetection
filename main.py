@@ -15,6 +15,8 @@ import stylesheets
 import real_time_face_recognition
 import savetolocal
 import verifylocal
+# import pandas as pd
+import csv_converter
 
 LOGIN_ID = ''
 LOGIN_USER = ''
@@ -27,17 +29,6 @@ insert_database = InsertDatabase()
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
-        #self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
-        #self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
-
-
-        #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        # self.setWindowFlags(Qt.Tool | Qt.CustomizeWindowHint)
-        # self.setWindowFlag(Qt.FramelessWindowHint)
-
-        # self.windowFlags.hide()
-        # flags = Qt.WindowFlags()
-        # self.FramelessWindowHint()
         loadUi("login.ui", self)
         self.passwordfield.setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginbtn.clicked.connect(self.loginfunction)
@@ -166,7 +157,12 @@ class DashboardScreen(QMainWindow):
 
         self.btnLogout.clicked.connect(self.gotoLogout)
         self.btnProfile.clicked.connect(self.gotoProfile)
-
+        
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
     ################################################################
     #  BUTTON MENU FOR LOGS
     ################################################################
@@ -256,6 +252,27 @@ class LogScreen(QMainWindow):
         
         self.lineSearch.textChanged.connect(self.search)
         self.lineSearch.setMaxLength(30)
+
+        self.btnExport.clicked.connect(self.export)
+
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
+
+    def export(self):
+        qm = QMessageBox()
+        ret = qm.question(self, "WARNING!","Are you sure you want to export?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            if not self.tableWidget.isHidden():
+                convert = csv_converter
+                convert.converter('detectionlogpersonnel')
+                insert_database.insert_system_logs("Exported: detectionlogpersonnel", LOGIN_USER)
+            elif self.tableWidget.isHidden():
+                convert = csv_converter
+                convert.converter('detectionlogguest')
+                insert_database.insert_system_logs("Exported: detectionlogguest", LOGIN_USER)
         
     def search(self):
         # TABLE WIDGET FOR NORMAL USERS
@@ -382,6 +399,21 @@ class SystemLogScreen(QMainWindow):
         self.loaddata()
         self.btnBack.clicked.connect(self.gotoDashboard)
 
+        self.btnExport.clicked.connect(self.export)
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
+    def export(self):
+        qm = QMessageBox()
+        ret = qm.question(self, "WARNING!","Are you sure you want to export system log?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            convert = csv_converter
+            convert.converter('systemlog')
+            insert_database.insert_system_logs("Exported: systemlog", LOGIN_USER)
+            self.loaddata()
+
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
@@ -454,6 +486,11 @@ class RegisterScreen(QMainWindow):
         self.lineId.textChanged.connect(self.idvalue)
         self.lineFirstName.textChanged.connect(self.fnamevalue)
         self.lineLastName.textChanged.connect(self.lnamevalue)
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
 
     def showbtnlaunch(self):
         self.btnLaunch.show()
@@ -569,23 +606,24 @@ class RegisterScreen(QMainWindow):
                 c = conn.cursor()
                 # Insert user to the database
                 if self.btnSave.text() == 'SAVE' and self.launchhidden:
-                    c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, null, null)",
-                            {
-                                'id': idnumber,
-                                'firstname': self.lineFirstName.text(),
-                                'lastname': self.lineLastName.text(),
-                                'status': self.statusbtn.text(),
-                                'registeredby': LOGIN_USER,
-                                'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
-                                # 'modifiedby': null,
-                                # 'modifieddate': '-',
-                            }
-                            )
-                    conn.commit()
+                    # c.execute("INSERT INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, null, null)",
+                    #         {
+                    #             'id': idnumber,
+                    #             'firstname': self.lineFirstName.text(),
+                    #             'lastname': self.lineLastName.text(),
+                    #             'status': self.statusbtn.text(),
+                    #             'registeredby': LOGIN_USER,
+                    #             'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
+                    #             # 'modifiedby': null,
+                    #             # 'modifieddate': '-',
+                    #         }
+                    #         )
+                    # conn.commit()
                     self.clearDetails()
+                    print('SAVE REGISTERED ACCOUNT')
 
                 elif self.btnSave.text() == 'UPDATE':
-                    # c.execute("INSERT OR REPLACE INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate, :modifiedby, :modifieddate)", #
+                    # c.execute("INSERT OR REPLACE INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate", #, :modifiedby, :modifieddate)", #
                     #         {
                     #             'id': idnumber,
                     #             'firstname': self.lineFirstName.text(),
@@ -593,12 +631,14 @@ class RegisterScreen(QMainWindow):
                     #             'status': self.statusbtn.text(),
                     #             'registeredby':LOGIN_USER,
                     #             'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
-                    #             'modifiedby': LOGIN_USER,
-                    #             'modifieddate':  datetime.now().strftime("%B %d, %Y %H:%M"),
+                    #             # 'modifiedby': LOGIN_USER,
+                    #             # 'modifieddate':  datetime.now().strftime("%B %d, %Y %H:%M"),
                     #         }
                     #         )
                     c.execute("UPDATE personnel WHERE id=\'"+idnumber+"\' SET modifiedby=\'"+LOGIN_USER+"\', modifieddate=\'"+datetime.now().strftime("%B %d, %Y %H:%M")+"\'")
+
                     conn.commit()
+                    print('UPDATING')
 
                 # Close connection
                 conn.close()
@@ -698,6 +738,20 @@ class RecordsScreen(QMainWindow):
         self.btnRegisteredFaces.clicked.connect(self.gotoRegisteredFaces)
         
         self.lineSearch.setMaxLength(20)
+        self.btnExport.clicked.connect(self.export)
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
+        
+    def export(self):
+        qm = QMessageBox()
+        ret = qm.question(self, "WARNING!","Are you sure you want to export personnel?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            convert = csv_converter
+            convert.converter('personnel')
+            insert_database.insert_system_logs("Exported: personnel", LOGIN_USER)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -850,7 +904,12 @@ class ProfileScreen(QMainWindow):
 
         self.usernamefield.setMaxLength(20)
         self.passwordfield.setMaxLength(20)
-
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
+        
     def enableUpdateButton(self):
         self.btnUpdate.setEnabled(True)
     def toggleVisibility(self):
@@ -930,13 +989,26 @@ class RegisteredFacesScreen(QMainWindow):
 
         self.btnBack.clicked.connect(self.gotoDashboard)
         self.btnDelete.clicked.connect(self.gotoDelete)
-        # reuse btnRegister and btnDelete of records
-        # recordsScreen = RecordsScreen()
-
-        # self.btnRegister.clicked.connect(self.gotoRegister)
 
         self.lineSearch.textChanged.connect(self.search)
         self.lineSearch.setMaxLength(20)
+
+        self.btnExport.clicked.connect(self.export)
+        self.exitbtn.clicked.connect(self.gotoExit)
+    
+    def gotoExit(self):
+        loginscreen = LoginScreen()
+        loginscreen.gotoExit()
+    
+    def export(self):
+        qm = QMessageBox()
+        ret = qm.question(self, "WARNING!","Are you sure you want to export personnel face?", qm.Yes | qm.No)
+        if ret == qm.Yes:
+            convert = csv_converter
+            convert.converter('personnelface')
+            insert_database.insert_system_logs("Exported: personnelface", LOGIN_USER)
+            self.loaddata()
+        
     def gotoRegister(self):
         recordsScreen = RecordsScreen()
         recordsScreen.gotoRegister()
