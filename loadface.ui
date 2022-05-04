@@ -125,7 +125,7 @@ border-radius: 20px;
      <widget class="QPushButton" name="exitbtn">
       <property name="geometry">
        <rect>
-        <x>275</x>
+        <x>280</x>
         <y>4</y>
         <width>21</width>
         <height>21</height>
@@ -140,7 +140,7 @@ border-radius: 20px;
       <property name="font">
        <font>
         <family>MS Shell Dlg 2</family>
-        <pointsize>10</pointsize>
+        <pointsize>12</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -150,7 +150,7 @@ border-radius: 20px;
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	background-color: rgba(255,87,0,255);
+	background-color: transparent;
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;

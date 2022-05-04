@@ -105,7 +105,7 @@
        <property name="font">
         <font>
          <family>MS Shell Dlg 2</family>
-         <pointsize>10</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -115,7 +115,7 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgba(255,87,0,255);
+	background-color: transparent;
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
@@ -151,10 +151,10 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>MS Shell Dlg 2</family>
+         <family>MS PGothic</family>
          <pointsize>20</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="autoFillBackground">
@@ -162,7 +162,7 @@ QPushButton:pressed{
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgba(251,192,0);
+	background-color: transparent;
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
