@@ -309,6 +309,9 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
             cv2.putText(img, FPS, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
             """
 
+            #----show instructions
+            cv2.putText(img, 'Press \'q\' to quit.', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+
 
             #----image display
             cv2.namedWindow("UFMDS", cv2.WND_PROP_FULLSCREEN)
@@ -370,7 +373,7 @@ def start(userid):
     ref_dir = r"C:\UFMDSdatabase"
 
 
-    stream(userid, pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="720", to_write=False, save_dir=None)
+    stream(userid, pb_path, node_dict, ref_dir, camera_source=camera_source, resolution="1080", to_write=False, save_dir=None)
     '''
     resolution: '480', '720', '1080'. If you input videos, set None.
     '''

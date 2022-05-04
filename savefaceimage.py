@@ -201,6 +201,10 @@ def stream(pb_path, node_dict,ref_dir,camera_source=0,resolution="480",to_write=
 
                     cv2.rectangle(img, (bbox[0], bbox[1]), (bbox[0] + bbox[2], bbox[1] + bbox[3]), color, 2)
 
+            #----show instructions
+            cv2.putText(img, 'Press \'q\' to quit.', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+            cv2.putText(img, 'Press \'s\' to save face image.', (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+
             #----image display
             cv2.namedWindow("UFMDS", cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty("UFMDS", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
