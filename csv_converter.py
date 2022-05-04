@@ -4,6 +4,7 @@ import os
 
 
 def converter(table_name):
+    # CREATE exported FOLDER IF NOT EXISTS
     newpath = r'.\\exported' 
     if not os.path.exists(newpath):
         os.makedirs(newpath)
