@@ -476,29 +476,6 @@ color:red;</string>
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>610</x>
-         <y>215</y>
-         <width>91</width>
-         <height>61</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans Medium</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: transparent;
-color:  rgb(192,192,192);</string>
-       </property>
-       <property name="text">
-        <string>⏷</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="imagelabel">
        <property name="geometry">
         <rect>
@@ -584,7 +561,6 @@ QPushButton:pressed{
       <zorder>label_7</zorder>
       <zorder>lineId</zorder>
       <zorder>labelError</zorder>
-      <zorder>label_8</zorder>
      </widget>
     </item>
     <item>

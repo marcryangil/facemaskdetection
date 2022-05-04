@@ -1,6 +1,5 @@
 <RCC>
   <qresource prefix="newPrefix">
-    <file>images/exit.png</file>
     <file>images/hide.png</file>
     <file>images/show.png</file>
     <file>user.png</file>
@@ -12,5 +11,6 @@
     <file>close.png</file>
     <file>back_white.png</file>
     <file>logo.png</file>
+    <file>images/logo_v2.png</file>
   </qresource>
 </RCC>

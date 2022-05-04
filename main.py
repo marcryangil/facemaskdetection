@@ -1197,8 +1197,7 @@ class LoadFaceScreen(QMainWindow):
         self.exitbtn.clicked.connect(self.close)
         
         self.loadData()
-        self.minimizebtn.clicked.connect(self.min)
-
+        
     def getDetails(self, values):
         return values
     def getValues(self, values):
