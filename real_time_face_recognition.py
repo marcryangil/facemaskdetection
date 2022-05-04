@@ -260,6 +260,7 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
                                 dis = round(distance[arg],2)
                                 dis = "-" + str(dis)
                                 name += dis
+
                     #----display results
                     if display_mode == 1:#no score and lowest distance in lower position
                         display_msg = "{},{}".format(id2class[class_id], name)
@@ -310,7 +311,6 @@ def stream(userid, pb_path, node_dict,ref_dir,camera_source=0,resolution="480",t
 
 
             #----image display
-            #cv2.imshow("UFMDS", img)
             cv2.namedWindow("UFMDS", cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty("UFMDS", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.imshow("UFMDS", img)

@@ -330,8 +330,6 @@ def img_alignment(root_dir,output_dir,margin=44,GPU_ratio=0.1,img_show=False,dat
                                     print("under threshold: w={},h={},path:{}".format(bbox[2],bbox[3],path))
 
 
-
-
     # ----statistics(to know the average process time of each image)
     if quantity != 0:
         d_t = time.time() - d_t
@@ -339,8 +337,8 @@ def img_alignment(root_dir,output_dir,margin=44,GPU_ratio=0.1,img_show=False,dat
 
 if __name__ == "__main__":
     #----alignment
-    root_dir = r"D:\lfw\ori"
-    output_dir = r"D:\lfw\aligned(False)"
+    root_dir = r"D:\dataset\CASIA"
+    output_dir = r"D:\dataset\CASIA-aligned"
     margin = 20
     GPU_ratio = None
     img_show = False

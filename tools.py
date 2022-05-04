@@ -351,37 +351,36 @@ def get_embeddings(sess,paths,tf_dict,batch_size=128):
 
 if __name__ == "__main__":
     #----img_removal_by_embedding distance
-    # root_dir = r"D:\CASIA\CASIA-WebFace_aligned"
-    # output_dir = r"D:\CASIA\mislabeled"
-    # pb_path = r"C:\Users\JohnnyKavnie\Desktop\20180402-114759\20180402-114759.pb"
+    # root_dir = r"D:\dataset\CASIA-aligned"
+    # output_dir = r"D:\dataset\mislabled"
+    # pb_path = r"D:\dataset\20180402-114759\20180402-114759.pb"
     # node_dict = {'input': 'input:0',
     #              'phase_train': 'phase_train:0',
     #              'embeddings': 'embeddings:0',
     #              }
-    # dataset_range = [0,3000]
+    # dataset_range = [0,100]
     # img_removal_by_embed(root_dir, output_dir, pb_path, node_dict, threshold=1.25, type='move', GPU_ratio=0.25,
     #                      dataset_range=dataset_range)
 
     # ----check_path_length
-    # root_dir = r"D:\CASIA\CASIA-WebFace_aligned"
-    # output_dir = r"D:\CASIA\mislabeled"
-    # check_path_length(root_dir, output_dir, threshold=3)
+    root_dir = r"D:\dataset\CASIA-aligned"
+    output_dir = r"D:\dataset\mislabled"
+    check_path_length(root_dir, output_dir, threshold=249)
 
     #----delete_dir_with_no_img
-    # root_dir = r"D:\CASIA\CASIA-WebFace_aligned"
+    # root_dir = r"D:\dataset\CASIA-aligned"
     # delete_dir_with_no_img(root_dir)
-
 
     #----random_img_select00
     # random_img_select(root_dir, output_dir, select_num=select_num,total_num=total_num)
 
     #----face matching evaluation
-    root_dir = r"F:\dataset\CASIA\test_database_3\with_mask"
-    face_databse_dir = r"F:\dataset\CASIA\test_database_3\no_mask"
-    pb_path = r"G:\我的雲端硬碟\Python\Code\model_saver\face_reg_models\FLW_0.98\pb_model.pb"
-    # pb_path = r"G:\我的雲端硬碟\xxx\pb_model_select_num=15.pb"
-
-    face_matching_evaluation(root_dir, face_databse_dir, pb_path, test_num=10000, GPU_ratio=None)
+    # root_dir = r"D:\dataset\CASIA\test_database_3\with_mask"
+    # face_databse_dir = r"D:\dataset\CASIA\test_database_3\no_mask"
+    # pb_path = r"D:\model_saver\face_reg_models\FLW_0.98\pb_model.pb"
+    # # pb_path = r"D:\pb_model_select_num=15.pb"
+    #
+    # face_matching_evaluation(root_dir, face_databse_dir, pb_path, test_num=10000, GPU_ratio=None)
 
     # root_dir = r"D:\dataset\ms1m_align"
     # output_dir = r"D:\dataset\CASIA\test_database_3"
