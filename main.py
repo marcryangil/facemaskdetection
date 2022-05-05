@@ -1083,14 +1083,14 @@ class RegisteredFacesScreen(QMainWindow):
         cellValue = self.tableWidget.item(row,0).text()
         print('ROW: '+str(row))
 
-        idName = str(self.input_delete_id(cellValue))
-        print("id name: "+idName)
+        id = str(self.input_delete_id(cellValue))
+        print("id name: "+id)
 
-        if idName:
+        if id:
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
-            c.execute("DELETE FROM personnel WHERE id=\'"+idName+"\'")
+            c.execute("DELETE FROM personnelface WHERE id=\'"+id+"\'")
             conn.commit()
             conn.close()
 
