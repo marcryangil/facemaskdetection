@@ -620,8 +620,6 @@ class RegisterScreen(QMainWindow):
                     msg.setIcon(QMessageBox.Information)
                     x = msg.exec_()
                 # Close connection
-                    
-        
 
         if self.has_error_id() or self.has_error_first_name() or self.has_error_last_name() or self.has_error_status() or not self.launchhidden:
             if self.has_error_id():
@@ -724,9 +722,12 @@ class RegisterScreen(QMainWindow):
         #register = RegisterScreen()
         
         widget.removeWidget(widget.currentWidget())
-        
+        widget.removeWidget(widget.currentWidget())
         # widget.addWidget(records)
         # widget.setCurrentIndex(widget.currentIndex() + 1)
+        records = RecordsScreen()
+        widget.addWidget(records)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 #
 # Records window
