@@ -1150,9 +1150,9 @@ class RegisteredFacesScreen(QMainWindow):
     def popupImage(self):
         row = self.tableWidget.currentRow()
         print(row)
-        cellValue = self.tableWidget.item(row,1).text()
+        cellValue = self.tableWidget.item(row,0).text()
         facevalues = self.getFacesData(cellValue)
-        recordvalues = self.getRecordsData(cellValue)
+        recordvalues = self.getRecordsData(facevalues[1])
         with open("new_image.png", "wb") as new_file:
             new_file.write(base64.decodebytes(facevalues[2]))
         # facevalues[2] for the image
@@ -1169,7 +1169,7 @@ class RegisteredFacesScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         # Create a cursor
         c = conn.cursor()
-        c.execute("SELECT * FROM personnelface WHERE personnelid= \'"+id+ "\'")
+        c.execute("SELECT * FROM personnelface WHERE id= \'"+id+ "\'")
                     
         rows = c.fetchall()[0]
         values = []
@@ -1242,11 +1242,15 @@ class AddFaceScreen(QMainWindow):
     def __init__(self):
         super(AddFaceScreen, self).__init__()
         loadUi('addface.ui', self)
-        self.btnBack.clicked.connect(self.gotoDashboard)
+        self.btnBack.clicked.connect(self.goBack)
         self.exitbtn.clicked.connect(self.gotoExit)
         self.minimizebtn.clicked.connect(self.min)
-        self.btnLaunch.clicked.connect(self.gotoLaunch)
+        self.btnLaunch.clicked.connect(self.launch)
         self.btnSave.clicked.connect(self.saveIt)
+        self.btnshowlaunch.clicked.connect(self.showbtnlaunch)
+
+        self.launchhidden = False
+
     # TO MINIMIZE THE CURRENT WINDOW
     def min(self):
         win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
@@ -1259,33 +1263,47 @@ class AddFaceScreen(QMainWindow):
         # for val in values:
         #     print(val)
         self.lineId.setText(str(id_number))
-    def gotoDashboard(self):
+
+    def goBack(self):
         widget.removeWidget(widget.currentWidget())
 
-    def gotoLaunch(self):
-        insert_database.insert_system_logs('Launch', LOGIN_USER)
-        savetolocal.save()
-        verifylocal.start()
-        real_time_face_recognition.start(LOGIN_USER)
+    def showbtnlaunch(self):
+        self.btnLaunch.show()
+        self.launchhidden = False
 
-    def saveIt(self, idnumber):
+    def launch(self):
+        import savefaceimage
+        self.testtest = savefaceimage.start()
+
+        if self.testtest == True:
+            self.btnLaunch.hide()
+            self.launchhidden = True
+
+    def saveIt(self):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         c = conn.cursor()
 
-        # if self.btnSave.text() == 'SAVE' and self.launchhidden:
-        file = open('img_crop.jpg', 'rb').read()
-        file = base64.b64encode(file)
-        c.execute(
-            "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :addedby)",
-            {
-                'id': None,
-                'personnelid': idnumber,
-                'face': file,
-                'addedby': LOGIN_USER,
-            }
+        if self.launchhidden:
+            file = open('img_crop.jpg', 'rb').read()
+            file = base64.b64encode(file)
+            c.execute(
+                "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :addedby)",
+                {
+                    'id': None,
+                    'personnelid': self.lineId.text(),
+                    'face': file,
+                    'addedby': LOGIN_USER,
+                }
             )
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
+            self.goBack()
+            self.goBack()
+            registeredfaces = RegisteredFacesScreen()
+            # pass
+            widget.addWidget(registeredfaces)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
 # main
 app = QApplication(sys.argv)
 login = LoginScreen()
