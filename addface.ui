@@ -421,6 +421,9 @@ QPushButton:pressed{
        </property>
       </widget>
       <widget class="QLineEdit" name="lineId">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>312</x>
