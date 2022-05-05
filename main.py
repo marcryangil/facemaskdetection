@@ -600,6 +600,28 @@ class RegisterScreen(QMainWindow):
     def saveIt(self, _id=None, _first=None, _last=None, _status=None):
 
         idnumber = self.lineId.text()
+        conn = sqlite3.connect('facemaskdetectionDB.db')
+        c = conn.cursor()
+        if self.btnSave.text() == 'UPDATE':
+                    timenow = datetime.now().strftime("%B %d, %Y %H:%M")
+                    c.execute("UPDATE personnel SET modifiedby=\'"+LOGIN_USER+
+                                            "\', modifieddate=\'"+timenow+
+                                            "\', firstname=\'"+self.lineFirstName.text()+
+                                            "\', lastname=\'"+self.lineLastName.text()+
+                                            "\', status=\'"+self.statusbtn.text()+
+                                "\' WHERE id=\'"+idnumber+"\'")
+                    conn.commit()
+                    conn.close()
+                    print('UPDATED')
+                    # Pop up message box
+                    msg = QMessageBox()
+                    msg.setWindowTitle('User updated!')
+                    msg.setText('User has been updated')
+                    msg.setIcon(QMessageBox.Information)
+                    x = msg.exec_()
+                # Close connection
+                    
+        
 
         if self.has_error_id() or self.has_error_first_name() or self.has_error_last_name() or self.has_error_status() or not self.launchhidden:
             if self.has_error_id():
@@ -637,27 +659,6 @@ class RegisterScreen(QMainWindow):
                     conn.commit()
                     self.clearDetails()
                     print('SAVED REGISTERED ACCOUNT')
-
-                elif self.btnSave.text() == 'UPDATE':
-                    # c.execute("INSERT OR REPLACE INTO personnel VALUES(:id, :firstname, :lastname, :status, :registeredby, :registereddate", #, :modifiedby, :modifieddate)", #
-                    #         {
-                    #             'id': idnumber,
-                    #             'firstname': self.lineFirstName.text(),
-                    #             'lastname': self.lineLastName.text(),
-                    #             'status': self.statusbtn.text(),
-                    #             'registeredby':LOGIN_USER,
-                    #             'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
-                    #             # 'modifiedby': LOGIN_USER,
-                    #             # 'modifieddate':  datetime.now().strftime("%B %d, %Y %H:%M"),
-                    #         }
-                    #         )
-                    c.execute("UPDATE personnel WHERE id=\'"+idnumber+"\' SET modifiedby=\'"+LOGIN_USER+"\', modifieddate=\'"+datetime.now().strftime("%B %d, %Y %H:%M")+"\'")
-
-                    conn.commit()
-                    print('UPDATING')
-
-                # Close connection
-                conn.close()
 
                 conn = sqlite3.connect('facemaskdetectionDB.db')
                 c = conn.cursor()
@@ -721,10 +722,11 @@ class RegisterScreen(QMainWindow):
 
     def gotoDashboard(self):
         #register = RegisterScreen()
+        
         widget.removeWidget(widget.currentWidget())
-        #widget.setCurrentIndex(widget.currentIndex() - 1)
-
-
+        
+        # widget.addWidget(records)
+        # widget.setCurrentIndex(widget.currentIndex() + 1)
 
 #
 # Records window
@@ -822,9 +824,11 @@ class RecordsScreen(QMainWindow):
 
     def gotoRegister(self):
         #self.gotoDashboard()
+        widget.removeWidget(widget.currentWidget())
         register = RegisterScreen()
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+        
 
     def gotoDelete(self):
         # set current row on table
@@ -893,6 +897,7 @@ class RecordsScreen(QMainWindow):
         conn.close()
 
         register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
+        # widget.removeWidget(widget.currentWidget())
         widget.addWidget(register)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
