@@ -239,8 +239,6 @@ class LogScreen(QMainWindow):
         loadUi("log.ui", self)
 
         self.whiteemp.hide()
-        #self.whiteguest.hide()
-        #self.blackemp.hide()
         self.blackguest.hide()
         self.hidden = True;
 
@@ -500,6 +498,7 @@ class RegisterScreen(QMainWindow):
         self.lineLastName.textChanged.connect(self.lnamevalue)
         self.exitbtn.clicked.connect(self.gotoExit)
         self.minimizebtn.clicked.connect(self.min)
+        self.from_records = None
     # TO MINIMIZE THE CURRENT WINDOW
     def min(self):
         win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SW_MINIMIZE)
@@ -719,15 +718,15 @@ class RegisterScreen(QMainWindow):
         self.btnSave.setGeometry(382, 280, 191, 41)
 
     def gotoDashboard(self):
-        #register = RegisterScreen()
+        if not self.from_records:
+            widget.removeWidget(widget.currentWidget())
+
+        elif self.from_records:
+            records = RecordsScreen()
+            print('from records')
+            widget.addWidget(records)
+            widget.removeWidget(widget.currentWidget())
         
-        widget.removeWidget(widget.currentWidget())
-        widget.removeWidget(widget.currentWidget())
-        # widget.addWidget(records)
-        # widget.setCurrentIndex(widget.currentIndex() + 1)
-        records = RecordsScreen()
-        widget.addWidget(records)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 #
 # Records window
@@ -821,15 +820,18 @@ class RecordsScreen(QMainWindow):
         print(cur.execute(sqlquery).rowcount)
 
     def gotoDashboard(self):
+        # NEED TO REFRESH THE DASHBOARD SCREEN
+        dashboard = DashboardScreen()
+        widget.addWidget(dashboard)
         widget.removeWidget(widget.currentWidget())
 
-    def gotoRegister(self):
-        #self.gotoDashboard()
-        widget.removeWidget(widget.currentWidget())
+    def gotoRegister(self): 
+        insert_database.insert_system_logs('Register Face', LOGIN_USER)
         register = RegisterScreen()
+        register.from_records = True
         widget.addWidget(register)
+        widget.removeWidget(widget.currentWidget())
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        
 
     def gotoDelete(self):
         # set current row on table
@@ -897,9 +899,13 @@ class RecordsScreen(QMainWindow):
         conn.commit()
         conn.close()
 
+        register = RegisterScreen()
+        insert_database.insert_system_logs('Edit Face', LOGIN_USER)
         register.loadDetails(_id=values[0], _first=values[1], _last=values[2], _status=values[3])
         # widget.removeWidget(widget.currentWidget())
+        register.from_records = True
         widget.addWidget(register)
+        widget.removeWidget(widget.currentWidget())
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def gotoRegisteredFaces(self):
@@ -1216,6 +1222,7 @@ class RegisteredFacesScreen(QMainWindow):
                     if name in item.text().lower():
                         found = True
             self.tableWidget.setRowHidden(row, not bool(found))
+            
 class LoadFaceScreen(QMainWindow):
     # loading up the register
     def __init__(self):
