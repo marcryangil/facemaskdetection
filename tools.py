@@ -363,9 +363,9 @@ if __name__ == "__main__":
     #                      dataset_range=dataset_range)
 
     # ----check_path_length
-    root_dir = r"D:\dataset\CASIA-aligned"
-    output_dir = r"D:\dataset\mislabled"
-    check_path_length(root_dir, output_dir, threshold=249)
+    # root_dir = r"D:\dataset\CASIA-aligned"
+    # output_dir = r"D:\dataset\mislabled"
+    # check_path_length(root_dir, output_dir, threshold=249)
 
     #----delete_dir_with_no_img
     # root_dir = r"D:\dataset\CASIA-aligned"
@@ -375,12 +375,12 @@ if __name__ == "__main__":
     # random_img_select(root_dir, output_dir, select_num=select_num,total_num=total_num)
 
     #----face matching evaluation
-    # root_dir = r"D:\dataset\CASIA\test_database_3\with_mask"
-    # face_databse_dir = r"D:\dataset\CASIA\test_database_3\no_mask"
-    # pb_path = r"D:\model_saver\face_reg_models\FLW_0.98\pb_model.pb"
-    # # pb_path = r"D:\pb_model_select_num=15.pb"
-    #
-    # face_matching_evaluation(root_dir, face_databse_dir, pb_path, test_num=10000, GPU_ratio=None)
+    root_dir = r"D:\dataset\test_database_3\with_mask"
+    face_databse_dir = r"D:\dataset\test_database_3\no_mask"
+    pb_path = r"D:\dataset\PB Model\trained-model.pb"
+    # pb_path = r"D:\pb_model_select_num=15.pb"
+
+    face_matching_evaluation(root_dir, face_databse_dir, pb_path, test_num=10000, GPU_ratio=None)
 
     # root_dir = r"D:\dataset\ms1m_align"
     # output_dir = r"D:\dataset\CASIA\test_database_3"

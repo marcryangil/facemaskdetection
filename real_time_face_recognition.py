@@ -302,7 +302,10 @@ def stream(userid, pb_path, node_dict, ref_dir, camera_source=0, resolution="480
 
             # ----STEP 7: EXIT KEY IS PRESSED
             if key == ord('q'):
-                alarm_sound.endLoop()
+                try:
+                    alarm_sound.endLoop()
+                except Exception:
+                    print(Exception)
                 break
             elif key == ord('d'):
                 display_mode += 1
