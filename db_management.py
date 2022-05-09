@@ -59,7 +59,7 @@ class DatabaseManager():
         # Create table
         c.execute("""CREATE TABLE if not exists detectionlogpersonnel(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                date: datetime.now().strftime("%B %d, %Y %H:%M"),
+                date: datetime.now().strftime("%B %d, %Y %I:%M %p"),
                 personnelid TEXT,
                 adminid TEXT
             )
@@ -80,7 +80,7 @@ class InsertDatabase():
         c = conn.cursor()
         c.execute("INSERT INTO systemlog VALUES(null, :date, :action, :adminid)",
                 {
-                    'date': datetime.now().strftime("%B %d, %Y %H:%M"),
+                    'date': datetime.now().strftime("%B %d, %Y %I:%M %p"),
                     'action': action,
                     'adminid': adminid,      
                 }
@@ -99,7 +99,7 @@ class InsertDatabase():
         c = conn.cursor()
         c.execute("INSERT INTO detectionlogpersonnel VALUES(null, :date, :personnelid, :adminid)",
                 {
-                    'date': datetime.now().strftime("%B %d, %Y %H:%M"),
+                    'date': datetime.now().strftime("%B %d, %Y %I:%M %p"),
                     'personnelid': personnelid,
                     'adminid': adminid,      
                 }

@@ -19,7 +19,7 @@ import real_time_face_recognition
 import savetolocal
 import verifylocal
 import csv_converter
-
+from encryptor import encrypt_string
 LOGIN_ID = ''
 LOGIN_USER = ''
 LOGIN_PASS = ''
@@ -90,8 +90,8 @@ class LoginScreen(QMainWindow):
     def loginfunction(self):
         username = self.usernamefield.text()
         password = self.passwordfield.text()
-
-        if len(username) == 0 or len(password) == 0:
+        hashedpass = encrypt_string(password)
+        if len(username) == 0 or len(hashedpass) == 0:
             self.errorlabel.setText("Please input all fields.")
         else:
             conn = sqlite3.connect("facemaskdetectionDB.db")
@@ -103,7 +103,7 @@ class LoginScreen(QMainWindow):
             if result_pass is not None:
                 result_pass = result_pass[0]
 
-            if result_pass == password:
+            if result_pass == hashedpass:
                 global LOGIN_ID
                 global LOGIN_USER
                 global LOGIN_PASS
@@ -114,7 +114,7 @@ class LoginScreen(QMainWindow):
                 LOGIN_ID = cur.fetchone()[0]
                 LOGIN_USER = username
                 LOGIN_PASS = password
-
+                
                 open_database = DatabaseManager()
                 open_database.open_db_system_logs()
                 self.errorlabel.setText("")
@@ -513,7 +513,8 @@ class RegisterScreen(QMainWindow):
 
     def setbtntext(self, text):
         if text:
-            self.btnSave.setText(f'SAVE {text}')
+            # self.btnSave.setText(f'SAVE {text}')
+            self.btnSave.setText('Save '+text)
         else:
             self.btnSave.setText('SAVE')
 
@@ -602,7 +603,7 @@ class RegisterScreen(QMainWindow):
         conn = sqlite3.connect('facemaskdetectionDB.db')
         c = conn.cursor()
         if self.btnSave.text() == 'UPDATE':
-                    timenow = datetime.now().strftime("%B %d, %Y %H:%M")
+                    timenow = datetime.now().strftime("%B %d, %Y %I:%M %p")
                     c.execute("UPDATE personnel SET modifiedby=\'"+LOGIN_USER+
                                             "\', modifieddate=\'"+timenow+
                                             "\', firstname=\'"+self.lineFirstName.text()+
@@ -648,7 +649,7 @@ class RegisterScreen(QMainWindow):
                                 'lastname': self.lineLastName.text(),
                                 'status': self.statusbtn.text(),
                                 'registeredby': LOGIN_USER,
-                                'registereddate': datetime.now().strftime("%B %d, %Y %H:%M"),
+                                'registereddate': datetime.now().strftime("%B %d, %Y %I:%M %p"),
                                 # 'modifiedby': null,
                                 # 'modifieddate': '-',
                             }
@@ -933,7 +934,7 @@ class ProfileScreen(QMainWindow):
         self.btnUpdate.clicked.connect(self.updateProfile)
 
         self.temp_user = self.usernamefield.text()
-        self.temp_pass = self.passwordfield.text()
+        self.temp_pass = LOGIN_PASS
 
         self.usernamefield.setMaxLength(20)
         self.passwordfield.setMaxLength(20)
@@ -963,13 +964,14 @@ class ProfileScreen(QMainWindow):
             # self.pushButtonHide.show()
 
     def updateProfile(self):
-        if (self.temp_user == self.usernamefield.text() and self.temp_pass == self.passwordfield.text()):
+        hashedpass = encrypt_string(self.passwordfield.text())
+        if (self.temp_user == self.usernamefield.text() and self.temp_pass == hashedpass):
             msg = QMessageBox()
             msg.setWindowTitle('NO CHANGES SAVED!')
             msg.setText('NO CHANGES COMMITTED')
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_()
-        elif (len(self.usernamefield.text().replace(' ','')) != 0 and len(self.passwordfield.text().replace(' ','')) != 0):
+        elif (len(self.usernamefield.text().replace(' ','')) != 0 and len(hashedpass.replace(' ','')) != 0):
             conn = sqlite3.connect('facemaskdetectionDB.db')
             c = conn.cursor()
                 # Insert user to the database
@@ -977,14 +979,11 @@ class ProfileScreen(QMainWindow):
                     {
                         'id': self.lineId.text(),
                         'username': self.usernamefield.text(),
-                        'password': self.passwordfield.text(),
+                        'password': hashedpass,
                         }
                     )
-            # self.usernamefield.setText(USERNAME)
-            # self.passwordfield.setText(LOGIN_PASS)
-                    # Commit changes
+
             conn.commit()
-            # Close connection
             conn.close()
             global LOGIN_ID
             global LOGIN_USER
@@ -1003,6 +1002,9 @@ class ProfileScreen(QMainWindow):
             msg.setIcon(QMessageBox.Information)
             x = msg.exec_()
 
+            # self.gotoDashboard()
+            # profile =ProfileScreen()
+            # widget.addWidget(profile)
 
     def gotoDashboard(self):
         widget.removeWidget(widget.currentWidget())
