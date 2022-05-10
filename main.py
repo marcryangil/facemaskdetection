@@ -665,12 +665,12 @@ class RegisterScreen(QMainWindow):
                     file = open('img_crop.jpg', 'rb').read()
                     file = base64.b64encode(file)
                     c.execute(
-                        "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :addedby)",
+                        "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :createdby)",
                         {
                             'id': None,
                             'personnelid': idnumber,
                             'face': file,
-                            'addedby': LOGIN_USER,
+                            'createdby': LOGIN_USER,
                         }
                     )
                     conn.commit()
@@ -1302,12 +1302,12 @@ class AddFaceScreen(QMainWindow):
             file = open('img_crop.jpg', 'rb').read()
             file = base64.b64encode(file)
             c.execute(
-                "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :addedby)",
+                "INSERT INTO personnelface VALUES(:id, :personnelid, :face, :createdby)",
                 {
                     'id': None,
                     'personnelid': self.lineId.text(),
                     'face': file,
-                    'addedby': LOGIN_USER,
+                    'createdby': LOGIN_USER,
                 }
             )
             conn.commit()
