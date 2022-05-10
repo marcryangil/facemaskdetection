@@ -57,7 +57,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(137, 213, 194)</string>
+       <string notr="true">background-color: rgb(35,1,114,255)</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -157,28 +157,6 @@ QPushButton:pressed{
        </property>
        <property name="flat">
         <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>-22</y>
-         <width>81</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background: transparent</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>images/logo_v2.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -911,7 +889,7 @@ QPushButton:pressed{
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(137, 213, 194)</string>
+       <string notr="true">background-color: rgb(35,1,114,255)</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -919,39 +897,6 @@ QPushButton:pressed{
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="trademark">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>-20</y>
-         <width>251</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>71</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background: transparent</string>
-       </property>
-       <property name="text">
-        <string>Powered by CloverByte, 2021</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
      </widget>
     </item>
    </layout>

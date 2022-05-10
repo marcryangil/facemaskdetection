@@ -57,7 +57,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(137, 213, 194)</string>
+       <string notr="true">background-color: rgb(35,1,114,255)</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -184,28 +184,6 @@ QPushButton:pressed{
        </property>
        <property name="flat">
         <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>-22</y>
-         <width>81</width>
-         <height>81</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background: transparent</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>images/logo_v2.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -794,7 +772,7 @@ QPushButton:pressed{
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(137, 213, 194)</string>
+       <string notr="true">background-color: rgb(35,1,114,255)</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -826,7 +804,9 @@ QPushButton:pressed{
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background: transparent</string>
+        <string notr="true">QLabel{
+color:white;
+}</string>
        </property>
        <property name="text">
         <string>Powered by CloverByte, 2021</string>
