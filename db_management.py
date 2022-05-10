@@ -39,7 +39,9 @@ class DatabaseManager():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT,
                 action TEXT,
-                adminid TEXT
+                adminid TEXT,
+                FOREIGN KEY (adminid)
+                    REFERENCES admin(username)
             )
             """) 
 
@@ -61,7 +63,8 @@ class DatabaseManager():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date: datetime.now().strftime("%B %d, %Y %I:%M %p"),
                 personnelid TEXT,
-                adminid TEXT
+                adminid TEXT,
+
             )
             """) 
 

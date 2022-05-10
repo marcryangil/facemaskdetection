@@ -272,13 +272,13 @@ class LogScreen(QMainWindow):
         ret = qm.question(self, "WARNING!","Are you sure you want to export?", qm.Yes | qm.No)
         if ret == qm.Yes:
             if not self.tableWidget.isHidden():
+                insert_database.insert_system_logs("Exported: detectionlogpersonnel", LOGIN_USER)
                 convert = csv_converter
                 convert.converter('detectionlogpersonnel')
-                insert_database.insert_system_logs("Exported: detectionlogpersonnel", LOGIN_USER)
             elif self.tableWidget.isHidden():
+                insert_database.insert_system_logs("Exported: detectionlogguest", LOGIN_USER)
                 convert = csv_converter
                 convert.converter('detectionlogguest')
-                insert_database.insert_system_logs("Exported: detectionlogguest", LOGIN_USER)
         
     def search(self):
         # TABLE WIDGET FOR NORMAL USERS
@@ -419,9 +419,9 @@ class SystemLogScreen(QMainWindow):
         qm = QMessageBox()
         ret = qm.question(self, "WARNING!","Are you sure you want to export system log?", qm.Yes | qm.No)
         if ret == qm.Yes:
+            insert_database.insert_system_logs("Exported: systemlog", LOGIN_USER)
             convert = csv_converter
             convert.converter('systemlog')
-            insert_database.insert_system_logs("Exported: systemlog", LOGIN_USER)
             self.loaddata()
 
     def loaddata(self):
@@ -773,9 +773,9 @@ class RecordsScreen(QMainWindow):
         qm = QMessageBox()
         ret = qm.question(self, "WARNING!","Are you sure you want to export personnel?", qm.Yes | qm.No)
         if ret == qm.Yes:
+            insert_database.insert_system_logs("Exported: personnel", LOGIN_USER)
             convert = csv_converter
             convert.converter('personnel')
-            insert_database.insert_system_logs("Exported: personnel", LOGIN_USER)
         
     def loaddata(self):
         connection = sqlite3.connect("facemaskdetectionDB.db")
@@ -1079,9 +1079,9 @@ class RegisteredFacesScreen(QMainWindow):
         qm = QMessageBox()
         ret = qm.question(self, "WARNING!","Are you sure you want to export personnel face?", qm.Yes | qm.No)
         if ret == qm.Yes:
+            insert_database.insert_system_logs("Exported: personnelface", LOGIN_USER)
             convert = csv_converter
             convert.converter('personnelface')
-            insert_database.insert_system_logs("Exported: personnelface", LOGIN_USER)
             self.loaddata()
         
     def gotoRegister(self):
