@@ -20,7 +20,21 @@ class DatabaseManager():
                 registeredby TEXT,
                 registereddate TEXT
             )
-            """) 
+            """)
+
+        c.execute("""CREATE TABLE IF NOT EXISTS personnelface(
+                    id	INTEGER,
+                    personnelid	TEXT,
+                    face	BLOB,
+                    createdby	TEXT,
+                    PRIMARY KEY("id" AUTOINCREMENT),
+                    FOREIGN KEY (createdby)
+                    REFERENCES personnel(id)
+                        ON UPDATE SET NULL
+                        ON DELETE SET NULL
+                    
+                )
+                    """)
 
         # Commit changes
         conn.commit()
