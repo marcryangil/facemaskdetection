@@ -238,9 +238,7 @@ class LogScreen(QMainWindow):
         super(LogScreen, self).__init__()
         loadUi("log.ui", self)
 
-        self.whiteemp.hide()
-        self.blackguest.hide()
-        self.hidden = True;
+        self.hidden = True
 
         self.guestbtn.clicked.connect(self.changeiconguesttrigger)
         self.empbtn.clicked.connect(self.changeiconemptrigger)
@@ -302,28 +300,14 @@ class LogScreen(QMainWindow):
 
 
     def changeiconguesttrigger(self):
-        self.whiteguest.hide()
-        self.blackemp.hide()
-        self.whiteemp.show()
-        self.blackguest.show()
-
-        self.guestbtn.setStyleSheet(stylesheets.activatedstyle)
-        self.empbtn.setStyleSheet(stylesheets.inactivestyle)
-
-        self.label_27.hide()
+        self.personnel_frame1.hide()
+        self.personnel_frame2.hide()
         self.tableWidget.hide()
         self.tableWidgetGuest.show()
 
     def changeiconemptrigger(self):
-        self.whiteguest.show()
-        self.blackemp.show()
-        self.whiteemp.hide()
-        self.blackguest.hide()
-
-        self.empbtn.setStyleSheet(stylesheets.activatedstyle)
-        self.guestbtn.setStyleSheet(stylesheets.inactivestyle)
-
-        self.label_27.show()
+        self.personnel_frame1.show()
+        self.personnel_frame2.show()
         self.tableWidget.show()
         self.tableWidgetGuest.hide()
 

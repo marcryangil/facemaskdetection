@@ -159,6 +159,28 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-6</y>
+         <width>121</width>
+         <height>110</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>images/unmasked_small_logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -199,7 +221,7 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgb(33, 113, 93);
+	background-color: rgb(27, 185, 146);
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
@@ -221,37 +243,6 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>405</x>
-         <y>120</y>
-         <width>151</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>71</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background: transparent</string>
-       </property>
-       <property name="text">
-        <string>Mandate Safety, 
-Mandate Mask.</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="usernamefield">
        <property name="geometry">
         <rect>
@@ -271,7 +262,7 @@ Mandate Mask.</string>
         <string notr="true">QLineEdit{
 	background-color: rgb(255, 255, 255);
 	border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-radius: 8px;
     border-color: rgb(140, 140, 140);
 	padding-left: 10px;
@@ -297,13 +288,13 @@ Mandate Mask.</string>
        </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit{
-	background-color: rgb(255, 255, 255);
+background-color: rgb(255, 255, 255);
 	border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
     border-radius: 8px;
-    border-color: rgb(192,192,192);
+    border-color: rgb(140, 140, 140);
 	padding-left: 10px;
-	padding-right: 50px; 
+	padding-right: 10px; 
 }
 </string>
        </property>
@@ -411,10 +402,10 @@ color: red;</string>
       <widget class="QLabel" name="label_5">
        <property name="geometry">
         <rect>
-         <x>345</x>
-         <y>-34</y>
-         <width>251</width>
-         <height>231</height>
+         <x>280</x>
+         <y>-80</y>
+         <width>371</width>
+         <height>371</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -430,38 +421,43 @@ color: red;</string>
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="label_7">
+      <widget class="QFrame" name="frame_4">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>-20</y>
-         <width>81</width>
-         <height>81</height>
+         <x>381</x>
+         <y>342</y>
+         <width>171</width>
+         <height>41</height>
         </rect>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>41</height>
+        </size>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background: transparent</string>
+        <string notr="true">background-color: #888888;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
        </property>
-       <property name="text">
-        <string/>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="pixmap">
-        <pixmap>images/logo_v2.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
+      <zorder>label_5</zorder>
       <zorder>passwordfield</zorder>
-      <zorder>loginbtn</zorder>
-      <zorder>label_2</zorder>
-      <zorder>usernamefield</zorder>
       <zorder>errorlabel</zorder>
       <zorder>label_show</zorder>
       <zorder>label_hide</zorder>
       <zorder>pushButtonHide</zorder>
-      <zorder>label_5</zorder>
-      <zorder>label_7</zorder>
+      <zorder>frame_4</zorder>
+      <zorder>loginbtn</zorder>
+      <zorder>usernamefield</zorder>
      </widget>
     </item>
     <item>

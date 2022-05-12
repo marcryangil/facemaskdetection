@@ -159,6 +159,28 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-7</y>
+         <width>121</width>
+         <height>110</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>images/unmasked_small_logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>

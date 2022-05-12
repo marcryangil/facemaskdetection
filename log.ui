@@ -159,6 +159,28 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-6</y>
+         <width>121</width>
+         <height>110</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>images/unmasked_small_logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -326,7 +348,7 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QFrame" name="frame_7">
+      <widget class="QFrame" name="guest_frame2">
        <property name="geometry">
         <rect>
          <x>80</x>
@@ -336,7 +358,7 @@ QPushButton:pressed{
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(30, 248, 188);
+        <string notr="true">background-color: #dfe76e;
 border: none;
 border-bottom-right-radius: 8px;
 border-bottom-left-radius: 8px;</string>
@@ -372,7 +394,7 @@ border-bottom-left-radius: 8px;</string>
         <string>DETECTION LOGS</string>
        </property>
       </widget>
-      <widget class="QFrame" name="frame_6">
+      <widget class="QFrame" name="guest_frame1">
        <property name="geometry">
         <rect>
          <x>80</x>
@@ -382,7 +404,7 @@ border-bottom-left-radius: 8px;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(30, 248, 188);
+        <string notr="true">background-color:#dfe76e;
 border: none;</string>
        </property>
        <property name="frameShape">
@@ -443,30 +465,6 @@ border-radius: 8px;</string>
            </property>
            <property name="text">
             <string>DATE</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_27">
-           <property name="font">
-            <font>
-             <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: transparent;
-border: none;
-color: rgb(0, 0, 0);
-border-radius: 8px;</string>
-           </property>
-           <property name="text">
-            <string>PERSONNEL ID</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -585,10 +583,11 @@ QTableView::item{
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	padding-left: 18px;
-	background-color: rgb(30, 248, 188);
+	background-color: #26b48d;
 	border: none;
 	border-top-right-radius: 8px;
 	border-top-left-radius: 8px;
+	color: white;
 }
 </string>
        </property>
@@ -628,68 +627,19 @@ QTableView::item{
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	padding-left: 18px;
-	background-color: rgb(38,180,141);
+	background-color: #dfe76e;
 	border: none;
 	border-top-right-radius: 8px;
 	border-top-left-radius: 8px;
-	color: white;
+	color: black;
 }
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
+</string>
        </property>
        <property name="text">
         <string>Guests</string>
        </property>
        <property name="flat">
         <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="blackemp">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>65</y>
-         <width>21</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:transparent;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="resources.qrc">:/newPrefix/emp-black.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="whiteguest">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>65</y>
-         <width>21</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:transparent;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="resources.qrc">:/newPrefix/guest-white.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
        </property>
       </widget>
       <widget class="QLabel" name="whiteemp">
@@ -857,21 +807,194 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QFrame" name="frame_5">
+       <property name="geometry">
+        <rect>
+         <x>801</x>
+         <y>57</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #888888;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="personnel_frame1">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>90</y>
+         <width>801</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:#26b48d;
+border: none;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QWidget" name="horizontalLayoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>801</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_32">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_33">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>DATE</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_34">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>PERSONNEL ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_35">
+           <property name="font">
+            <font>
+             <family>Work Sans Medium</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent;
+border: none;
+color: rgb(0, 0, 0);
+border-radius: 8px;</string>
+           </property>
+           <property name="text">
+            <string>ADMIN ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="personnel_frame2">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>399</y>
+         <width>801</width>
+         <height>15</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #26b48d;
+border: none;
+border-bottom-right-radius: 8px;
+border-bottom-left-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <zorder>frame_5</zorder>
       <zorder>tableWidgetGuest</zorder>
       <zorder>tableWidget</zorder>
       <zorder>lineSearch</zorder>
       <zorder>gobackbtn</zorder>
-      <zorder>frame_7</zorder>
+      <zorder>guest_frame2</zorder>
       <zorder>label_9</zorder>
-      <zorder>frame_6</zorder>
+      <zorder>guest_frame1</zorder>
       <zorder>empbtn</zorder>
       <zorder>guestbtn</zorder>
-      <zorder>blackemp</zorder>
-      <zorder>whiteguest</zorder>
       <zorder>whiteemp</zorder>
       <zorder>blackguest</zorder>
       <zorder>searchlabel</zorder>
       <zorder>btnExport</zorder>
+      <zorder>personnel_frame1</zorder>
+      <zorder>personnel_frame2</zorder>
      </widget>
     </item>
     <item>

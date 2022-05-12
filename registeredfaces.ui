@@ -186,6 +186,28 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>-1</x>
+         <y>-7</y>
+         <width>121</width>
+         <height>110</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>images/unmasked_small_logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -465,7 +487,7 @@ QPushButton:pressed{
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(140, 140, 140);
+    border-color: rgb(27, 185, 146);
 	padding-left: 10px;
 	padding-right: 30px; 
 }
@@ -711,7 +733,7 @@ border-bottom-left-radius: 8px;</string>
       <widget class="QPushButton" name="btnExport">
        <property name="geometry">
         <rect>
-         <x>250</x>
+         <x>340</x>
          <y>60</y>
          <width>81</width>
          <height>31</height>
@@ -755,6 +777,156 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QPushButton" name="btnExport_2">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>60</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans SemiBold</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: #ff00ff;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;
+}
+QPushButton:hover{
+	background-color: rgb(31, 211, 166);
+}
+QPushButton:pressed{
+	background-color: rgb(22, 154, 121)
+}</string>
+       </property>
+       <property name="text">
+        <string>IMPORT</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_4">
+       <property name="geometry">
+        <rect>
+         <x>71</x>
+         <y>62</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #C4C4C4;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_6">
+       <property name="geometry">
+        <rect>
+         <x>161</x>
+         <y>62</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #C4C4C4;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_7">
+       <property name="geometry">
+        <rect>
+         <x>251</x>
+         <y>62</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #C4C4C4;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_8">
+       <property name="geometry">
+        <rect>
+         <x>341</x>
+         <y>62</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #C4C4C4;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <zorder>frame_6</zorder>
+      <zorder>frame_7</zorder>
+      <zorder>frame_4</zorder>
+      <zorder>frame_8</zorder>
+      <zorder>tableWidget</zorder>
+      <zorder>label_7</zorder>
+      <zorder>btnAdd</zorder>
+      <zorder>btnDelete</zorder>
+      <zorder>lineSearch</zorder>
+      <zorder>btnBack</zorder>
+      <zorder>frame_2</zorder>
+      <zorder>frame_5</zorder>
+      <zorder>searchlabel</zorder>
+      <zorder>btnExport</zorder>
+      <zorder>btnExport_2</zorder>
      </widget>
     </item>
     <item>

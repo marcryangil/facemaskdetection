@@ -159,6 +159,28 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-6</y>
+         <width>121</width>
+         <height>110</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>images/unmasked_small_logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -177,8 +199,8 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0
       <widget class="QPushButton" name="btnSave">
        <property name="geometry">
         <rect>
-         <x>382</x>
-         <y>360</y>
+         <x>370</x>
+         <y>320</y>
          <width>191</width>
          <height>41</height>
         </rect>
@@ -199,7 +221,7 @@ background-color: qlineargradient(spread:pad, x1:0.5, y1:1, x2:0.5, y2:0, stop:0
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
-	background-color: rgb(0,168,223);
+	background-color: #45c805;
 	border: none;
 	color: rgb(255, 255, 255);
 	border-radius: 8px;
@@ -221,8 +243,8 @@ QPushButton:pressed{
       <widget class="QLabel" name="label_5">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>210</y>
+         <x>490</x>
+         <y>77</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -248,7 +270,7 @@ QPushButton:pressed{
       <widget class="QLabel" name="label_4">
        <property name="geometry">
         <rect>
-         <x>312</x>
+         <x>490</x>
          <y>150</y>
          <width>389</width>
          <height>17</height>
@@ -275,8 +297,8 @@ QPushButton:pressed{
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>30</y>
+         <x>120</x>
+         <y>80</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -302,8 +324,8 @@ QPushButton:pressed{
       <widget class="QLabel" name="facedatalbl">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>280</y>
+         <x>120</x>
+         <y>220</y>
          <width>191</width>
          <height>17</height>
         </rect>
@@ -330,8 +352,8 @@ QPushButton:pressed{
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>90</y>
+         <x>120</x>
+         <y>150</y>
          <width>389</width>
          <height>17</height>
         </rect>
@@ -357,9 +379,9 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btnLaunch">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>310</y>
-         <width>321</width>
+         <x>120</x>
+         <y>250</y>
+         <width>691</width>
          <height>41</height>
         </rect>
        </property>
@@ -482,8 +504,8 @@ QPushButton:pressed{
       <widget class="QLineEdit" name="lineId">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>50</y>
+         <x>120</x>
+         <y>100</y>
          <width>321</width>
          <height>34</height>
         </rect>
@@ -500,7 +522,7 @@ QPushButton:pressed{
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(192,192,192);
+    border-color: rgb(27, 185, 146);
 	padding-left: 10px;
 	padding-right: 10px; 
 }
@@ -510,35 +532,7 @@ QPushButton:pressed{
       <widget class="QLineEdit" name="lineFirstName">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>110</y>
-         <width>321</width>
-         <height>34</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	background-color: rgb(255, 255, 255);
-	border-style: solid;
-    border-width: 1px;
-    border-radius: 8px;
-    border-color: rgb(192,192,192);
-	padding-left: 10px;
-	padding-right: 10px; 
-}
-</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lineLastName">
-       <property name="geometry">
-        <rect>
-         <x>312</x>
+         <x>120</x>
          <y>170</y>
          <width>321</width>
          <height>34</height>
@@ -556,7 +550,35 @@ QPushButton:pressed{
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(192,192,192);
+    border-color: rgb(27, 185, 146);
+	padding-left: 10px;
+	padding-right: 10px; 
+}
+</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineLastName">
+       <property name="geometry">
+        <rect>
+         <x>490</x>
+         <y>170</y>
+         <width>321</width>
+         <height>34</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Work Sans</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(255, 255, 255);
+	border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: rgb(27, 185, 146);
 	padding-left: 10px;
 	padding-right: 10px; 
 }
@@ -594,8 +616,8 @@ color:red;</string>
       <widget class="QPushButton" name="statusbtn">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>230</y>
+         <x>490</x>
+         <y>97</y>
          <width>321</width>
          <height>34</height>
         </rect>
@@ -623,7 +645,7 @@ color:red;</string>
 	border-style: solid;
     border-width: 1px;
     border-radius: 8px;
-    border-color: rgb(192,192,192);
+    border-color: rgb(27, 185, 146);
 	padding-left: 10px;
 	padding-right: 10px; 
 	color:  rgb(192,192,192);
@@ -646,8 +668,8 @@ QPushButton:pressed{
       <widget class="QPushButton" name="activebtn">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>260</y>
+         <x>490</x>
+         <y>127</y>
          <width>321</width>
          <height>34</height>
         </rect>
@@ -665,7 +687,7 @@ QPushButton:pressed{
 	background-color: rgb(255, 255, 255);
 	color:  rgb(0,0,0);
 	border-style: solid;
-	border-color: rgb(192,192,192);
+	border-color: rgb(27, 185, 146);
 	border-width: 1px;
 	text-align: left;
 	padding-left: 10px;
@@ -690,8 +712,8 @@ QPushButton:pressed{
       <widget class="QPushButton" name="inactivebtn">
        <property name="geometry">
         <rect>
-         <x>312</x>
-         <y>293</y>
+         <x>490</x>
+         <y>160</y>
          <width>321</width>
          <height>34</height>
         </rect>
@@ -709,7 +731,7 @@ QPushButton:pressed{
 	background-color: rgb(255, 255, 255);
 	color:  rgb(0,0,0);
 	border-style: solid;
-	border-color: rgb(192,192,192);
+	border-color: rgb(27, 185, 146);
 	border-width: 1px;
 	text-align: left;
 	padding-left: 10px;
@@ -757,8 +779,8 @@ color:  rgb(192,192,192);</string>
       <widget class="QLabel" name="imagelabel">
        <property name="geometry">
         <rect>
-         <x>320</x>
-         <y>320</y>
+         <x>130</x>
+         <y>260</y>
          <width>211</width>
          <height>21</height>
         </rect>
@@ -784,8 +806,8 @@ color:  rgb(192,192,192);</string>
       <widget class="QPushButton" name="btnshowlaunch">
        <property name="geometry">
         <rect>
-         <x>610</x>
-         <y>320</y>
+         <x>780</x>
+         <y>260</y>
          <width>21</width>
          <height>21</height>
         </rect>
@@ -829,6 +851,64 @@ QPushButton:pressed{
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QFrame" name="frame_5">
+       <property name="geometry">
+        <rect>
+         <x>121</x>
+         <y>252</y>
+         <width>691</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #888888;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_6">
+       <property name="geometry">
+        <rect>
+         <x>371</x>
+         <y>322</y>
+         <width>191</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #888888;
+	border: none;
+	color: rgb(255, 255, 255);
+	border-radius: 8px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <zorder>frame_6</zorder>
+      <zorder>frame_5</zorder>
       <zorder>btnSave</zorder>
       <zorder>btnshowlaunch</zorder>
       <zorder>imagelabel</zorder>
