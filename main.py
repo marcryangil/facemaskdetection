@@ -845,13 +845,13 @@ class RecordsScreen(QMainWindow):
 
         idName = str(self.input_delete_id(cellValue))
         print("id name: "+idName)
-
+        
         if idName:
             conn = sqlite3.connect('facemaskdetectionDB.db')
             # Create a cursor
             c = conn.cursor()
             c.execute("DELETE FROM personnel WHERE id=\'"+idName+"\'")
-
+            c.execute("DELETE FROM personnelface WHERE personnelid=\'"+idName+"\'")
                     
             conn.commit()
             conn.close()
