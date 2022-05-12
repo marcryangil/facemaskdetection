@@ -647,7 +647,7 @@ border-top-left-radius: 8px;</string>
           <x>-1</x>
           <y>0</y>
           <width>791</width>
-          <height>97</height>
+          <height>41</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -757,7 +757,7 @@ border-radius: 8px;</string>
            <property name="font">
             <font>
              <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
+             <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
@@ -769,7 +769,8 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Registered By</string>
+            <string>Registered
+By</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -781,7 +782,7 @@ border-radius: 8px;</string>
            <property name="font">
             <font>
              <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
+             <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
@@ -793,7 +794,8 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Registered Date</string>
+            <string>Registered
+Date</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -805,7 +807,7 @@ border-radius: 8px;</string>
            <property name="font">
             <font>
              <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
+             <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
@@ -817,7 +819,8 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Modified By</string>
+            <string>Modified
+By</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -829,7 +832,7 @@ border-radius: 8px;</string>
            <property name="font">
             <font>
              <family>Work Sans Medium</family>
-             <pointsize>12</pointsize>
+             <pointsize>11</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
@@ -841,7 +844,8 @@ color: rgb(0, 0, 0);
 border-radius: 8px;</string>
            </property>
            <property name="text">
-            <string>Modified Date</string>
+            <string>Modified
+Date</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -945,7 +949,7 @@ QPushButton:pressed{
       <widget class="QPushButton" name="btnExport">
        <property name="geometry">
         <rect>
-         <x>430</x>
+         <x>340</x>
          <y>64</y>
          <width>81</width>
          <height>31</height>
@@ -984,53 +988,6 @@ QPushButton:pressed{
        </property>
        <property name="text">
         <string>EXPORT</string>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnImport">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>64</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Work Sans SemiBold</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: #ff00ff;
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;
-}
-QPushButton:hover{
-	background-color: rgb(31, 211, 166);
-}
-QPushButton:pressed{
-	background-color: rgb(22, 154, 121)
-}</string>
-       </property>
-       <property name="text">
-        <string>IMPORT</string>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -1102,32 +1059,10 @@ QPushButton:pressed{
         <enum>QFrame::Raised</enum>
        </property>
       </widget>
-      <widget class="QFrame" name="frame_8">
-       <property name="geometry">
-        <rect>
-         <x>341</x>
-         <y>66</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #C4C4C4;
-	border: none;
-	color: rgb(255, 255, 255);
-	border-radius: 8px;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
       <widget class="QFrame" name="frame_9">
        <property name="geometry">
         <rect>
-         <x>431</x>
+         <x>340</x>
          <y>66</y>
          <width>81</width>
          <height>31</height>
@@ -1178,11 +1113,9 @@ QPushButton:pressed{
       <zorder>frame_4</zorder>
       <zorder>frame_6</zorder>
       <zorder>frame_7</zorder>
-      <zorder>frame_8</zorder>
       <zorder>frame_9</zorder>
       <zorder>frame_10</zorder>
       <zorder>btnDelete</zorder>
-      <zorder>btnImport</zorder>
       <zorder>btnRegister</zorder>
       <zorder>btnExport</zorder>
       <zorder>btnRegisteredFaces</zorder>
