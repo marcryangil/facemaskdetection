@@ -26,3 +26,4 @@ def start():
                     file_path = os.path.join(dirname, filename)
                     print(file_path)
                     os.remove(file_path)
+
