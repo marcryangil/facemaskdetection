@@ -5,9 +5,8 @@ def save(idnumber, userid):
     try:
         connection = sqlite3.connect("facemaskdetectionDB.db")
         cur = connection.cursor()
-
-        if idnumber == 'guest':
-            sqlquery = "INSERT INTO detection_logs_guest VALUES(:id, :date, :adminid)"
+        if idnumber == 'Guest':
+            sqlquery = "INSERT INTO detectionlogguest VALUES(:id, :date, :adminid)"
             cur.execute(sqlquery, {
                 'id': None,
                 'date': datetime.now().strftime("%B %d, %Y %I:%M %p"),
